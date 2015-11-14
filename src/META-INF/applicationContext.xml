@@ -58,28 +58,5 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-	
-	
-	
-
-	
-
-
-
-<!--
-
-
-
-
-<bean id='logout' class='actions.Logout' scope="prototype">
-	<property name="usuarioDAO" ref="usuarioDAO" />
-</bean>
-
-<bean id='home' class='actions.HomeAction' scope="prototype"/>
-<bean id='loginInit' class='actions.LoginInit' scope="prototype"/>
-
-<bean id='add_evento' class='actions.EventoNew' scope="prototype"/>
-<bean id='register' class='actions.Register' scope="prototype"/>
--->
 </beans>
 

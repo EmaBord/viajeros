@@ -5,5 +5,6 @@ import dao.generic.GenericDAO;
 
 public interface RolDAO extends GenericDAO<Rol, Integer> {
 	public Rol getRol(String nombre);
+    public boolean existe(String nombre);
 
 }

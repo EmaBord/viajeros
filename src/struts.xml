@@ -14,8 +14,8 @@
 		<result name="viajero" type='redirect'>/views/viajero_home.jsp</result>				
 	</action>
 	<action name="logoutAction" class="action.autentication.Logout" >
-		<result name="success" >/views/home.jsp</result>
-		<result name="login" >/views/login.jsp</result>	
+		<result name="success" >/views/index.html</result>
+		
 						
 	</action>
 	
@@ -26,7 +26,7 @@
 		<result name="success">/views/login.jsp</result>
 	</action>
 	
-	<!--<action name="registerAction" class="register" >
+	<action name="registerAction" class="action.register.Register" >
 		
 		<result name="input" >/views/register_input.jsp</result>		
 		<result name="success">/views/register_success.jsp</result>
@@ -34,7 +34,7 @@
 		<result name="viajero">/views/404.jsp</result>
 		<result name="admin">/views/404.jsp</result>				
 	</action>
-	
+<!--	
 	<action name="eventoAction" class="add_evento" >
 		<result name="error" type="redirect">/views/505.jsp</result>
 		<result name="login" type="redirect">/views/login.jsp</result>		

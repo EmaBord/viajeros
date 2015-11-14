@@ -2,6 +2,7 @@ package dao.rol;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
+
 import model.rol.Rol;
 import dao.generic.GenericDAOImpl;
 
@@ -23,4 +24,13 @@ implements RolDAO{
         else 
         	return null;
 	}
+
+	@Override
+	@Transactional
+    public boolean existe(String nombre) {		
+		Query rolTaskQuery = getCurrentSession().createQuery(
+                "select u from Rol u where nombre=:nombre");
+        rolTaskQuery.setParameter("nombre", nombre);        
+        return rolTaskQuery.list().size() > 0;
+    }
 }

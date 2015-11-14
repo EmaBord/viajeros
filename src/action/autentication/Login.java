@@ -1,7 +1,5 @@
 package action.autentication;
-
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;import model.rol.Rol;
 import model.usuario.Usuario;
@@ -24,6 +22,7 @@ public class Login extends ActionSupport  {
 
 	@Override
 	public String execute() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		System.out.println("ejecutando login action");
 		if (rolDAO.getRol("admin")== null){
 			Rol r = new Rol();
 			r.setNombre("admin");
@@ -43,6 +42,7 @@ public class Login extends ActionSupport  {
 			*/
 			user.setClave("admin");
 			usuarioDAO.save(user);
+			System.out.println("ejecutando login action2222");
 		}
 		
 		Map<String, Object> session = ActionContext.getContext().getSession();

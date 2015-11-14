@@ -120,7 +120,7 @@
 					      						      		%>" class="profile-image img-circle"> <% out.print(nombre);%><b class="caret"></b></a>
 						        <ul class="dropdown-menu">
 						          <li><a href="#">Mis Datos</a></li>
-						          <li><a href="logoutAction">Cerrar Sesión</a></li>
+						          <li><a href="/viajeros/logoutAction">Cerrar Sesión</a></li>
 						        
 						        </ul>
 						      </li>
