@@ -1,12 +1,15 @@
 package action.autentication;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;import model.rol.Rol;
+import java.util.Map;
+import model.rol.Rol;
 import model.usuario.Usuario;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+
+import dao.evento.EventoDAO;
 import dao.rol.RolDAO;
 import dao.usuario.UsuarioDAO;
 @SuppressWarnings("serial")
@@ -19,6 +22,7 @@ public class Login extends ActionSupport  {
 	
 	private UsuarioDAO usuarioDAO ;
 	private RolDAO rolDAO ;
+	private EventoDAO eventoDAO ;
 
 	@Override
 	public String execute() throws NoSuchAlgorithmException, UnsupportedEncodingException{
@@ -56,7 +60,9 @@ public class Login extends ActionSupport  {
 				Usuario u = usuarioDAO.getUsuario(this.getEmail());
 				session.put("perfil", u.getRol().getNombre());
 				session.put("nombre", u.getNombre());
-				session.put("usuario", u);				
+				session.put("usuario", u);
+				if (u.getRol().getNombre().equals("admin"))
+					session.put("eventos", eventoDAO.list());
 				return u.getRol().getNombre();
 
 			}else{
@@ -104,5 +110,11 @@ public class Login extends ActionSupport  {
 		}
 	public void setRolDAO(RolDAO rolDAO){
 		this.rolDAO = rolDAO;
+	}
+	public EventoDAO getEventoDAO() {
+		return this.eventoDAO ;
+		}
+	public void setEventoDAO(EventoDAO eventoDAO){
+		this.eventoDAO = eventoDAO;
 	}
 }

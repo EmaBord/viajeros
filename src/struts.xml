@@ -6,49 +6,39 @@
 <struts>
 
     <package name="default" namespace="/" extends="struts-default">
-	<action name="loginAction" class="action.autentication.Login" >
-		<result name="admin" type='redirect'>/views/admin_home.jsp</result>
+	<action name="login" class="action.autentication.Login" >
+		<result name="admin" type="redirect">/</result>	
 		<result name="input" >/views/login_input.jsp</result>	
 		<result name="login" >/views/login.jsp</result>		
-		
-		<result name="viajero" type='redirect'>/views/viajero_home.jsp</result>				
-	</action>
-	<action name="logoutAction" class="action.autentication.Logout" >
-		<result name="success" >/views/index.html</result>
-		
-						
+		<result name="viajero" type="redirect">/</result>				
 	</action>
 	
-	<action name="homeAction" class="action.home.Home">
-		<result name="success">/views/home.jsp</result>
+	<action name="logout" class="action.autentication.Logout" >
+		 <result name="logout" type="redirect">/</result>					
 	</action>
-	<action name="loginInitAction" class="action.autentication.LoginInit">
-		<result name="success">/views/login.jsp</result>
-	</action>
+
 	
-	<action name="registerAction" class="action.register.Register" >
-		
+	<action name="registerAction" class="action.register.Register" >		
 		<result name="input" >/views/register_input.jsp</result>		
-		<result name="success">/views/register_success.jsp</result>
+		<result name="success">/views/viajero_home.html</result>
 		<result name="register">/views/register.jsp</result>
 		<result name="viajero">/views/404.jsp</result>
 		<result name="admin">/views/404.jsp</result>				
 	</action>
-<!--	
-	<action name="eventoAction" class="add_evento" >
-		<result name="error" type="redirect">/views/505.jsp</result>
-		<result name="login" type="redirect">/views/login.jsp</result>		
-		<result name="add_evento">/views/add_evento.jsp</result>
-		<result name="add_evento_ok">/views/add_evento_ok.jsp</result>
-		<result name="add_evento_existe">/views/add_evento_existe.jsp</result>				
+	
+	<action name="evento" class="action.evento.EventoNew" >
+		<result name="error" type="redirect">/</result> <!--/views/505.jsp</result>-->
+		<result name="login" type="redirect">/</result> <!--/views/login.jsp</result>-->		
+		<result name="add_evento">/</result> <!--/views/add_evento.jsp</result>-->
+		<result name="add_evento_ok">/</result> <!--/views/add_evento_ok.jsp</result>-->
+		<result name="add_evento_existe">/</result> <!--/views/add_evento_existe.jsp</result>-->				
 	</action>
-	<action name="listarEventosAction" method="list" class="add_evento"> 
+	<action name="listarEventos" method="list" class="action.evento.EventoNew"> 
 		<result name="success">/views/eventos.jsp</result>
 		<result name="error" type="redirect">/views/505.jsp</result>
 		<result name="login" type="redirect">/views/login.jsp</result>
 	</action>
-	
-	-->
+
 	
 
 </package>

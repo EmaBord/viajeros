@@ -20,7 +20,9 @@
 		<bean id="rolDAO" class="dao.rol.RolDAOImpl" >
 			<constructor-arg ref="sessionFactory"/>
 		</bean>
-		
+		<bean id="eventoDAO" class="dao.evento.EventoDAOImpl" >
+	 		<constructor-arg ref="sessionFactory"/>
+		</bean>
 		
 		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         	<property name="dataSource" ref="dataSource" />
@@ -35,6 +37,8 @@
       			<set>
         			<value>model.usuario.Usuario</value>
         			<value>model.rol.Rol</value>
+        			<value>model.evento.Evento</value>
+        			
       			</set>
       			
     		</property>

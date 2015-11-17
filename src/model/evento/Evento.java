@@ -1,8 +1,14 @@
 package model.evento;
-
-
-
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import model.usuario.Usuario;
 
@@ -14,18 +20,22 @@ import model.usuario.Usuario;
 /**
  * Class Evento
  */
-
+@Entity
 public class Evento {
 
   //
   // Fields
   //
-
+	@Id @GeneratedValue
   private Long id;
   private String nombre;
+  @Column(name = "fecha", columnDefinition="DATETIME")
+  @Temporal(TemporalType.TIMESTAMP)
   private Date fecha;
   private String sitio_web;
   private String lugar;
+  @ManyToOne
+  @JoinColumn(name="usuario_id")
   private Usuario usuario;
   
   //

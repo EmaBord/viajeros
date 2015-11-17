@@ -38,6 +38,7 @@ public class Register extends ActionSupport{
 					}
 					u.setRol(r);					
 					usuarioDAO.save(u);
+					// crear la session
 					return SUCCESS;
 				
 				

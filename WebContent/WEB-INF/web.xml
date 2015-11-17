@@ -31,6 +31,6 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
 
 
   <welcome-file-list>
-    <welcome-file>/views/index.html</welcome-file>
+    <welcome-file>/views/home.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
