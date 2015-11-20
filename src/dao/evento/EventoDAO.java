@@ -1,13 +1,16 @@
 package dao.evento;
 
-import java.util.Date;
+import java.util.List;
 
 import model.evento.Evento;
 import dao.generic.GenericDAO;
 
 public interface EventoDAO extends GenericDAO<Evento, Integer> {
 	public void eliminarEvento(Evento e);
-    public boolean existe(String nombre,Date fecha);
-    public Evento getEvento(String nombre,Date fecha);
+    public boolean existe(String nombre,String fecha,String lugar,String hora);
+    public Evento getEvento(String nombre,String fecha,String lugar,String hora);
+	public List<Evento> activos();
+	
+
 
 }

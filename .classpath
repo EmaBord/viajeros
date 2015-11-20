@@ -223,5 +223,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/midas/workspace/jstl-1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

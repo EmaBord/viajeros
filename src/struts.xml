@@ -7,7 +7,7 @@
 
     <package name="default" namespace="/" extends="struts-default">
 	<action name="login" class="action.autentication.Login" >
-		<result name="admin" type="redirect">/</result>	
+		<result name="admin" type="redirect" >/views/adminHome.jsp</result>	
 		<result name="input" >/views/login_input.jsp</result>	
 		<result name="login" >/views/login.jsp</result>		
 		<result name="viajero" type="redirect">/</result>				
@@ -29,12 +29,12 @@
 	<action name="evento" class="action.evento.EventoNew" >
 		<result name="error" type="redirect">/</result> <!--/views/505.jsp</result>-->
 		<result name="login" type="redirect">/</result> <!--/views/login.jsp</result>-->		
-		<result name="add_evento">/</result> <!--/views/add_evento.jsp</result>-->
-		<result name="add_evento_ok">/</result> <!--/views/add_evento_ok.jsp</result>-->
-		<result name="add_evento_existe">/</result> <!--/views/add_evento_existe.jsp</result>-->				
+		<result name="add_evento" type="redirect">/views/EventoNuevo.jsp</result> <!--/views/add_evento.jsp</result>-->
+		<result name="add_evento_ok" type="redirect">/views/EventoNuevo.jsp</result> 
+		<result name="add_evento_existe" type="redirect">/views/EventoNuevo.jsp</result>				
 	</action>
 	<action name="listarEventos" method="list" class="action.evento.EventoNew"> 
-		<result name="success">/views/eventos.jsp</result>
+		<result name="success" type="redirect" >/views/listarEventos.jsp</result>
 		<result name="error" type="redirect">/views/505.jsp</result>
 		<result name="login" type="redirect">/views/login.jsp</result>
 	</action>

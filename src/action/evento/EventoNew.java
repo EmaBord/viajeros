@@ -1,8 +1,6 @@
 package action.evento;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import model.usuario.Usuario;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
-
 
 import dao.evento.EventoDAO;
 
@@ -24,12 +21,14 @@ public class EventoNew extends ActionSupport{	/**
 	private EventoDAO eventoDAO;
 	
 	String nombre;
-	Date fecha;
-	String sitio_web;
+	String fecha;
+	String sitioweb;
 	String lugar;
 	private List<Evento> eventos = new ArrayList<Evento>();
+	String hora;
 	
-	public String execute(){
+	
+	public String execute() throws ParseException{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		Usuario user = (Usuario) session.get("usuario");		
 		if (user == null){
@@ -38,23 +37,32 @@ public class EventoNew extends ActionSupport{	/**
 			if (!(user.getRol().getNombre().equals("admin"))){
 				return "error";
 			}else{
-				if (getNombre() != null){
+				if (getNombre() != null  && getFecha()!=null && getLugar() != null){
 
 					Evento e;
-
-					if (!eventoDAO.existe(getNombre(), getFecha())){
-						e = new Evento();
-						e.setFecha(getFecha());
-						e.setLugar(getLugar());
-						e.setNombre(getNombre());
-						e.setSitio_web(getSitioWeb());
+					e = new Evento();
+					e.setLugar(getLugar());
+					e.setNombre(getNombre());
+					e.setSitio_web(getSitioweb());
+					this.reformat();
+					e.setFecha(getFecha());
+					e.setHora(getHora());
+					if (!eventoDAO.existe(getNombre(), getFecha(),getLugar(),hora)){						
 						e.setUsuario(user);
 						eventoDAO.save(e);
+						session.put("eventos", eventoDAO.list());
+						session.put("mensaje", "El evento "+getNombre()+" ha sido agregado con éxito");
+						session.remove("evento");
 						return "add_evento_ok";
-					}else
+					}else{
+						session.remove("mensaje");
+						session.put("evento",e);
 						return "add_evento_existe";
+					}
 					
 				}else{
+					session.remove("evento");
+					session.remove("mensaje");
 					return "add_evento";
 					
 				}
@@ -85,11 +93,11 @@ public class EventoNew extends ActionSupport{	/**
 		return lugar;
 	}
 	
-	public void setSitioWeb(String sitio_web){
-		this.sitio_web = sitio_web;
+	public void setSitioweb(String sitio_web){
+		this.sitioweb = sitio_web;
 	}
-	public String getSitioWeb(){
-		return sitio_web;
+	public String getSitioweb(){
+		return sitioweb;
 	}
 
 	
@@ -103,18 +111,21 @@ public class EventoNew extends ActionSupport{	/**
 	}
 
 	
-	public void setFecha(String fecha) throws ParseException{
-		System.out.println("type "+fecha.getClass());
-		System.out.println("value "+ fecha);		
-		try {
-			this.fecha = new SimpleDateFormat("yyyy/MM/dd hh:mm").parse(fecha);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+	public void setFecha(String fecha){
+			this.fecha = fecha;
+			
 	}
 
-	public Date getFecha() {
+	private void setHora(String hora) {
+		this.hora = hora;
+		
+	}
+	private String getHora() {
+		return hora;
+		
+	}
+	public String getFecha() {
 		// TODO Auto-generated method stub
 		return fecha;
 	}
@@ -135,5 +146,14 @@ public class EventoNew extends ActionSupport{	/**
 	}
 	public void setEventoDAO(EventoDAO eventoDAO) {
 		this.eventoDAO = eventoDAO;
+	}
+	
+	private void reformat(){
+		String[] r = this.fecha.split("/");
+		this.setFecha (r[2].split(" ")[0]+"/"+r[1]+"/"+r[0]);
+		this.setHora(r[2].split(" ")[1]);
+
+		
+		
 	}
 }

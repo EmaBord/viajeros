@@ -26,7 +26,6 @@ public class Login extends ActionSupport  {
 
 	@Override
 	public String execute() throws NoSuchAlgorithmException, UnsupportedEncodingException{
-		System.out.println("ejecutando login action");
 		if (rolDAO.getRol("admin")== null){
 			Rol r = new Rol();
 			r.setNombre("admin");
@@ -46,7 +45,7 @@ public class Login extends ActionSupport  {
 			*/
 			user.setClave("admin");
 			usuarioDAO.save(user);
-			System.out.println("ejecutando login action2222");
+			
 		}
 		
 		Map<String, Object> session = ActionContext.getContext().getSession();
@@ -62,7 +61,7 @@ public class Login extends ActionSupport  {
 				session.put("nombre", u.getNombre());
 				session.put("usuario", u);
 				if (u.getRol().getNombre().equals("admin"))
-					session.put("eventos", eventoDAO.list());
+					session.put("eventos", eventoDAO.activos());
 				return u.getRol().getNombre();
 
 			}else{

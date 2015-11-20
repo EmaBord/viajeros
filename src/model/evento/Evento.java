@@ -1,15 +1,9 @@
 package model.evento;
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import model.usuario.Usuario;
 
 
@@ -29,16 +23,24 @@ public class Evento {
 	@Id @GeneratedValue
   private Long id;
   private String nombre;
-  @Column(name = "fecha", columnDefinition="DATETIME")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date fecha;
+  private String fecha;
+  private String hora;
   private String sitio_web;
   private String lugar;
   @ManyToOne
   @JoinColumn(name="usuario_id")
   private Usuario usuario;
+  private boolean eliminado;
   
-  //
+  public boolean getEliminado() {
+	return eliminado;
+}
+
+public void setEliminado(boolean activo) {
+	this.eliminado = activo;
+}
+
+//
   // Constructors
   //
   public Evento () { };
@@ -79,7 +81,7 @@ public class Evento {
    * Set the value of fecha
    * @param newVar the new value of fecha
    */
-  public void setFecha ( Date newVar ) {
+  public void setFecha ( String newVar ) {
     fecha = newVar;
   }
 
@@ -87,7 +89,7 @@ public class Evento {
    * Get the value of fecha
    * @return the value of fecha
    */
-  public Date getFecha ( ) {
+  public String getFecha ( ) {
     return fecha;
   }
 
@@ -135,6 +137,14 @@ public Usuario getUsuario() {
 
 public void setUsuario(Usuario usuario) {
 	this.usuario = usuario;
+}
+
+public String getHora() {
+	return hora;
+}
+
+public void setHora(String hora) {
+	this.hora = hora;
 }
 
   //
