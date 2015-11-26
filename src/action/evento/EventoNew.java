@@ -50,6 +50,7 @@ public class EventoNew extends ActionSupport{	/**
 					if (!eventoDAO.existe(getNombre(), getFecha(),getLugar(),hora)){						
 						e.setUsuario(user);
 						eventoDAO.save(e);
+	
 						session.put("eventos", eventoDAO.list());
 						session.put("mensaje", "El evento "+getNombre()+" ha sido agregado con éxito");
 						session.remove("evento");
@@ -80,7 +81,8 @@ public class EventoNew extends ActionSupport{	/**
 			if (!(user.getRol().getNombre().equals("admin"))){
 				return "error";
 			}else{
-				setEventos(eventoDAO.list()); 
+				session.put("eventos", eventoDAO.list());
+			
 				return "success";
 			}
 		}

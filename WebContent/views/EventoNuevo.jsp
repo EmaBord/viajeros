@@ -56,7 +56,7 @@
              	
              	<div class="form-group">
                		<div class="col-xs-6 col-lg-offset-2">
-                 		<button type="submit" class="btn btn-info btn-lg btn-block ">Agregar Evento</button>
+                 		<button type="submit" class="btn bg-olive btn-flat btn-lg btn-block ">Agregar Evento</button>
                		</div>
              	</div>
              	

@@ -15,7 +15,17 @@
 	<jsp:attribute name="eventos">
 		class="active"
 	</jsp:attribute>
-<jsp:body>	           
+<jsp:body>	 
+		
+		<script>
+  		
+  			function format(string){
+  				var data = string.split("/");
+  				var fecha = data[2]+"/"+data[1]+"/"+data[0];
+  				return fecha;			
+  			
+  			}
+  		</script>         
      	<!-- Content Header (Page header) -->
     	<section class="content-header">
   			<h1>Eventos<small>activos</small></h1>  		
@@ -26,6 +36,18 @@
   		</section>  		  
   	    <!-- Main content -->
   		<section class="content">
+  			<c:if test="${not empty update_evento}">	
+  				<div class="row">
+  					
+  					<div class="col-sm-6">
+  						<div class="alert alert-success alert-dismissable">
+                   			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    		<h4>	<i class="icon fa fa-check"></i> Todo ok!</h4>
+                    		${update_evento}
+                    	</div>
+                  
+  				</div>
+  			</c:if>
   			<!-- row -->
     			<div class="row">
     				<div class="col-xs-12">
@@ -38,8 +60,7 @@
 					                  <thead>
 					                    <tr class="success">
 					                      <th>Nombre</th>
-					                      <th>Fecha</th>
-					                      <th>Hora</th>
+					                      <th>Fecha y Hora</th>
 					                      <th>Lugar</th>										                        
 					                      <th>Sitio Web</th>
 					                      <th>Operacion</th>
@@ -49,22 +70,111 @@
 					                  <tbody>
 					                  	<c:forEach items="${eventos}" var="evento">
 					                  		<tr>
-					                  			<td>${evento.nombre}</td>					                  														
-					                  			<td>${evento.fecha}</td>
-					                  			<td>${evento.hora}</td>
-					                  			<td>${evento.lugar}</td>
-					                  			<td>${evento.sitio_web}</td>
-					                  			<td>Editar - Borrar</td>
-					                  		
+					                  			<td >${evento.nombre}</td>					                  														
+					                  			<td >${evento.fecha} ${evento.hora}</td>
+					                  			<td >${evento.lugar}</td>
+					                  			<td >${evento.sitio_web}</td>
+					                  			<td>
+					                  				<div class="row">
+					                  					<div class="col-sm-4">					                  						
+					                  							<button type="button" 	 data-toggle="modal" data-target="#${evento.id}" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+					                  							<div class="modal fade" id="${evento.id}" role="dialog">
+              														<div class="modal-dialog modal-lg">
+                														<div class="modal-content">
+                															<form role="form" class="form-horizontal" method = 'post' action ='../updateEvento' id="${evento.id}">
+                  															<div class="modal-header">
+                    															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    															<h4 class="modal-title">Modificar ${evento.nombre}</h4>
+                  															</div>
+                  															<div class="modal-body">
+                        														<div class="row">
+                                                      								<div class="col-sm-12 col-md-9 col-lg-11"> 
+                                                    									
+                                                                 							<fieldset>
+                                                                 								
+                                                                 								<input type="hidden" name='clave' value="${evento.id }"/>  
+                                                                 								<div class="form-group text-center">
+      																								<div class="col-sm-4"></div>
+      																								<label class="col-sm-8" for="inputFecha">Día y hora del evento:</label>
+      																								<div class="col-sm-4"></div>
+      																								<div class="col-sm-8"><input type="text" name='fecha'  class="form-control" id="datetimepicker${evento.id}" /></div>
+    																							</div>
+                                                                 								<div class="form-group text-center">
+                                                                 									<div class="col-sm-4">
+                                                                 										<label>Nombre del evento</label>
+                                                                 										<input type="text" name='nombre' class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required/>
+                                                                 									</div>
+                                                                   									<div class="col-sm-4">
+                                                                 										<label>Lugar/Dirección</label>
+                                                                 										<input type="text" class="form-control" id="inputLugar" name='lugar' value="${evento.lugar }" required/>  
+                                                                 									</div>
+                                                                 									<div class="col-sm-4">
+                                                                 										<label>Sitio Web</label>
+                                                                 										<input type="text" class="form-control" id="inputSitio" name='sitioweb'value="${evento.sitio_web }"/>
+                                                                 										
+                                                                 									</div>	
+                                                                 								</div>
+                                                                 								
+                                                                 								
+                                                                 								
+                                                                 								
+                                                                 								
+                                                                 								
+    																							                                                        								
+                                                                 	
+                                                                							</fieldset>
+                                                                						
+                                                               							<script type="text/javascript">
+                                                               								
+                                                               								$('#datetimepicker'+${evento.id}).datetimepicker({
+																									        	   
+	        	   																					defaultDate:format("${evento.fecha}"),
+	        	   																					defaultTime:"${evento.hora}",
+	        	   																					
+	        	   
+	        	   																				dayOfWeekStart : 1,
+	          	 																				lang:'es',
+	          	 																				inline: true,
+                																				sideBySide: true
+                                                                    						});
+                                                    	          	 						$('#datetimepicker'+${evento.id}).datetimepicker({value:'',step:30,minDate:new Date()});
+                                                    	          	 						
+                                                    									</script>  
+                                                    	 		
+                                                           							</div>
+                                                       							</div><!-- /.row -->                  															
+                  															</div>
+                  															<div class="modal-footer">
+                  															
+                                                                 				
+                    															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal">Cancelar</button>
+                    															<button type="submit" class="btn bg-olive " ">Guardar cambios</button>
+                  															</div>
+                  															
+                  															</form>
+                														</div><!-- /.modal-content -->
+              														</div><!-- /.modal-dialog -->
+            													</div><!-- /.modal -->
+          													
+					                  					</div>
+					                  					<div class="col-sm-6">
+					                  						<form>
+                  												<button type="button" id="${evento.id}" class="btn btn-danger"><i class="fa fa-remove"></i></button>
+                  											</form>
+                  										<div>
+                  									<div>
+					                  			</td>					                  		
 					                  		</tr>
+					                  		
+					                  			
+					                  		
 					                  	</c:forEach>
 					                    
 					                  </tbody>
 					                  <tfoot>
 					                    <tr class="success">
 					                      <th>Nombre</th>
-					                      <th>Fecha</th>
-					                      <th>Hora</th>
+					                      <th>Fecha Y Hora</th>
 					                      <th>Lugar</th>										                        
 					                      <th>Sitio Web</th>
 					                      <th>Operacion</th>
@@ -76,6 +186,7 @@
           			</div><!-- /.col -->
               </div><!-- /.row -->
   		</section><!-- /.content -->
+  		
   		<script>
   		$(function () {
         
@@ -97,7 +208,8 @@
         	    "infoPostFix":    "",
         	    "thousands":      ",",
         	    "lengthMenu":     "Mostrar _MENU_ filas",
-        	    "loadingRecords": "Cargando...",
+        	    "lface"		:     "pepe",
+        	    "faceoadingRecords": "Cargando...",
         	    "processing":     "Procesando...",
         	    "search":         "Buscar: ",
         	    "zeroRecords":    "0 resultados",
@@ -116,6 +228,9 @@
           
         });
       });
-  	  </script>
+      </script>
+     
+  	  
+  	  			
 </jsp:body>	
 </t:baseAdmin>

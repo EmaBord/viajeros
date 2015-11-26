@@ -10,6 +10,7 @@ public interface EventoDAO extends GenericDAO<Evento, Integer> {
     public boolean existe(String nombre,String fecha,String lugar,String hora);
     public Evento getEvento(String nombre,String fecha,String lugar,String hora);
 	public List<Evento> activos();
+	public Evento getEvento(Long id);
 	
 
 

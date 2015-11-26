@@ -6,6 +6,7 @@
 <struts>
 
     <package name="default" namespace="/" extends="struts-default">
+    
 	<action name="login" class="action.autentication.Login" >
 		<result name="admin" type="redirect" >/views/adminHome.jsp</result>	
 		<result name="input" >/views/login_input.jsp</result>	
@@ -38,8 +39,12 @@
 		<result name="error" type="redirect">/views/505.jsp</result>
 		<result name="login" type="redirect">/views/login.jsp</result>
 	</action>
-
 	
-
+	<action name="updateEvento" class="action.evento.EventoUpdate">
+		<result name="success" type="redirect" >/views/listarEventos.jsp</result>	
+	</action>
+	
+	
 </package>
+
 </struts>

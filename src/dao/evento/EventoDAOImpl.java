@@ -63,6 +63,19 @@ public class EventoDAOImpl extends GenericDAOImpl<Evento, Integer>  implements E
         
 	}
 
+	@Override
+	@Transactional
+	public Evento getEvento(Long id) {
+		Query eventoTaskQuery = getCurrentSession().createQuery(
+                "select e from Evento e where id=:id and eliminado=:eliminado");
+        eventoTaskQuery.setParameter("id", id);
+        eventoTaskQuery.setParameter("eliminado", false);
+        if (eventoTaskQuery.list().size() > 0)
+        	return (Evento) eventoTaskQuery.list().get(0);
+        else 
+        	return null;
+	}
+
 
 
 }
