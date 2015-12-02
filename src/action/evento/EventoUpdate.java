@@ -1,13 +1,13 @@
 package action.evento;
-import java.util.Map;
-import org.apache.struts2.ServletActionContext;
 import model.evento.Evento;
-import model.usuario.Usuario;
-import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
+import org.apache.struts2.ServletActionContext;
+import template.method.TemplateMethod;
 import dao.evento.EventoDAO;
-
-public class EventoUpdate implements Action{
+public class EventoUpdate extends TemplateMethod{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EventoDAO eventoDAO;
 	private String clave;
 	private String nombre;
@@ -16,15 +16,11 @@ public class EventoUpdate implements Action{
 	private String lugar;
 	private String hora;
 	public String execute() {
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		Usuario user = (Usuario) session.get("usuario");		
-		if (user == null){
-			return "login";
-		}else{
-			if (!(user.getRol().getNombre().equals("admin"))){
-				return "error";
-			}else{
-				if (getNombre() != null  && getFecha()!=null && getLugar() != null){					
+		String result = "";
+		result = this.verifyUserAdmin();
+		if (result.equals("200")){
+				addData("eventos", eventoDAO.list());
+				if (isValid()){					
 					Long id = new Long(getClave());
 					Evento e = eventoDAO.getEvento(id);					
 					e.setLugar(getLugar());
@@ -33,16 +29,18 @@ public class EventoUpdate implements Action{
 					this.reformat();
 					e.setFecha(getFecha());
 					e.setHora(getHora());
-					e.setUsuario(user);
-					eventoDAO.update(e);
-					session.remove("update_evento");
-					session.put("update_evento", "Se ha modificado correctamente el evento");
-					session.put("eventos", eventoDAO.list());
+					e.setUsuario(getUsuario());
+					eventoDAO.update(e);					
+					addMessage("update_evento", "Se ha modificado correctamente el evento");
+					addData("eventos", eventoDAO.list());
 					return SUCCESS;					
-				}
-			}
+				}else
+					addMessage("update_evento_error", "Deben completarse todos los campos excepto sitio web!");
+					
 		}
-		return NONE;	
+		return result;
+		
+		
 				
 	}
 	
@@ -100,7 +98,10 @@ public class EventoUpdate implements Action{
 		
 	}
 
-
+	private boolean isValid() {
+		// TODO Auto-generated method stub
+		return getNombre() != null  && getFecha()!=null && getLugar() != null;
+	}
 	
 	
 	
@@ -112,6 +113,7 @@ public class EventoUpdate implements Action{
 	}
 	
 	private void reformat(){
+		System.out.println("Fecha:" +fecha);
 		String[] r = this.fecha.split("/");
 		this.setFecha (r[2].split(" ")[0]+"/"+r[1]+"/"+r[0]);
 		this.setHora(r[2].split(" ")[1]);

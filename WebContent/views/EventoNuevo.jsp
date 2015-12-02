@@ -25,32 +25,38 @@
     <section class="content">					      		 
  		<div class="row">
   			<div class="col-md-12">
-				<form class="form-horizontal" method = 'post' action ='../evento' >
+				<form class="form-horizontal" method = 'post' action ='../evento' data-toggle="validator">
              	<fieldset>
              	<input type="hidden" class="form-control" id="inputSitio" name='hora' value="1"/>
              	<div class="form-group text-center">
+             		<div class="help-block with-errors"></div>
                		<label for="inputFecha" class="col-lg-2 control-label" id="fecha">Día y hora del evento:</label>
-               		<div class="col-xs-6">                   
-                 		<input type="text" name='fecha'  class="form-control" id="datetimepicker" placeholder="dd/mm/YYYY HH:mm" required/>
-               		</div>
+               		<div class="col-lg-6">                   
+                 		<input type="text" name='fecha'  class="form-control" id="datetimepicker"  required/></div>
+               		
              	</div>
              	<div class="form-group text-center">
+             		<div class="help-block with-errors"></div> 
                		<label for="inputNombre" class="col-lg-2 control-label">Nombre:</label>
-               		<div class="col-xs-6">
-                 		<input type="text" name='nombre' class="form-control" id="inputNombre" <c:if test="${not empty evento}">value="${evento.nombre}"</c:if>placeholder="Ingrese el nombre del evento" autofocus required/>
+               		<div class="col-lg-10">
+                 		<input type="text" name='nombre' class="form-control" id="inputNombre" <c:if test="${not empty evento}">value="${evento.nombre}"</c:if>placeholder="Ingrese el nombre del evento" autofocus required data-error="No puede quedar en blanco el nombre"/>
                		</div>
+               		
+               		
+               		
              	</div>
               	         
              	<div class="form-group">
                		<label for="inputSitio" class="col-lg-2 control-label">Sitio web:</label>
-               		<div class="col-xs-6">
+               		<div class="col-lg-6">
                  		<input type="text" class="form-control" id="inputSitio" name='sitioweb'<c:if test="${not empty evento}">value="${evento.sitio_web }"</c:if> placeholder='Ingrese el sitio del evento'/>        
                		</div>
              	</div>
              	<div class="form-group">
+             		<div class="help-block with-errors"></div> 
               		<label for="inputLugar" class="col-lg-2 control-label">Lugar</label>
-            		<div class="col-xs-6">
-                 		<input type="text" class="form-control" id="inputLugar" name='lugar' <c:if test="${not empty evento}">value="${evento.lugar }"</c:if>placeholder='Ingrese la dirección del evento, junto a su ciudad' required/>        
+            		<div class="col-lg-6">
+                 		<input type="text" class="form-control" id="inputLugar" name='lugar' <c:if test="${not empty evento}">value="${evento.lugar }"</c:if>placeholder='Ingrese la dirección del evento, junto a su ciudad' required data-error="No puede quedar en blanco el lugar"/>        
                		</div>
              	</div>
              	
@@ -86,17 +92,17 @@
 	 		</script>  
 	 		<div class="col-md-1"></div>
 	 		<div class="col-md-8"> 
-	 		<c:if test="${not empty mensaje}">
+	 		<c:if test="${not empty mensaje_nuevo_evento}">
     		
 	 			<div class="callout callout-success">
-                    		<h4>${mensaje}</h4>
+                    		<h4>${mensaje_nuevo_evento}</h4>
                 </div>
 
 			</c:if> 
-	 		<c:if test="${not empty evento}">
+	 		<c:if test="${not empty evento_existe}">
     		
 	 			<div class="callout callout-danger">
-                    		<h4>${evento.nombre}-${evento.nombre}</h4>
+                    		<h4>${evento_existe.nombre}-${evento_existe.nombre}</h4>
                 </div>
 
 			</c:if>	 		
@@ -105,5 +111,7 @@
    </div><!-- /.row -->
 
 </section><!-- /.content -->
+<script src="./js/validator.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 </jsp:body>	
 </t:baseAdmin>

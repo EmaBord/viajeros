@@ -81,7 +81,7 @@
 					                  							<div class="modal fade" id="${evento.id}" role="dialog">
               														<div class="modal-dialog modal-lg">
                 														<div class="modal-content">
-                															<form role="form" class="form-horizontal" method = 'post' action ='../updateEvento' id="${evento.id}">
+                															<form role="form" class="form-horizontal" method = 'post' action ='../updateEvento' id="${evento.id}"  data-toggle="validator">
                   															<div class="modal-header">
                     															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     															<h4 class="modal-title">Modificar ${evento.nombre}</h4>
@@ -94,26 +94,29 @@
                                                                  								
                                                                  								<input type="hidden" name='clave' value="${evento.id }"/>  
                                                                  								<div class="form-group text-center">
+                                                                 									<div class="col-sm-4"></div>
+      																								<label class="col-sm-8" for="inputFecha">Día y hora del evento:<div class="text-danger">(recorfirmar)</div></label>
       																								<div class="col-sm-4"></div>
-      																								<label class="col-sm-8" for="inputFecha">Día y hora del evento:</label>
-      																								<div class="col-sm-4"></div>
-      																								<div class="col-sm-8"><input type="text" name='fecha'  class="form-control" id="datetimepicker${evento.id}" /></div>
+      																								<div class="col-sm-8"><input type="text" name='fecha'  class="form-control" id="datetimepicker${evento.id}" required /></div>
+      																								
     																							</div>
                                                                  								<div class="form-group text-center">
                                                                  									<div class="col-sm-4">
                                                                  										<label>Nombre del evento</label>
-                                                                 										<input type="text" name='nombre' class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required/>
+                                                                 										<input type="text" name='nombre' class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required data-error="No puede quedar en blanco el nombre"/>
                                                                  									</div>
                                                                    									<div class="col-sm-4">
                                                                  										<label>Lugar/Dirección</label>
-                                                                 										<input type="text" class="form-control" id="inputLugar" name='lugar' value="${evento.lugar }" required/>  
+                                                                 										<input type="text" class="form-control" id="inputLugar" name='lugar' value="${evento.lugar }" required data-error="No puede quedar en blanco el lugar"/>  
                                                                  									</div>
                                                                  									<div class="col-sm-4">
                                                                  										<label>Sitio Web</label>
                                                                  										<input type="text" class="form-control" id="inputSitio" name='sitioweb'value="${evento.sitio_web }"/>
                                                                  										
                                                                  									</div>	
+                                                                 										<div class="help-block with-errors"></div> 
                                                                  								</div>
+                                                                 							
                                                                  								
                                                                  								
                                                                  								
@@ -137,7 +140,7 @@
 	          	 																				inline: true,
                 																				sideBySide: true
                                                                     						});
-                                                    	          	 						$('#datetimepicker'+${evento.id}).datetimepicker({value:'',step:30,minDate:new Date()});
+                                                    	          	 						$('#datetimepicker'+${evento.id}).datetimepicker({value:'',step:30,minDate:new Date(), defaultDate: format("${evento.fecha}")});
                                                     	          	 						
                                                     									</script>  
                                                     	 		
@@ -148,7 +151,7 @@
                   															
                                                                  				
                     															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal">Cancelar</button>
-                    															<button type="submit" class="btn bg-olive " ">Guardar cambios</button>
+                    															<button type="submit" class="btn bg-olive ">Guardar cambios</button>
                   															</div>
                   															
                   															</form>
@@ -194,15 +197,15 @@
           "paging": true,
           "lengthChange": true,
           "searching": true,
-          "ordering": true,
+          "ordering": false,
           "info": true,
-          "autoWidth": true,
+          "autoWidth": false,
           "select": true,
           
           "language":{
         	    "decimal":        "",
         	    "emptyTable":     "Datos no encontrados",
-        	    "info":           "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+        	    "info":           "Mostrando  _END_ de _TOTAL_ entradas",
         	    "infoEmpty":      "Mostrando 0 de 0 of 0 filas",
         	    "infoFiltered":   "(filtrado desde _MAX_ filas)",
         	    "infoPostFix":    "",
@@ -229,6 +232,8 @@
         });
       });
       </script>
+      <script src="./js/validator.js"></script>
+	  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
      
   	  
   	  			

@@ -1,44 +1,29 @@
 package action.evento;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
+import template.method.TemplateMethod;
 import model.evento.Evento;
-import model.usuario.Usuario;
-
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
-
 import dao.evento.EventoDAO;
 
 @Conversion
-public class EventoNew extends ActionSupport{	/**
+public class EventoNew extends TemplateMethod {	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private EventoDAO eventoDAO;
-	
+	private EventoDAO eventoDAO;	
 	String nombre;
 	String fecha;
 	String sitioweb;
 	String lugar;
 	private List<Evento> eventos = new ArrayList<Evento>();
-	String hora;
+	String hora;	
 	
-	
-	public String execute() throws ParseException{
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		Usuario user = (Usuario) session.get("usuario");		
-		if (user == null){
-			return "login";
-		}else{
-			if (!(user.getRol().getNombre().equals("admin"))){
-				return "error";
-			}else{
-				if (getNombre() != null  && getFecha()!=null && getLugar() != null){
-
+	public String execute(){
+		String result = "";		
+		result = this.verifyUserAdmin();
+		if (result.equals("200")){	
+				if (this.isValid()){
 					Evento e;
 					e = new Evento();
 					e.setLugar(getLugar());
@@ -46,46 +31,39 @@ public class EventoNew extends ActionSupport{	/**
 					e.setSitio_web(getSitioweb());
 					this.reformat();
 					e.setFecha(getFecha());
-					e.setHora(getHora());
+					e.setHora(getHora());						
 					if (!eventoDAO.existe(getNombre(), getFecha(),getLugar(),hora)){						
-						e.setUsuario(user);
-						eventoDAO.save(e);
-	
-						session.put("eventos", eventoDAO.list());
-						session.put("mensaje", "El evento "+getNombre()+" ha sido agregado con éxito");
-						session.remove("evento");
+						e.setUsuario(getUsuario());
+						eventoDAO.save(e);	
+						addData("eventos", eventoDAO.list());
+						addMessage("mensaje_nuevo_evento", "El evento "+getNombre()+" ha sido agregado con éxito");
 						return "add_evento_ok";
-					}else{
-						session.remove("mensaje");
-						session.put("evento",e);
+					}else{						
+						addMessage("evento_existe",e);
 						return "add_evento_existe";
-					}
-					
+					}					
 				}else{
-					session.remove("evento");
-					session.remove("mensaje");
+					addMessage("mensaje_nuevo_evento_error", "Deben completarse todos los campos excepto sitio web!");
 					return "add_evento";
-					
 				}
 				
 			}
-		}
+		return result;
 		
 	}
+	private boolean isValid() {
+		// TODO Auto-generated method stub
+		return getNombre() != null  && getFecha()!=null && getLugar() != null;
+	}
 	public String list(){	
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		Usuario user = (Usuario) session.get("usuario");		
-		if (user == null){
-			return "login";
-		}else{
-			if (!(user.getRol().getNombre().equals("admin"))){
-				return "error";
-			}else{
-				session.put("eventos", eventoDAO.list());
-			
-				return "success";
-			}
+		String result = "";
+		result = this.verifyUserAdmin();
+		if (result.equals("200")){	
+			addData("eventos",eventoDAO.list());
+			return SUCCESS;
 		}
+		return result;
+		
 		
 	}
 	public void setLugar(String lugar){
