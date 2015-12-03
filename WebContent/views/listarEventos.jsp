@@ -76,12 +76,12 @@
 					                  			<td >${evento.sitio_web}</td>
 					                  			<td>
 					                  				<div class="row">
-					                  					<div class="col-sm-4">					                  						
+					                  					<div class="col-sm-3">					                  						
 					                  							<button type="button" 	 data-toggle="modal" data-target="#${evento.id}" class="btn btn-warning"><i class="fa fa-edit"></i></button>
 					                  							<div class="modal fade" id="${evento.id}" role="dialog">
               														<div class="modal-dialog modal-lg">
                 														<div class="modal-content">
-                															<form role="form" class="form-horizontal" method = 'post' action ='../updateEvento' id="${evento.id}"  data-toggle="validator">
+                															<form role="form" class="form-horizontal" method = 'post' action ='../updateEvento' id=form${evento.id}  data-toggle="validator">
                   															<div class="modal-header">
                     															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     															<h4 class="modal-title">Modificar ${evento.nombre}</h4>
@@ -128,8 +128,9 @@
                                                                 							</fieldset>
                                                                 						
                                                                							<script type="text/javascript">
-                                                               								
-                                                               								$('#datetimepicker'+${evento.id}).datetimepicker({
+                                                              								var id= "#datetimepicker"+"${evento.id}";
+                                                              								
+                                                               								$("#datetimepicker"+"${evento.id}").datetimepicker({
 																									        	   
 	        	   																					defaultDate:format("${evento.fecha}"),
 	        	   																					defaultTime:"${evento.hora}",
@@ -140,7 +141,7 @@
 	          	 																				inline: true,
                 																				sideBySide: true
                                                                     						});
-                                                    	          	 						$('#datetimepicker'+${evento.id}).datetimepicker({value:'',step:30,minDate:new Date(), defaultDate: format("${evento.fecha}")});
+                                                    	          	 						$("#datetimepicker"+"${evento.id}").datetimepicker({value:'',step:30,minDate:new Date(), defaultDate: format("${evento.fecha}")});
                                                     	          	 						
                                                     									</script>  
                                                     	 		
@@ -151,7 +152,7 @@
                   															
                                                                  				
                     															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal">Cancelar</button>
-                    															<button type="submit" class="btn bg-olive ">Guardar cambios</button>
+                    															<button type="button" class="btn bg-olive " onclick="verificar('datetimepicker${evento.id}','form${evento.id}')">Guardar cambios</button>
                   															</div>
                   															
                   															</form>
@@ -160,9 +161,10 @@
             													</div><!-- /.modal -->
           													
 					                  					</div>
-					                  					<div class="col-sm-6">
-					                  						<form>
-                  												<button type="button" id="${evento.id}" class="btn btn-danger"><i class="fa fa-remove"></i></button>
+					                  					<div class="col-sm-2">
+					                  						<form method="post" action=../deleteEvento id='delete${evento.id}'>
+					                  							<input type="hidden" name="clave" value="${evento.id}"/>
+                  												<button type="button" class="btn btn-danger" onclick="eliminar('delete${evento.id}')"><i class="fa fa-remove"></i></button>
                   											</form>
                   										<div>
                   									<div>
@@ -234,7 +236,27 @@
       </script>
       <script src="./js/validator.js"></script>
 	  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-     
+	  <script>
+		function verificar(iddp,idform){
+	
+			if (document.getElementById(iddp).value){
+				document.getElementById(idform).submit();
+			}else{
+				alert("Debe reconfirmar el dia y la hora para el evento");	
+			}	
+		}
+
+	</script>
+     <script>
+	function eliminar(idform){
+		var r = confirm("Seguro desea eliminar el evento?");
+		if (r == true) {
+    		document.getElementById(idform).submit();
+		}
+		
+	}
+
+</script>
   	  
   	  			
 </jsp:body>	

@@ -33,6 +33,7 @@ public class TemplateMethod extends ActionSupport{
 		session.remove("mensaje_nuevo_evento_error");
 		session.remove("update_evento_error");
 		
+		
 	}
 	public Usuario getUsuario(){
 		Map<String, Object> session = ActionContext.getContext().getSession();

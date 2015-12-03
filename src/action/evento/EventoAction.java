@@ -1,13 +1,18 @@
 package action.evento;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.struts2.ServletActionContext;
+
 import template.method.TemplateMethod;
 import model.evento.Evento;
+
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
+
 import dao.evento.EventoDAO;
 
 @Conversion
-public class EventoNew extends TemplateMethod {	/**
+public class EventoAction extends TemplateMethod {	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -29,6 +34,7 @@ public class EventoNew extends TemplateMethod {	/**
 					e.setLugar(getLugar());
 					e.setNombre(getNombre());
 					e.setSitio_web(getSitioweb());
+					System.out.println("longi:"+getFecha().length());
 					this.reformat();
 					e.setFecha(getFecha());
 					e.setHora(getHora());						
@@ -37,13 +43,13 @@ public class EventoNew extends TemplateMethod {	/**
 						eventoDAO.save(e);	
 						addData("eventos", eventoDAO.list());
 						addMessage("mensaje_nuevo_evento", "El evento "+getNombre()+" ha sido agregado con éxito");
-						return "add_evento_ok";
+						return "add_evento";
 					}else{						
 						addMessage("evento_existe",e);
-						return "add_evento_existe";
+						return "add_evento";
 					}					
 				}else{
-					addMessage("mensaje_nuevo_evento_error", "Deben completarse todos los campos excepto sitio web!");
+					//addMessage("mensaje_nuevo_evento_error", "Recuerde que debe selecionar la fecha y hora del evento, ingresar el nombre y el lugar ");
 					return "add_evento";
 				}
 				
@@ -53,7 +59,7 @@ public class EventoNew extends TemplateMethod {	/**
 	}
 	private boolean isValid() {
 		// TODO Auto-generated method stub
-		return getNombre() != null  && getFecha()!=null && getLugar() != null;
+		return getNombre() != null  && getFecha()!=null && getLugar() != null && !(getFecha().length()==0);
 	}
 	public String list(){	
 		String result = "";
@@ -65,6 +71,44 @@ public class EventoNew extends TemplateMethod {	/**
 		return result;
 		
 		
+	}
+	public String delete(){	
+		String result = "";
+		result = this.verifyUserAdmin();
+		if (result.equals("200")){	
+			String id_parameter = ServletActionContext.getRequest().getParameter("clave");
+			System.out.println(id_parameter);
+			Long id = new Long(id_parameter);
+			Evento evento = eventoDAO.getEvento(id);
+			eventoDAO.delete(evento);
+			addData("eventos",eventoDAO.list());
+			return SUCCESS;
+		}
+		return result;		
+	}
+	
+	public String update(){	
+		String result = "";
+		result = this.verifyUserAdmin();
+		if (result.equals("200")){	
+			if (isValid()){					
+				Long id = new Long(ServletActionContext.getRequest().getParameter("clave"));
+				Evento e = eventoDAO.getEvento(id);					
+				e.setLugar(getLugar());
+				e.setNombre(getNombre());
+				e.setSitio_web(getSitioweb());
+				this.reformat();
+				e.setFecha(getFecha());
+				e.setHora(getHora());
+				e.setUsuario(getUsuario());
+				eventoDAO.update(e);					
+				addMessage("update_evento", "Se ha modificado correctamente el evento");
+				addData("eventos", eventoDAO.list());
+				return SUCCESS;					
+			}else
+				addMessage("update_evento_error", "Deben completarse todos los campos excepto sitio web!");		
+		}
+		return result;		
 	}
 	public void setLugar(String lugar){
 		this.lugar = lugar;

@@ -27,20 +27,16 @@
 		<result name="admin">/views/404.jsp</result>				
 	</action>
 	
-	<action name="evento" class="action.evento.EventoNew" >
-		<result name="error" type="redirect">/</result> <!--/views/505.jsp</result>-->
-		<result name="login" type="redirect">/</result> <!--/views/login.jsp</result>-->		
+	<action name="evento" class="action.evento.EventoAction" >
 		<result name="add_evento" type="redirect">/views/EventoNuevo.jsp</result> <!--/views/add_evento.jsp</result>-->
-		<result name="add_evento_ok" type="redirect">/views/EventoNuevo.jsp</result> 
-		<result name="add_evento_existe" type="redirect">/views/EventoNuevo.jsp</result>				
 	</action>
-	<action name="listarEventos" method="list" class="action.evento.EventoNew"> 
+	<action name="listarEventos" method="list" class="action.evento.EventoAction"> 
 		<result name="success" type="redirect" >/views/listarEventos.jsp</result>
-		<result name="error" type="redirect">/views/505.jsp</result>
-		<result name="login" type="redirect">/views/login.jsp</result>
 	</action>
-	
-	<action name="updateEvento" class="action.evento.EventoUpdate">
+	<action name="updateEvento" method="update" class="action.evento.EventoAction">
+		<result name="success" type="redirect" >/views/listarEventos.jsp</result>	
+	</action>
+	<action name="deleteEvento" method="delete" class="action.evento.EventoAction">
 		<result name="success" type="redirect" >/views/listarEventos.jsp</result>	
 	</action>
 	
