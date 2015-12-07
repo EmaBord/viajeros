@@ -1,15 +1,15 @@
 
 package model.usuario;
+import java.util.List;
 
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import model.calificacion.Calificacion;
 import model.rol.Rol;
 
 /**
@@ -32,11 +32,17 @@ public class Usuario {
   private String apellido;
   private String email;
   private String telefono;
-  @Lob
-  @Column( nullable=true, columnDefinition="mediumblob")
-  private byte[] imagen;
+  private String imagen_path;
   private Boolean bloqueado;
+  @ManyToMany
+  private List<Calificacion> recibidasbuenas;
+  @ManyToMany
+  private List<Calificacion> recibidasmalas;
+  @ManyToMany
+  private List<Calificacion> hechas;
   
+ 
+
   //
   // Constructors
   //
@@ -161,23 +167,55 @@ public class Usuario {
    * Set the value of imagen
    * @param newVar the new value of imagen
    */
-  public void setImagen ( byte[] newVar ) {
-    imagen = newVar;
-  }
-
-  /**
-   * Get the value of imagen
-   * @return the value of imagen
-   */
-  public byte[] getImagen ( ) {
-    return imagen;
-  }
+ 
   public Boolean getBloquedo(){
 	  return bloqueado;
   }
   public void setBloquedo(Boolean b){
 	  bloqueado = b;
   }
+
+public String getImagen_path() {
+	return imagen_path;
+}
+
+public void setImagen_path(String imagen_path) {
+	this.imagen_path = imagen_path;
+}
+
+public Boolean getBloqueado() {
+	return bloqueado;
+}
+
+public void setBloqueado(Boolean bloqueado) {
+	this.bloqueado = bloqueado;
+}
+
+public List<Calificacion> getRecibidasbuenas() {
+	return recibidasbuenas;
+}
+
+public void setRecibidasbuenas(List<Calificacion> recibidasbuenas) {
+	this.recibidasbuenas = recibidasbuenas;
+}
+
+public List<Calificacion> getRecibidasmalas() {
+	return recibidasmalas;
+}
+
+public void setRecibidasmalas(List<Calificacion> recibidasmalas) {
+	this.recibidasmalas = recibidasmalas;
+	
+}
+
+
+public List<Calificacion> getHechas() {
+	return hechas;
+}
+
+public void setHechas(List<Calificacion> hechas) {
+	this.hechas = hechas;
+}
 
   //
   // Other methods

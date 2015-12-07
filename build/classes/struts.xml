@@ -40,6 +40,16 @@
 		<result name="success" type="redirect" >/views/listarEventos.jsp</result>	
 	</action>
 	
+	<action name="listarViajeros" method="list" class="action.adminViajeros.AdminViajerosAction"> 
+		<result name="success" type="redirect" >/views/viajeros.jsp</result>
+	</action>
+	<action name="bloquearViajero" method="bloquear" class="action.adminViajeros.AdminViajerosAction">
+		<result name="success" type="redirect" >/views/viajeros.jsp</result>	
+	</action>
+	<action name="desbloquearViajero" method="desbloquear" class="action.adminViajeros.AdminViajerosAction">
+		<result name="success" type="redirect" >/views/viajeros.jsp</result>	
+	</action>
+	
 	
 </package>
 

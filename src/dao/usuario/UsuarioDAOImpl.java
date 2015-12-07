@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 import dao.generic.GenericDAOImpl;
 import model.usuario.Usuario;
-public class UsuarioDAOImpl extends GenericDAOImpl<Usuario, Integer>  implements UsuarioDAO {
+public class UsuarioDAOImpl extends GenericDAOImpl<Usuario, Long>  implements UsuarioDAO {
 
 
 	 

@@ -1,9 +1,13 @@
 package template.method;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import dao.usuario.UsuarioDAO;
 import model.usuario.Usuario;
 
 public class TemplateMethod extends ActionSupport{	
@@ -32,6 +36,7 @@ public class TemplateMethod extends ActionSupport{
 		session.remove("update_evento");			
 		session.remove("mensaje_nuevo_evento_error");
 		session.remove("update_evento_error");
+		session.remove("viajeros");
 		
 		
 	}
@@ -56,6 +61,20 @@ public class TemplateMethod extends ActionSupport{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		session.put(value,o);
 		
+	}
+	
+	public List<Usuario> getViajeros(UsuarioDAO usuarioDAO){
+		List<Usuario> usuarios = usuarioDAO.list();
+		List<Usuario> viajeros = new ArrayList<Usuario>();
+		
+		for( Usuario u:usuarios){
+			
+			if (u.getRol().getNombre().equals("viajero")){
+				viajeros.add(u);
+				System.out.println(u.getEmail());
+			}
+		}
+		return viajeros;
 	}
 	
 

@@ -32,6 +32,7 @@
         			<value>model.usuario.Usuario</value>
         			<value>model.rol.Rol</value>
         			<value>model.evento.Evento</value>
+        			<value>model.calificacion.Calificacion</value>
         			
       			</set>
       			

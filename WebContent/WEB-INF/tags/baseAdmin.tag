@@ -222,7 +222,7 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 						            
 						            
 						            <li  <jsp:invoke fragment="viajeros"/>>
-						              <a href="#" id="journals">
+						              <a href="/viajeros/listarViajeros" id="journals">
 						                <i class="fa fa-users"></i>
 						                <span>Viajeros</span>
 						                
