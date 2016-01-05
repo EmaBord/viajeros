@@ -36,6 +36,7 @@
 					                <h3 class="box-title">Lista de viajeros</h3>
 					              </div><!-- /.box-header -->
 					              <div class="box-body">
+					              	<div class="table-responsive"> 
 						                <table id="viajeros" class="table  table-responsive table-bordered table-striped ">
 						                  <thead>
 						                    <tr class="success">
@@ -43,8 +44,8 @@
 						                      <th>Apellido</th>
 						                      <th>Email</th>										                        
 						                      <th>Telefono</th>
-						                      <th>Calificaciones</th>
-						                      <th>Calificaciones </th>
+						                      <th>Calificaciones Positivas</th>
+						                      <th>Calificaciones Negativas</th>
 						                      <th>Denuncias Rebidas</th>
 						                      <th>Denuncias Hechas</th>
 						                      <th>Bloquear</th>
@@ -56,10 +57,10 @@
 						                  
 						                  	<c:forEach items="${viajeros}" var="viajero">
 						                  		<tr <c:if test="${viajero.bloqueado}">class="text-danger" </c:if>>
-						                  			<td >${viajero.nombre} </td>					                  														
-						                  			<td >${viajero.apellido}</td>
-						                  			<td >${viajero.email}</td>
-						                  			<td >
+						                  			<td class="text-center">${viajero.nombre} </td>					                  														
+						                  			<td class="text-center">${viajero.apellido}</td>
+						                  			<td class="text-center">${viajero.email}</td>
+						                  			<td class="text-center">
 						                  			<c:if test="${empty viajero.telefono}">
 						                  			   ---	
 						                  			</c:if>
@@ -69,11 +70,11 @@
 						                  			
 						                  			
 						                  			</td>
-						                  			<td >${positivas[viajero.id] }</td>
-						                  			<td>${negativas[viajero.id] }</td>
-						                  			<td>${d_recibidas[viajero.id] }</td>
-						                  			<td>${d_hechas[viajero.id] }</td>
-						                  			<td>
+						                  			<td class="text-center">${positivas[viajero.id] }</td>
+						                  			<td class="text-center">${negativas[viajero.id] }</td>
+						                  			<td class="text-center">${d_recibidas[viajero.id] }</td>
+						                  			<td class="text-center">${d_hechas[viajero.id] }</td>
+						                  			<td class="text-center">
 						                  			<c:if test="${not viajero.bloqueado}">	
 						                  				<form method="post" action=../bloquearViajero id='block${viajero.id}'>
 						                  							<input type="hidden" name="clave" value="${viajero.id}"/>
@@ -86,7 +87,7 @@
 									        	   	</c:if> 			
 	                  									
 						                  			</td>
-						                  			<td>
+						                  			<td class="text-center">
 						                  			<c:if test="${not viajero.bloqueado}">	
 						                  				   <button type="button" class="btn bg-olive disabled" ><i class="fa  fa-unlock"></i></button>     	   
 									        	   	
@@ -127,6 +128,7 @@
 						                    </tr>
 						                  </tfoot>
 						                </table>
+						              </div><!-- /.responsive table -->
 					              </div><!-- /.box-body -->
 		            		</div><!-- /.box -->
           			</div><!-- /.col -->
