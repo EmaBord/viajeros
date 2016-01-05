@@ -23,16 +23,19 @@
         	<property name="hibernateProperties">
         	<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
 			</props>
         	</property>	
         	<property name="annotatedClasses">
       			<set>
-        			<value>model.usuario.Usuario</value>
+        			
         			<value>model.rol.Rol</value>
         			<value>model.evento.Evento</value>
         			<value>model.calificacion.Calificacion</value>
+        			<value>model.denuncia.Denuncia</value>
+        			<value>model.usuario.Usuario</value>
         			
       			</set>
       			

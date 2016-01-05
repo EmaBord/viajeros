@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import model.calificacion.Calificacion;
+import model.denuncia.Denuncia;
 import model.rol.Rol;
 
 /**
@@ -39,7 +40,31 @@ public class Usuario {
   @ManyToMany
   private List<Calificacion> recibidasmalas;
   @ManyToMany
-  private List<Calificacion> hechas;
+  private List<Calificacion> hechas;  
+  @ManyToMany
+  private List<Denuncia> denunciashechas;
+  @ManyToMany
+  private List<Denuncia> denunciasrecibidas;
+  
+  
+  
+
+  public List<Denuncia> getDenunciashechas() {
+	return denunciashechas;
+}
+
+public void setDenunciashechas(List<Denuncia> denunciashechas) {
+	this.denunciashechas = denunciashechas;
+}
+
+public List<Denuncia> getDenunciasrecibidas() {
+	return denunciasrecibidas;
+}
+
+public void setDenunciasrecibidas(List<Denuncia> denunciasrecibidas) {
+	this.denunciasrecibidas = denunciasrecibidas;
+}
+
   
  
 

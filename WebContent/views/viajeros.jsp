@@ -11,7 +11,7 @@
 
 <t:baseAdmin>
 <jsp:attribute name="viajeros">
-		active
+		class="active"
 </jsp:attribute>
 	
 <jsp:body>	 
@@ -27,18 +27,7 @@
   		</section>  		  
   	    <!-- Main content -->
   		<section class="content">
-  			<c:if test="${not empty update_evento}">	
-  				<div class="row">
-  					
-  					<div class="col-sm-6">
-  						<div class="alert alert-success alert-dismissable">
-                   			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    		<h4>	<i class="icon fa fa-check"></i> Todo ok!</h4>
-                    		${update_evento}
-                    	</div>
-                  
-  				</div>
-  			</c:if>
+  			
   			<!-- row -->
     			<div class="row">
     				<div class="col-xs-12">
@@ -47,95 +36,97 @@
 					                <h3 class="box-title">Lista de viajeros</h3>
 					              </div><!-- /.box-header -->
 					              <div class="box-body">
-					                <table id="viajeros" class="table table-bordered table-striped">
-					                  <thead>
-					                    <tr class="success">
-					                      <th> Nombre</th>
-					                      <th>Apellido</th>
-					                      <th>Email</th>										                        
-					                      <th>Telefono</th>
-					                      <th>Calificaciones <i class="fa  fa-thumbs-o-up"></i></th>
-					                      <th>Calificaciones <i class="fa  fa-thumbs-o-down"></i></th>
-					                      <th>Denuncias</th>
-					                      <th>Viajes</th>
-					                      <th>Bloquear</th>
-					                      <th>Desbloquear</th>
-					                      
-					                    </tr>
-					                  </thead>
-					                  <tbody>
-					                  
-					                  	<c:forEach items="${viajeros}" var="viajero">
-					                  		<tr <c:if test="${viajero.bloqueado}">class="text-danger" </c:if>>
-					                  			<td >${viajero.nombre} </td>					                  														
-					                  			<td >${viajero.apellido}</td>
-					                  			<td >${viajero.email}</td>
-					                  			<td >
-					                  			<c:if test="${empty viajero.telefono}">
-					                  			   ---	
-					                  			</c:if>
-					                  			<c:if test="${not empty viajero.telefono}">
-					                  			   ${viajero.telefono}
-					                  			</c:if>
-					                  			
-					                  			
-					                  			</td>
-					                  			<td ></td>
-					                  			<td></td>
-					                  			<td></td>
-					                  			<td></td>
-					                  			<td>
-					                  			<c:if test="${not viajero.bloqueado}">	
-					                  				<form method="post" action=../bloquearViajero id='block${viajero.id}'>
-					                  							<input type="hidden" name="clave" value="${viajero.id}"/>
-                  												<button type="button" class="btn bg-orange" onclick="bloquear('block${viajero.id}')"><i class="fa fa-lock"></i></button>
-                  									</form>        	   
-								        	   	
-								        	   </c:if>          				
-					                  			<c:if test="${viajero.bloqueado}">						                  				
-                  									<button type="button" class="btn bg-orange disabled" ><i class="fa fa-lock"></i></button>                  									        	   
-								        	   	</c:if> 			
-                  									
-					                  			</td>
-					                  			<td>
-					                  			<c:if test="${not viajero.bloqueado}">	
-					                  				   <button type="button" class="btn bg-olive disabled" ><i class="fa  fa-unlock"></i></button>     	   
-								        	   	
-								        	   </c:if>          				
-					                  			<c:if test="${viajero.bloqueado}">	
-					                  				<form method="post" action=../desbloquearViajero id='unblock${viajero.id}'>
-					                  							<input type="hidden" name="clave" value="${viajero.id}"/>
-                  												<button type="button" class="btn bg-olive" onclick="desbloquear('unblock${viajero.id}')"><i class="fa  fa-unlock"></i></button>
-                  									</form>					                  				
-                  									                  									        	   
-								        	   	</c:if> 
-					                  			
-					                  			
-					                  			</td>
-					                  			
-					                  								                  		
-					                  		</tr>
-					                  		
-					                  			
-					                  		
-					                  	</c:forEach>
-					                    
-					                  </tbody>
-					                  <tfoot>
-					                    <tr class="success">
-					                      <th>Nombre</th>
-					                      <th>Apellido</th>
-					                      <th>Email</th>										                        
-					                      <th>Telefono</th>
-					                      <th>Calificaciones +</th>
-					                      <th>Calificaciones -</th>
-					                      <th>Denuncias</th>
-					                      <th>Viajes</th>
-					                      <th>Bloquear</th>
-					                      <th>Desbloquear</th>
-					                    </tr>
-					                  </tfoot>
-					                </table>
+						                <table id="viajeros" class="table  table-responsive table-bordered table-striped ">
+						                  <thead>
+						                    <tr class="success">
+						                      <th>Nombre</th>
+						                      <th>Apellido</th>
+						                      <th>Email</th>										                        
+						                      <th>Telefono</th>
+						                      <th>Calificaciones</th>
+						                      <th>Calificaciones </th>
+						                      <th>Denuncias Rebidas</th>
+						                      <th>Denuncias Hechas</th>
+						                      <th>Bloquear</th>
+						                      <th>Desbloquear</th>
+						                      
+						                    </tr>
+						                  </thead>
+						                  <tbody>
+						                  
+						                  	<c:forEach items="${viajeros}" var="viajero">
+						                  		<tr <c:if test="${viajero.bloqueado}">class="text-danger" </c:if>>
+						                  			<td >${viajero.nombre} </td>					                  														
+						                  			<td >${viajero.apellido}</td>
+						                  			<td >${viajero.email}</td>
+						                  			<td >
+						                  			<c:if test="${empty viajero.telefono}">
+						                  			   ---	
+						                  			</c:if>
+						                  			<c:if test="${not empty viajero.telefono}">
+						                  			   ${viajero.telefono}
+						                  			</c:if>
+						                  			
+						                  			
+						                  			</td>
+						                  			<td >${positivas[viajero.id] }</td>
+						                  			<td>${negativas[viajero.id] }</td>
+						                  			<td>${d_recibidas[viajero.id] }</td>
+						                  			<td>${d_hechas[viajero.id] }</td>
+						                  			<td>
+						                  			<c:if test="${not viajero.bloqueado}">	
+						                  				<form method="post" action=../bloquearViajero id='block${viajero.id}'>
+						                  							<input type="hidden" name="clave" value="${viajero.id}"/>
+	                  												<button type="button" class="btn bg-orange" onclick="bloquear('block${viajero.id}')"><i class="fa fa-lock"></i></button>
+	                  									</form>        	   
+									        	   	
+									        	   </c:if>          				
+						                  			<c:if test="${viajero.bloqueado}">						                  				
+	                  									<button type="button" class="btn bg-orange disabled" ><i class="fa fa-lock"></i></button>                  									        	   
+									        	   	</c:if> 			
+	                  									
+						                  			</td>
+						                  			<td>
+						                  			<c:if test="${not viajero.bloqueado}">	
+						                  				   <button type="button" class="btn bg-olive disabled" ><i class="fa  fa-unlock"></i></button>     	   
+									        	   	
+									        	   </c:if>          				
+						                  			<c:if test="${viajero.bloqueado}">	
+						                  				<form method="post" action=../desbloquearViajero id='unblock${viajero.id}'>
+						                  							<input type="hidden" name="clave" value="${viajero.id}"/>
+	                  												<button type="button" class="btn bg-olive" onclick="desbloquear('unblock${viajero.id}')"><i class="fa  fa-unlock"></i></button>
+	                  									</form>					                  				
+	                  									                  									        	   
+									        	   	</c:if> 
+						                  			
+						                  			
+						                  			</td>
+						                  			
+						                  								                  		
+						                  		</tr>
+						                  		
+						                  			
+						                  		
+						                  	</c:forEach>
+						                    
+						                  </tbody>
+						                  
+						                <tfoot>
+						                    <tr class="success">
+						                      <th>Nombre</th>
+						                      <th>Apellido</th>
+						                      <th>Email</th>										                        
+						                      <th>Telefono</th>
+						                      <th>Calificaciones</th>
+						                      <th>Calificaciones </th>
+						                      <th>Denuncias Rebidas</th>
+						                      <th>Denuncias Hechas</th>
+						                      <th>Bloquear</th>
+						                      <th>Desbloquear</th>
+						                      
+						                    </tr>
+						                  </tfoot>
+						                </table>
 					              </div><!-- /.box-body -->
 		            		</div><!-- /.box -->
           			</div><!-- /.col -->
@@ -184,7 +175,7 @@
         });
       });
       </script>
-      
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	 
      <script>
 	function bloquear(idform){
