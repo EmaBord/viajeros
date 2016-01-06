@@ -46,7 +46,7 @@
 						                      <th>Telefono</th>
 						                      <th>Calificaciones Positivas</th>
 						                      <th>Calificaciones Negativas</th>
-						                      <th>Denuncias Rebidas</th>
+						                      <th>Denuncias Recibidas</th>
 						                      <th>Denuncias Hechas</th>
 						                      <th>Bloquear</th>
 						                      <th>Desbloquear</th>
