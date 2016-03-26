@@ -134,7 +134,7 @@
           			</div><!-- /.col -->
               </div><!-- /.row -->
   		</section><!-- /.content -->
-  		
+  		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   		<script>
   		$(function () {
         
@@ -177,7 +177,7 @@
         });
       });
       </script>
-      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      
 	 
      <script>
 	function bloquear(idform){

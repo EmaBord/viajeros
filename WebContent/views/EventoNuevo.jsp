@@ -32,9 +32,10 @@
              		
                		<label for="inputFecha" class="col-lg-2 control-label" id="fecha">Día y hora del evento:</label>
                		<div class="col-lg-6">                   
-                 		<input type="text" name='fecha'  class="form-control" id="datetimepicker"/>
+                 		<input type="text" name='fecha'  class="form-control" id="evento-dia" required data-error="Debes seleccionar fecha y hora del evento"/>
+                 		<div class="help-block with-errors"></div>
                  	</div>
-                 	<div class="help-block with-errors"></div>
+                 	
                		
              	</div>
              	<div class="form-group text-center">
@@ -66,14 +67,18 @@
              	</div>
              	<div class="form-group">
                		<div class="col-xs-6 col-lg-offset-2">
-                 		<button type="button" class="btn bg-olive btn-flat btn-lg btn-block " onclick="verificar()">Agregar Evento</button>
+                 		<button type="submit" class="btn bg-olive btn-flat btn-lg btn-block " >Agregar Evento</button>
                		</div>
              	</div>
              	
             </fieldset>
             </form>
+            <script type="text/javascript" src="./datetimepicker-material/js/moment-with-locales.js"></script>
+		<script type="text/javascript" src="./datetimepicker-material/js/bootstrap-material-datetimepicker.js"></script>	
+
            <script type="text/javascript">
-                $('#datetimepicker').datetimepicker({
+           $('#evento-dia').bootstrapMaterialDatePicker({ 
+        	   format : 'DD-MM-YYYY HH:mm', 
 	        	   <c:if test="${not empty evento}">	        	   
 	        	   	defaultDate:"${evento.fecha}",
 	        	   	defaultTime:"${evento.hora}",
@@ -86,15 +91,16 @@
 	        	   	dayOfWeekStart : 1,
 	          	 	lang:'es',
 	          	 	inline: true,
-                	sideBySide: true
+                	sideBySide: true,
+                	minDate:new Date()
                 	
                 
                 
 	          	 
 	          	 });
-	          	 $('#datetimepicker').datetimepicker({value:'',step:30,minDate:new Date()});
+	          	
 	
-	          	 $('.some_class').datetimepicker();
+	          	
 	 		</script>  
 	 		<div class="col-md-1"></div>
 	 		<div class="col-md-8"> 
@@ -137,6 +143,6 @@
 
 </script>
 <script src="./js/validator.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
 </jsp:body>	
 </t:baseAdmin>

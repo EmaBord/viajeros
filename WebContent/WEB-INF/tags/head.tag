@@ -14,12 +14,21 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
+    <link rel="stylesheet" href="./plugins/select2/select2.min.css">
     <link rel="stylesheet" href="./dist/css/infopool.min.css">
+    
 
     <link rel="stylesheet" href="./dist/css/skins/_all-skins.min.css">
      <link rel="stylesheet" href='./datetimepicker/jquery.datetimepicker.css'>
-     <script src="./datetimepicker/jquery.js"></script>
-	<script src="./datetimepicker/jquery.datetimepicker.js"></script>
+     
+	<link rel="stylesheet" href="./plugins/iCheck/all.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	
+	  <link rel="stylesheet" href="./datetimepicker-material/css/bootstrap-material-datetimepicker.css" />
+	   
+
+	
 	
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,6 +38,6 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   </head>
 </head>

@@ -1,11 +1,16 @@
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="i18n.i18n" />
 <%@ tag import="model.usuario.Usuario"%>
 <%@tag import="org.apache.struts2.components.ElseIf"%>
 <%@tag description="Tag baseAdmin" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@attribute name="evento" fragment="true" %>
 <%@attribute name="viajeros" fragment="true" %>
+
 <%@attribute name="evento_nuevo" fragment="true" %>
+<%@attribute name="recorrido_nuevo" fragment="true" %>
 <%@attribute name="eventos" fragment="true" %>
 <%@attribute name="mailbox" fragment="true" %>
 
@@ -14,7 +19,7 @@
 <tags:head/>
 <% Usuario u = (Usuario) session.getAttribute("usuario"); 
 if (u == null)response.sendError(HttpServletResponse.SC_NOT_FOUND);
-else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServletResponse.SC_NOT_FOUND);
+else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {%>
 <body class="hold-transition skin-blue sidebar-mini fixed " style="font-family: 'Comfortaa', cursive;">
 					    <div class="wrapper">						
@@ -206,25 +211,13 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 						        <section class="sidebar">
 						          <!-- Sidebar user panel -->
 						          <ul class="sidebar-menu">
-						            <li class="header">Menú principal</li>
-						             <li class="treeview <jsp:invoke fragment="evento"/>">
-							              <a href="#" >
-							                <i class="fa  fa-calendar"></i> <span>Eventos</span> <i class="fa fa-angle-left pull-right"></i>
-							              </a>
-							              <ul class="treeview-menu">
-							                <li <jsp:invoke fragment="evento_nuevo"/>><a href="/viajeros/evento" id="newEvent" ><i class="fa fa-calendar-plus-o"></i> Nuevo evento</a></li>
+						            <li class="header"><fmt:message key="menu_principal" /></li>
+						             
+						            <li <jsp:invoke fragment="recorrido_nuevo"/>><a href="/viajeros/recorrido" id="newJournal" > <i class="material-icons">add_location</i><span> <fmt:message key="crear_viaje" /></span></a></li>
 							                <li>
-							                      
-							                <li  <jsp:invoke fragment="eventos"/>><a href="/viajeros/listarEventos" id="listEvent"><i class="fa fa-th"></i> Activos</a></li>
-							                
-							              </ul>
-						            </li>
-						            
-						            
+						            <li  <jsp:invoke fragment="eventos"/>><a href="/viajeros/listarEventos" id="listEvent"><i class="material-icons">directions</i><span> <fmt:message key="viajes_activos" /> </span></a></li>
 						            <li  <jsp:invoke fragment="viajeros"/>>
-						              <a href="/viajeros/listarViajeros" id="journals">
-						                <i class="fa fa-users"></i>
-						                <span>Viajeros</span>
+						              <a href="/viajeros/listarViajeros" id="journals"><i class="material-icons">traffic</i> <span><fmt:message key="mis_viajes" /></span>
 						                
 						              </a>
 						              
@@ -233,8 +226,8 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 				            
 						            <li  <jsp:invoke fragment="mailbox"/>>
 						              <a href="#" id="mailbox">
-						                <i class="fa fa-envelope"></i> <span>Mensajería</span>
-						                <small class="label pull-right bg-yellow">12</small>
+						                <i class="material-icons">star_border</i> <span><fmt:message key="calificar" /></span>
+						                
 						              </a>
 						            </li>
 						         </ul>
@@ -249,22 +242,35 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 
 						      <div class="control-sidebar-bg"></div>
 						    </div><!-- ./wrapper -->
+	
+
+	
+			    
 						    
-						            <!-- jQuery 2.1.4 -->
-    <script src="./plugins/jQuery/jQuery-2.1.4.min.js"></script>
+						    
+						    
+						    
+	<script src="./plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    
+    	
     <!-- Bootstrap 3.3.5 -->
     <script src="./bootstrap_lte/js/bootstrap.min.js"></script>
     <!-- DataTables -->
     <script src="./plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="./plugins/datatables/dataTables.bootstrap.min.js"></script>
+   	    
+	    <script src="./plugins/select2/select2.full.min.js"></script>
+		<script src="./plugins/iCheck/icheck.min.js"></script>	
+
+
+  <script src="./plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- SlimScroll -->
     <script src="./plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="./plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="./dist/js/app.min.js"></script>
-						    
-	   </body>
+    <script src="./dist/js/app.min.js"></script>					    
+</body>
 	
 </html>
 <%}}%>

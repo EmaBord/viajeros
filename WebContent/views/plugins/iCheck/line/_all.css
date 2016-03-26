@@ -157,7 +157,7 @@
     font-size: 13px;
     line-height: 17px;
     color: #fff;
-    background: #1b7e5a;
+    background: #81415d;
     border: none;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -180,11 +180,11 @@
     .icheckbox_line-green.hover,
     .icheckbox_line-green.checked.hover,
     .iradio_line-green.hover {
-        background: #24AA7A;
+        background: #417d81;
     }
     .icheckbox_line-green.checked,
     .iradio_line-green.checked {
-        background: #1b7e5a;
+        background: #417d81;
     }
         .icheckbox_line-green.checked .icheck_line-icon,
         .iradio_line-green.checked .icheck_line-icon {

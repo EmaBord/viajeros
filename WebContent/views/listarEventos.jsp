@@ -16,7 +16,8 @@
 		class="active"
 	</jsp:attribute>
 <jsp:body>	 
-		
+		<script type="text/javascript" src="./datetimepicker-material/js/moment-with-locales.js"></script>
+		<script type="text/javascript" src="./datetimepicker-material/js/bootstrap-material-datetimepicker.js"></script>
 		<script>
   		
   			function format(string){
@@ -97,7 +98,7 @@
                                                                  									<div class="col-sm-4"></div>
       																								<label class="col-sm-8" for="inputFecha">Día y hora del evento:<div class="text-danger">(recorfirmar)</div></label>
       																								<div class="col-sm-4"></div>
-      																								<div class="col-sm-8"><input type="text" name='fecha'  class="form-control" id="datetimepicker${evento.id}" required /></div>
+      																								<div class="col-sm-8"><input type="text" name='fecha'  class="form-control" id="datetimepicker${evento.id}" placeholder="${evento.fecha} ${evento.hora}" required /></div>
       																								
     																							</div>
                                                                  								<div class="form-group text-center">
@@ -128,20 +129,27 @@
                                                                 							</fieldset>
                                                                 						
                                                                							<script type="text/javascript">
+                                                               								var dateString = "${evento.fecha} ${evento.hora}";
+																							var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/;
+																							var dateArray = reggie.exec(dateString); 
+																							var date = new Date(
+    																						(+dateArray[1]),
+																						    (+dateArray[2])-1, // Careful, month starts at 0!
+    																						(+dateArray[3]),
+    																						(+dateArray[4]),
+    																						(+dateArray[5]),
+    																						(+dateArray[6])
+																							);
                                                               								var id= "#datetimepicker"+"${evento.id}";
-                                                              								
-                                                               								$("#datetimepicker"+"${evento.id}").datetimepicker({
-																									        	   
-	        	   																					defaultDate:format("${evento.fecha}"),
-	        	   																					defaultTime:"${evento.hora}",
+                                                              								$("#datetimepicker"+"${evento.id}").bootstrapMaterialDatePicker({
+																									format : 'DD-MM-YYYY HH:mm',        	   
 	        	   																					
-	        	   
-	        	   																				dayOfWeekStart : 1,
-	          	 																				lang:'es',
-	          	 																				inline: true,
-                																				sideBySide: true
+	          	 																					lang:'es',
+	          	 																			
+                																					minDate:new Date(),
+                																				
                                                                     						});
-                                                    	          	 						$("#datetimepicker"+"${evento.id}").datetimepicker({value:'',step:30,minDate:new Date(), defaultDate: format("${evento.fecha}")});
+                                                    	          	 						
                                                     	          	 						
                                                     									</script>  
                                                     	 		
@@ -191,7 +199,8 @@
           			</div><!-- /.col -->
               </div><!-- /.row -->
   		</section><!-- /.content -->
-  		
+  		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="./js/validator.js"></script>
   		<script>
   		$(function () {
         
@@ -234,8 +243,8 @@
         });
       });
       </script>
-      <script src="./js/validator.js"></script>
-	  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      
+	  
 	  <script>
 		function verificar(iddp,idform){
 	

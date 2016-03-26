@@ -62,13 +62,13 @@
 									<form class="navbar-form navbar-left form-inline" role="search" method="post" action='login' >
 										<div class="form-group">
 										   <label for="mail" style="color:white;">E-mail</label>
-										  <input type="email"  name='email'  class="form-control" id="mail" placeholder="coloque su e-mail">
+										  <input type="email"  name='email'  class="form-control" id="mail" placeholder="<fmt:message key="placeholder_email"/>">
 										</div>
 										<div class="form-group">
-											<label for="mail" style="color:white;">Clave</label>
-											<input type="password" class="form-control" id="pass"  name='clave' placeholder="ingrese su clave">
+											<label for="mail" style="color:white;"><fmt:message key="clave"/></label>
+											<input type="password" class="form-control" id="pass"  name='clave' placeholder="<fmt:message key="placeholder_clave"/>">
 										</div>
-										<button type="submit" class="btn btn-success btn-flat" style="background-color:#84CACE;">iniciar sesión</button>
+										<button type="submit" class="btn btn-success btn-flat" style="background-color:#84CACE;"><fmt:message key="iniciar_sesion"/></button>
 									</form>
 							  </ul>
 							</div>
@@ -76,8 +76,8 @@
 					</nav>	
 					<div>
 							<div class="col-md-8">
-							  <h2 class="featurette-heading">Bienvenid@ a InfoPool! <span class="text-muted">La red social de viajes comunitarios para informátic@s.</span></h2>
-							  <p class="lead">Registrese en infopool y podrá viajar a congresos o incluso a su trabajo.</p>
+							  <h2 class="featurette-heading"><fmt:message key="bienvenido"/>! <span class="text-muted"><fmt:message key="red_social"/></span></h2>
+							  <p class="lead"><fmt:message key="register_at"/></p>
 							  <img src="./views/dist/img/auto.jpg" alt="tutu" class="img-thumbnail">
 							</div>
 							</div>
@@ -87,14 +87,14 @@
 										<a href=""><b></a>
 									</div>
 								<div class="register-box-body">
-									<p class="login-box-msg">Registro de un nuevo viajero</p>
+									<p class="login-box-msg"><fmt:message key="register_titulo"/></p>
 									<form method = 'post' action ='registerAction' data-toggle="validator" role="form">
 										  <div class="form-group has-feedback">
-											<input type="text"  name='nombre' class="form-control" placeholder="Nombre" required>
+											<input type="text"  name='nombre' class="form-control" placeholder="<fmt:message key="register_name"/>" required>
 											<span class="glyphicon glyphicon-user form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
-											<input type="text"  name='apellido' class="form-control" placeholder="Apellido" required>
+											<input type="text"  name='apellido' class="form-control" placeholder="<fmt:message key="register_surname"/>" required>
 											<span class="glyphicon glyphicon-user form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
@@ -102,11 +102,11 @@
 											<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
-											<input type="password" class="form-control" name='clave' id="clave"placeholder="Contraseña" required>
+											<input type="password" class="form-control" name='clave' id="clave"placeholder="<fmt:message key="register_pass"/>" required>
 											<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
-											<input type="password" class="form-control" name='clave2' placeholder="Repetir contraseña" required required data-match="#clave" data-match-error="Las claves no coinciden">
+											<input type="password" class="form-control" name='clave2' placeholder="<fmt:message key="register_repetir_pass"/>" required required data-match="#clave" data-match-error="Las claves no coinciden">
 											<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 											  <div class="help-block with-errors"></div> 
 										  </div>
@@ -115,20 +115,20 @@
 											<div class="col-xs-10">
 											  <div class="checkbox icheck">
 												<label>
-												  <input type="checkbox" required> Acepto los <a href="#">términos y condiciones</a>
+												  <input type="checkbox" required> <fmt:message key="acepto_los"/><a href="#"> <fmt:message key="terminos_condiciones"/></a>
 												</label>
 											  </div>
 											</div><!-- /.col -->
 											<div class="col-xs-12	">
-											  <button type="submit" class="btn btn-success btn-block btn-flat">Registrarme</button>
+											  <button type="submit" class="btn btn-success btn-block btn-flat"><fmt:message key="registrarme"/></button>
 											</div><!-- /.col -->
 										  </div>
 									</form>
 			
 									<div class="social-auth-links text-center">
-									  <p> Sino</p>
-									  <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Registrate con Facebook</a>
-									  <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Registrate con Google+</a>
+									  <p> <fmt:message key="registro_o"/></p>
+									  <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> <fmt:message key="login_facebook"/></a>
+									  <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> <fmt:message key="login_google"/></a>
 									</div>
 			
 									

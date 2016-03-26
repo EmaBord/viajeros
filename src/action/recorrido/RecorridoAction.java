@@ -1,4 +1,4 @@
-package action.evento;
+package action.recorrido;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import dao.evento.EventoDAO;
 
 @Conversion
-public class EventoAction extends TemplateMethod {	/**
+public class RecorridoAction extends TemplateMethod {	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class EventoAction extends TemplateMethod {	/**
 	String hora;	
 	
 	public String execute(){
-		String result = "";		
+		/*String result = "";		
 		result = this.verifyUserAdmin();
 		if (result.equals("200")){	
 				if (this.isValid()){
@@ -34,6 +34,7 @@ public class EventoAction extends TemplateMethod {	/**
 					e.setLugar(getLugar());
 					e.setNombre(getNombre());
 					e.setSitio_web(getSitioweb());
+					System.out.println("longi:"+getFecha().length());
 					this.reformat();
 					e.setFecha(getFecha());
 					e.setHora(getHora());						
@@ -42,10 +43,10 @@ public class EventoAction extends TemplateMethod {	/**
 						eventoDAO.save(e);	
 						addData("eventos", eventoDAO.list());
 						addMessage("mensaje_nuevo_evento", "El evento "+getNombre()+" ha sido agregado con éxito");
-						return "add_evento";
+						return "add_recorrido";
 					}else{						
 						addMessage("evento_existe",e);
-						return "add_evento";
+						return "add_recorrido";
 					}					
 				}else{
 					//addMessage("mensaje_nuevo_evento_error", "Recuerde que debe selecionar la fecha y hora del evento, ingresar el nombre y el lugar ");
@@ -53,7 +54,8 @@ public class EventoAction extends TemplateMethod {	/**
 				}
 				
 			}
-		return result;
+		return result;*/
+		return "add_recorrido";
 		
 	}
 	private boolean isValid() {
@@ -172,8 +174,8 @@ public class EventoAction extends TemplateMethod {	/**
 	}
 	
 	private void reformat(){
-		String[] r = this.fecha.split("-");
-		this.setFecha (r[2].split(" ")[0]+"-"+r[1]+"-"+r[0]);
+		String[] r = this.fecha.split("/");
+		this.setFecha (r[2].split(" ")[0]+"/"+r[1]+"/"+r[0]);
 		this.setHora(r[2].split(" ")[1]);
 
 		
