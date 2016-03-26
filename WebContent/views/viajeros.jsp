@@ -44,10 +44,10 @@
 						                      <th>Apellido</th>
 						                      <th>Email</th>										                        
 						                      <th>Telefono</th>
-						                      <th>Calificaciones Positivas</th>
+						                      <!--<th>Calificaciones Positivas</th>
 						                      <th>Calificaciones Negativas</th>
 						                      <th>Denuncias Recibidas</th>
-						                      <th>Denuncias Hechas</th>
+						                      <th>Denuncias Hechas</th>-->
 						                      <th>Bloquear</th>
 						                      <th>Desbloquear</th>
 						                      
@@ -70,10 +70,10 @@
 						                  			
 						                  			
 						                  			</td>
-						                  			<td class="text-center">${positivas[viajero.id] }</td>
+						                  			<!--<td class="text-center">${positivas[viajero.id] }</td>
 						                  			<td class="text-center">${negativas[viajero.id] }</td>
 						                  			<td class="text-center">${d_recibidas[viajero.id] }</td>
-						                  			<td class="text-center">${d_hechas[viajero.id] }</td>
+						                  			<td class="text-center">${d_hechas[viajero.id] }</td>-->
 						                  			<td class="text-center">
 						                  			<c:if test="${not viajero.bloqueado}">	
 						                  				<form method="post" action=../bloquearViajero id='block${viajero.id}'>
@@ -118,10 +118,10 @@
 						                      <th>Apellido</th>
 						                      <th>Email</th>										                        
 						                      <th>Telefono</th>
-						                      <th>Calificaciones</th>
+						                      <!--<th>Calificaciones</th>
 						                      <th>Calificaciones </th>
 						                      <th>Denuncias Rebidas</th>
-						                      <th>Denuncias Hechas</th>
+						                      <th>Denuncias Hechas</th>-->
 						                      <th>Bloquear</th>
 						                      <th>Desbloquear</th>
 						                      

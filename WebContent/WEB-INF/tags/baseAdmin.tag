@@ -1,4 +1,8 @@
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="i18n.i18n" />
 <%@ tag import="model.usuario.Usuario"%>
 <%@tag import="org.apache.struts2.components.ElseIf"%>
 <%@tag description="Tag baseAdmin" pageEncoding="UTF-8"%>
@@ -206,25 +210,28 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 						        <section class="sidebar">
 						          <!-- Sidebar user panel -->
 						          <ul class="sidebar-menu">
-						            <li class="header">Menú principal</li>
+						            <li class="header"><fmt:message key="menu_principal" /></li>
 						             <li class="treeview <jsp:invoke fragment="evento"/>">
 							              <a href="#" >
-							                <i class="fa  fa-calendar"></i> <span>Eventos</span> <i class="fa fa-angle-left pull-right"></i>
+							                <i class="fa  fa-calendar"></i> <span><fmt:message key="eventos" /></span> <i class="fa fa-angle-left pull-right"></i>
 							              </a>
 							              <ul class="treeview-menu">
-							                <li <jsp:invoke fragment="evento_nuevo"/>><a href="/viajeros/evento" id="newEvent" ><i class="fa fa-calendar-plus-o"></i> Nuevo evento</a></li>
+							              	 <li <jsp:invoke fragment="evento_nuevo"/>><a href="/viajeros/evento" id="newEvent" ><i class="fa fa-calendar-plus-o"></i> <fmt:message key="evento_nuevo" /></a></a></li>
+							                <li>
+							              
+			
 							                <li>
 							                      
-							                <li  <jsp:invoke fragment="eventos"/>><a href="/viajeros/listarEventos" id="listEvent"><i class="fa fa-th"></i> Activos</a></li>
+							                <li  <jsp:invoke fragment="eventos"/>><a href="/viajeros/listarEventos" id="listEvent"><i class="fa fa-th"></i> <fmt:message key="eventos_activos" /></a></li>
 							                
 							              </ul>
-						            </li>
+						          
 						            
 						            
 						            <li  <jsp:invoke fragment="viajeros"/>>
 						              <a href="/viajeros/listarViajeros" id="journals">
 						                <i class="fa fa-users"></i>
-						                <span>Viajeros</span>
+						                <span><fmt:message key="viajeros" /></span>
 						                
 						              </a>
 						              
@@ -233,7 +240,7 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 				            
 						            <li  <jsp:invoke fragment="mailbox"/>>
 						              <a href="#" id="mailbox">
-						                <i class="fa fa-envelope"></i> <span>Mensajería</span>
+						                <i class="fa fa-envelope"></i> <span><fmt:message key="mensajeria" /></span>
 						                <small class="label pull-right bg-yellow">12</small>
 						              </a>
 						            </li>

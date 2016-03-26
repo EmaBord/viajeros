@@ -1,12 +1,16 @@
 package action.evento;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
 import template.method.TemplateMethod;
 import model.evento.Evento;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import dao.evento.EventoDAO;
@@ -25,6 +29,7 @@ public class EventoAction extends TemplateMethod {	/**
 	String hora;	
 	
 	public String execute(){
+		HttpServletRequest request = ServletActionContext.getRequest();
 		String result = "";		
 		result = this.verifyUserAdmin();
 		if (result.equals("200")){	
@@ -40,8 +45,8 @@ public class EventoAction extends TemplateMethod {	/**
 					if (!eventoDAO.existe(getNombre(), getFecha(),getLugar(),hora)){						
 						e.setUsuario(getUsuario());
 						eventoDAO.save(e);	
-						addData("eventos", eventoDAO.list());
-						addMessage("mensaje_nuevo_evento", "El evento "+getNombre()+" ha sido agregado con éxito");
+						addData("eventos", eventoDAO.list());						
+						addMessage("mensaje_nuevo_evento", getText("evento_exito"));
 						return "add_evento";
 					}else{						
 						addMessage("evento_existe",e);
@@ -101,11 +106,11 @@ public class EventoAction extends TemplateMethod {	/**
 				e.setHora(getHora());
 				e.setUsuario(getUsuario());
 				eventoDAO.update(e);					
-				addMessage("update_evento", "Se ha modificado correctamente el evento");
+				addMessage("update_evento", getText("evento_update"));
 				addData("eventos", eventoDAO.list());
 				return SUCCESS;					
 			}else
-				addMessage("update_evento_error", "Deben completarse todos los campos excepto sitio web!");		
+				addMessage("update_evento_error", getText("evento_update_error"));		
 		}
 		return result;		
 	}
