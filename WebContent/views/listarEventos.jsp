@@ -6,8 +6,11 @@
 <%@ page import="model.evento.Evento"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="i18n.i18n" />
 <t:baseAdmin>
 <jsp:attribute name="evento">
 		active
@@ -29,10 +32,10 @@
   		</script>         
      	<!-- Content Header (Page header) -->
     	<section class="content-header">
-  			<h1>Eventos<small>activos</small></h1>  		
+  			<h1><fmt:message key="eventos" /><small><fmt:message key="eventos_activos" /></small></h1>  		
   			<ol class="breadcrumb">
 	        	<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-	        	<li class="active">Lista de eventos</li>
+	        	<li class="active"><fmt:message key="evento_lista" /></li>
      		 </ol>
   		</section>  		  
   	    <!-- Main content -->
@@ -43,8 +46,8 @@
   					<div class="col-sm-6">
   						<div class="alert alert-success alert-dismissable">
                    			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    		<h4>	<i class="icon fa fa-check"></i> Todo ok!</h4>
-                    		${update_evento}
+                    		<h4>	<i class="icon fa fa-check"></i> <fmt:message key="todo_ok" /></h4>
+							<fmt:message key="evento_update" />
                     	</div>
                   
   				</div>
@@ -54,17 +57,17 @@
     				<div class="col-xs-12">
 		    				<div class="box">
 					              <div class="box-header">
-					                <h3 class="box-title">Lista de eventos</h3>
+					                <h3 class="box-title"><fmt:message key="evento_lista" /></h3>
 					              </div><!-- /.box-header -->
 					              <div class="box-body">
 					                <table id="eventos" class="table table-bordered table-striped">
 					                  <thead>
 					                    <tr class="success">
-					                      <th>Nombre</th>
-					                      <th>Fecha y Hora</th>
-					                      <th>Lugar</th>										                        
-					                      <th>Sitio Web</th>
-					                      <th>Operacion</th>
+					                      <th><fmt:message key="evento_nombre" /></th>
+					                      <th><fmt:message key="evento_dia_hora" /></th>
+					                      <th><fmt:message key="evento_lugar" /></th>										                        
+					                      <th><fmt:message key="evento_sitioweb" /></th>
+					                      <th><fmt:message key="operacion" /></th>
 					                      
 					                    </tr>
 					                  </thead>
@@ -85,7 +88,7 @@
                 															
                   															<div class="modal-header">
                     															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    															<h4 class="modal-title">Modificar ${evento.nombre}</h4>
+                    															<h4 class="modal-title"><fmt:message key="modificar" /> ${evento.nombre}</h4>
                   															</div>
                   															<div class="modal-body ">
                         														<div class="row">
@@ -95,21 +98,21 @@
                                                                  								<table class="col-md-offset-1">
                                                                  									<tbody>
                                                                  									<tr>
-                                                                 										<td><label>Dia y hora del evento <div class="text-danger">(reconfirmar)</div> </label></td>
+                                                                 										<td><label><fmt:message key="evento_dia_hora" /> <div class="text-danger"><fmt:message key="reconfirmar" /></div> </label></td>
                                                                  										<td><input type="text" name='fecha'  class="form-control " id="datetimepicker${evento.id}" placeholder="${evento.fecha} ${evento.hora}" required /></td>
                                                                  									</tr>
                                                                  									<tr>
-                                                                 										<td><label>Nombre del evento: <div class="help-block with-errors"></div></label></td>
-                                                                 										<td><input type="text" name='nombre' id="nombreform${evento.id}" class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required data-error="No puede quedar en blanco el nombre"/></td>
+                                                                 										<td><label><fmt:message key="evento_nombre" />: <div class="help-block with-errors"></div></label></td>
+                                                                 										<td><input type="text" name='nombre' id="nombreform${evento.id}" class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required /></td>
                                                                  									</tr>
                                                                  									<br>
                                                                  									<tr>
-                                                                 										<td><label>Lugar/Dirección: <div class="help-block with-errors"></div></label></td>
-                                                                 										<td><input type="text" class="form-control"  name='lugar'id="lugarform${evento.id}" value="${evento.lugar }" required data-error="No puede quedar en blanco el lugar"/></td>
+                                                                 										<td><label><fmt:message key="evento_lugar" />: <div class="help-block with-errors"></div></label></td>
+                                                                 										<td><input type="text" class="form-control"  name='lugar'id="lugarform${evento.id}" value="${evento.lugar }" required /></td>
                                                                  									</tr>
                                                                  									<br>
                                                                  									<tr>
-                                                                 										<td><label>Sitio Web: <div class="help-block with-errors"></div></label></td>
+                                                                 										<td><label><fmt:message key="evento_sitioweb" />: <div class="help-block with-errors"></div></label></td>
                                                                  										<td><input type="text" class="form-control" id="inputSitio" name='sitioweb'value="${evento.sitio_web }"/></td>
                                                                  									</tr>
                                                                  									</tbody>
@@ -127,22 +130,11 @@
                                                                 							</fieldset>
                                                                 						
                                                                							<script type="text/javascript">
-                                                               								var dateString = "${evento.fecha} ${evento.hora}";
-																							var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/;
-																							var dateArray = reggie.exec(dateString); 
-																							var date = new Date(
-    																						(+dateArray[1]),
-																						    (+dateArray[2])-1, // Careful, month starts at 0!
-    																						(+dateArray[3]),
-    																						(+dateArray[4]),
-    																						(+dateArray[5]),
-    																						(+dateArray[6])
-																							);
-                                                              								var id= "#datetimepicker"+"${evento.id}";
+                                                               								
                                                               								$("#datetimepicker"+"${evento.id}").bootstrapMaterialDatePicker({
 																									format : 'DD-MM-YYYY HH:mm',        	   
 	        	   																					
-	          	 																					lang:'es',
+	          	 																					lang:'${language}',
 	          	 																			
                 																					minDate:new Date(),
                 																				
@@ -157,8 +149,8 @@
                   															<div class="modal-footer">
                   															
                                                                  				
-                    															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal">Cancelar</button>
-                    															<button type="button" class="btn bg-olive " onclick="verificar('datetimepicker${evento.id}','form${evento.id}')">Guardar cambios</button>
+                    															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal"><fmt:message key="cancelar" /></button>
+                    															<button type="button" class="btn bg-olive " onclick="verificar('datetimepicker${evento.id}','form${evento.id}')"><fmt:message key="guardar" /></button>
                   															</div>
                   															
                   															</form>
@@ -185,11 +177,11 @@
 					                  </tbody>
 					                  <tfoot>
 					                    <tr class="success">
-					                      <th>Nombre</th>
-					                      <th>Fecha Y Hora</th>
-					                      <th>Lugar</th>										                        
-					                      <th>Sitio Web</th>
-					                      <th>Operacion</th>
+					                      <th><fmt:message key="evento_nombre" /></th>
+					                      <th><fmt:message key="evento_dia_hora" /></th>
+					                      <th><fmt:message key="evento_lugar" /></th>										                        
+					                      <th><fmt:message key="evento_sitioweb" /></th>
+					                      <th><fmt:message key="operacion" /></th>
 					                    </tr>
 					                  </tfoot>
 					                </table>
@@ -214,23 +206,22 @@
           
           "language":{
         	    "decimal":        "",
-        	    "emptyTable":     "Datos no encontrados",
-        	    "info":           "Mostrando  _END_ de _TOTAL_ entradas",
-        	    "infoEmpty":      "Mostrando 0 de 0 of 0 filas",
-        	    "infoFiltered":   "(filtrado desde _MAX_ filas)",
+        	    "emptyTable":     "<fmt:message key="datos_no_encontrados" />",
+        	    "info":           "<fmt:message key="mostrando" />  _END_ de _TOTAL_ <fmt:message key="entradas" />",
+        	    "infoEmpty":      "<fmt:message key="mostrando" /> 0 <fmt:message key="de" /> 0 <fmt:message key="filas" />",
+        	    "infoFiltered":   "(<fmt:message key="filtrado" /> <fmt:message key="desde" /> _MAX_ <fmt:message key="filas" />)",
         	    "infoPostFix":    "",
         	    "thousands":      ",",
-        	    "lengthMenu":     "Mostrar _MENU_ filas",
-        	    "lface"		:     "pepe",
-        	    "faceoadingRecords": "Cargando...",
-        	    "processing":     "Procesando...",
-        	    "search":         "Buscar: ",
-        	    "zeroRecords":    "0 resultados",
+        	    "lengthMenu":     "<fmt:message key="mostrando" /> _MENU_ <fmt:message key="filas" />",
+        	    "faceoadingRecords": "<fmt:message key="cargando" />...",
+        	    "processing":     "<fmt:message key="procesando" />...",
+        	    "search":         "<fmt:message key="buscar" />: ",
+        	    "zeroRecords":    "0 <fmt:message key="resultados" />",
         	    "paginate": {
-        	        "first":      "Primero",
-        	        "last":       "Ultimo",
-        	        "next":       "Siguiente",
-        	        "previous":   "Anterior"
+        	        "first":      "<fmt:message key="primero" />",
+        	        "last":       "<fmt:message key="ultimo" />",
+        	        "next":       "<fmt:message key="siguiente" />",
+        	        "previous":   "<fmt:message key="anterior" />"
         	    },
         	    "aria": {
         	        "sortAscending":  ": activate to sort column ascending",
@@ -252,13 +243,13 @@
 					if (document.getElementById("lugar"+idform).value){
 						document.getElementById(idform).submit();
 					}else{
-						alert("El campo lugar no puede estar vacío");
+						alert("<fmt:message key="evento_lugar_error" />");
 					}
 				}else{
-				     alert("El campo nombre no puede quedar vacío");
+				     alert("<fmt:message key="evento_nombre_error" />");
 				     }
 			}else{
-				alert("Debe reconfirmar el dia y la hora para el evento");	
+				alert("<fmt:message key="evento_reconfirmar_dia_hora" />");	
 			}
 					
 		}
@@ -266,7 +257,7 @@
 	</script>
      <script>
 	function eliminar(idform){
-		var r = confirm("Seguro desea eliminar el evento?");
+		var r = confirm("<fmt:message key="evento_pregunta_eliminar" />");
 		if (r == true) {
     		document.getElementById(idform).submit();
 		}
