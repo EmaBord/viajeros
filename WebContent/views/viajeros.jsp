@@ -6,9 +6,11 @@
 <%@ page import="model.evento.Evento"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="i18n.i18n" />
 <t:baseAdmin>
 <jsp:attribute name="viajeros">
 		class="active"
@@ -19,10 +21,10 @@
 		        
      	<!-- Content Header (Page header) -->
     	<section class="content-header">
-  			<h1>Viajeros</h1>  		
+  			<h1><fmt:message key="viajeros" /></h1>  		
   			<ol class="breadcrumb">
 	        	<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-	        	<li class="active">Lista de viajeros</li>
+	        	<li class="active"><fmt:message key="viajeros_lista" /></li>
      		 </ol>
   		</section>  		  
   	    <!-- Main content -->
@@ -33,23 +35,23 @@
     				<div class="col-xs-12">
 		    				<div class="box">
 					              <div class="box-header">
-					                <h3 class="box-title">Lista de viajeros</h3>
+					                <h3 class="box-title"><fmt:message key="viajeros_lista" /></h3>
 					              </div><!-- /.box-header -->
 					              <div class="box-body">
 					              	<div class="table-responsive"> 
 						                <table id="viajeros" class="table  table-responsive table-bordered table-striped ">
 						                  <thead>
 						                    <tr class="success">
-						                      <th>Nombre</th>
-						                      <th>Apellido</th>
-						                      <th>Email</th>										                        
-						                      <th>Telefono</th>
+						                      <th><fmt:message key="viajero_nombre" /></th>
+						                      <th><fmt:message key="viajero_apellido" /></th>
+						                      <th><fmt:message key="viajero_email" /></th>										                        
+						                      <th><fmt:message key="viajero_telefono" /></th>
 						                      <!--<th>Calificaciones Positivas</th>
 						                      <th>Calificaciones Negativas</th>
 						                      <th>Denuncias Recibidas</th>
 						                      <th>Denuncias Hechas</th>-->
-						                      <th>Bloquear</th>
-						                      <th>Desbloquear</th>
+						                      <th><fmt:message key="bloquear" /></th>
+						                      <th><fmt:message key="desbloquear" /></th>
 						                      
 						                    </tr>
 						                  </thead>
@@ -114,16 +116,16 @@
 						                  
 						                <tfoot>
 						                    <tr class="success">
-						                      <th>Nombre</th>
-						                      <th>Apellido</th>
-						                      <th>Email</th>										                        
-						                      <th>Telefono</th>
+						                      <th><fmt:message key="viajero_nombre" /></th>
+						                      <th><fmt:message key="viajero_apellido" /></th>
+						                      <th><fmt:message key="viajero_email" /></th>										                        
+						                      <th><fmt:message key="viajero_telefono" /></th>
 						                      <!--<th>Calificaciones</th>
 						                      <th>Calificaciones </th>
 						                      <th>Denuncias Rebidas</th>
 						                      <th>Denuncias Hechas</th>-->
-						                      <th>Bloquear</th>
-						                      <th>Desbloquear</th>
+						                      <th><fmt:message key="bloquear" /></th>
+						                      <th><fmt:message key="desbloquear" /></th>
 						                      
 						                    </tr>
 						                  </tfoot>
@@ -149,23 +151,22 @@
           
           "language":{
         	    "decimal":        "",
-        	    "emptyTable":     "Datos no encontrados",
-        	    "info":           "Mostrando  _END_ de _TOTAL_ entradas",
-        	    "infoEmpty":      "Mostrando 0 de 0 of 0 filas",
-        	    "infoFiltered":   "(filtrado desde _MAX_ filas)",
+        	    "emptyTable":     "<fmt:message key="datos_no_encontrados" />",
+        	    "info":           "<fmt:message key="mostrando" />  _END_ de _TOTAL_ <fmt:message key="entradas" />",
+        	    "infoEmpty":      "<fmt:message key="mostrando" /> 0 <fmt:message key="de" /> 0 <fmt:message key="filas" />",
+        	    "infoFiltered":   "(<fmt:message key="filtrado" /> <fmt:message key="desde" /> _MAX_ <fmt:message key="filas" />)",
         	    "infoPostFix":    "",
         	    "thousands":      ",",
-        	    "lengthMenu":     "Mostrar _MENU_ filas",
-        	    "lface"		:     "pepe",
-        	    "faceoadingRecords": "Cargando...",
-        	    "processing":     "Procesando...",
-        	    "search":         "Buscar: ",
-        	    "zeroRecords":    "0 resultados",
+        	    "lengthMenu":     "<fmt:message key="mostrando" /> _MENU_ <fmt:message key="filas" />",
+        	    "faceoadingRecords": "<fmt:message key="cargando" />...",
+        	    "processing":     "<fmt:message key="procesando" />...",
+        	    "search":         "<fmt:message key="buscar" />: ",
+        	    "zeroRecords":    "0 <fmt:message key="resultados" />",
         	    "paginate": {
-        	        "first":      "Primero",
-        	        "last":       "Ultimo",
-        	        "next":       "Siguiente",
-        	        "previous":   "Anterior"
+        	        "first":      "<fmt:message key="primero" />",
+        	        "last":       "<fmt:message key="ultimo" />",
+        	        "next":       "<fmt:message key="siguiente" />",
+        	        "previous":   "<fmt:message key="anterior" />"
         	    },
         	    "aria": {
         	        "sortAscending":  ": activate to sort column ascending",
@@ -181,14 +182,14 @@
 	 
      <script>
 	function bloquear(idform){
-		var r = confirm("Seguro desea bloquer al viajero?");
+		var r = confirm("<fmt:message key="viajero_pregunta_bloquear" />");
 		if (r == true) {
     		document.getElementById(idform).submit();
 		}
 		
 	}
 	function desbloquear(idform){
-		var r = confirm("Seguro desea desbloquer al viajero?");
+		var r = confirm("<fmt:message key="viajero_pregunta_desbloquear" />");
 		if (r == true) {
     		document.getElementById(idform).submit();
 		}
