@@ -1,67 +1,103 @@
 package action.recorrido;
-import java.util.ArrayList;
-import java.util.List;
+
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
 import template.method.TemplateMethod;
 import model.evento.Evento;
+import model.recorrido.Recorrido;
+import model.recorrido.RecorridoMasUnDia;
+import model.recorrido.RecorridoUnico;
+import model.usuario.Usuario;
 
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import dao.evento.EventoDAO;
+import dao.recorrido.RecorridoDAO;
 
 @Conversion
 public class RecorridoAction extends TemplateMethod {	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private EventoDAO eventoDAO;	
-	String nombre;
-	String fecha;
-	String sitioweb;
-	String lugar;
-	private List<Evento> eventos = new ArrayList<Evento>();
-	String hora;	
+	private EventoDAO eventoDAO;
+	private RecorridoDAO recorridoDAO;
+	String salida;
+	String desde;
+	String llegada;
+	String hasta;
+	String ruta;
+	String periodicidad;
+	String evento;
+	String [] dias;
+	String finaliza;
+	String [] nopermitido;
+	String asientos;
+	
+	
 	
 	public String execute(){
-		/*String result = "";		
-		result = this.verifyUserAdmin();
-		if (result.equals("200")){	
-				if (this.isValid()){
-					Evento e;
-					e = new Evento();
-					e.setLugar(getLugar());
-					e.setNombre(getNombre());
-					e.setSitio_web(getSitioweb());
-					System.out.println("longi:"+getFecha().length());
-					this.reformat();
-					e.setFecha(getFecha());
-					e.setHora(getHora());						
-					if (!eventoDAO.existe(getNombre(), getFecha(),getLugar(),hora)){						
-						e.setUsuario(getUsuario());
-						eventoDAO.save(e);	
-						addData("eventos", eventoDAO.list());
-						addMessage("mensaje_nuevo_evento", "El evento "+getNombre()+" ha sido agregado con éxito");
-						return "add_recorrido";
-					}else{						
-						addMessage("evento_existe",e);
-						return "add_recorrido";
-					}					
-				}else{
-					//addMessage("mensaje_nuevo_evento_error", "Recuerde que debe selecionar la fecha y hora del evento, ingresar el nombre y el lugar ");
-					return "add_evento";
-				}
-				
-			}
-		return result;*/
+		addData("eventos", eventoDAO.list());			
 		return "add_recorrido";
 		
 	}
-	private boolean isValid() {
-		// TODO Auto-generated method stub
-		return getNombre() != null  && getFecha()!=null && getLugar() != null && !(getFecha().length()==0);
+	public String new_recorrido(){	
+		String result = "add_recorrido";
+		HttpServletRequest request = ServletActionContext.getRequest();
+		if (!request.getMethod().equals("POST"))
+            return Action.ERROR;
+		if (this.getPeriodicidad().equals("0"))
+			return this.crear_viaje_unico();
+		else
+			if (this.getPeriodicidad().equals("1"))
+				return this.crear_viaje_mas_de_un_dia();		
+		return result;
+		
+		
 	}
+	private String crear_viaje_mas_de_un_dia() {
+		RecorridoMasUnDia recorrido = new RecorridoMasUnDia();
+		this.cargar_datos(recorrido);
+		recorrido.setFinaliza(this.getFinaliza());
+		recorrido.setDias(this.getDias());
+		recorridoDAO.save(recorrido);
+		return "home";
+		
+	}
+	private String crear_viaje_unico() {
+		RecorridoUnico recorrido = new RecorridoUnico();
+		this.cargar_datos(recorrido);
+		recorridoDAO.save(recorrido);
+		return "home";
+	}
+	
+	private void cargar_datos(Recorrido recorrido){
+		recorrido.setSalida(this.getSalida());
+		recorrido.setDesde(this.getDesde());
+		recorrido.setLlegada(this.getLlegada());
+		recorrido.setHasta(this.getHasta());
+		recorrido.setAsientos(new Integer(this.getAsientos()));
+		recorrido.setUrlMaps(this.getRuta());
+		if (this.getEvento()!=null){
+			Evento evento = eventoDAO.getEvento(new Long(this.getEvento()));
+			recorrido.setEvento(evento);
+		}
+		recorrido.setNopermitido(this.getNopermitido());
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		Usuario creador = (Usuario) session.get("usuario");
+		recorrido.setCreador(creador);
+		
+	}
+	//private boolean isValid() {
+		// TODO Auto-generated method stub
+		//return getNombre() != null  && getFecha()!=null && getLugar() != null && !(getFecha().length()==0);
+	//}
 	public String list(){	
 		String result = "";
 		result = this.verifyUserAdmin();
@@ -73,6 +109,69 @@ public class RecorridoAction extends TemplateMethod {	/**
 		
 		
 	}
+	
+	public String getAsientos() {
+		return asientos;
+	}
+	public void setAsientos(String asientos) {
+		this.asientos = asientos;
+	}
+	public String getSalida() {
+		return salida;
+	}
+	public void setSalida(String salida) {
+		this.salida = salida;
+	}
+	public String getDesde() {
+		return desde;
+	}
+	public void setDesde(String desde) {
+		this.desde = desde;
+	}
+	public String getLlegada() {
+		return llegada;
+	}
+	public void setLlegada(String llegada) {
+		this.llegada = llegada;
+	}
+	public String getHasta() {
+		return hasta;
+	}
+	public void setHasta(String hasta) {
+		this.hasta = hasta;
+	}
+	public String getRuta() {
+		return ruta;
+	}
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
+	public String getPeriodicidad() {
+		return periodicidad;
+	}
+	public void setPeriodicidad(String periodicidad) {
+		this.periodicidad = periodicidad;
+	}
+
+	public String getEvento() {
+		return evento;
+	}
+	public void setEvento(String evento) {
+		this.evento = evento;
+	}
+	public String[] getDias() {
+		return dias;
+	}
+	public void setDias(String[] dias) {
+		this.dias = dias;
+	}
+	public String getFinaliza() {
+		return finaliza;
+	}
+	public void setFinaliza(String finaliza) {
+		this.finaliza = finaliza;
+	}
+	
 	public String delete(){	
 		String result = "";
 		result = this.verifyUserAdmin();
@@ -87,8 +186,29 @@ public class RecorridoAction extends TemplateMethod {	/**
 		}
 		return result;		
 	}
+	public RecorridoDAO getRecorridoDAO() {
+		return recorridoDAO;
+	}
+	public void setRecorridoDAO(RecorridoDAO recorridoDAO) {
+		this.recorridoDAO = recorridoDAO;
+	}
 	
-	public String update(){	
+	public EventoDAO getEventoDAO() {
+		return eventoDAO;
+	}
+	public void setEventoDAO(EventoDAO eventoDAO) {
+		this.eventoDAO = eventoDAO;
+	}
+	
+	
+	public String[] getNopermitido() {
+		return nopermitido;
+	}
+	public void setNopermitido(String[] nopermitido) {
+		this.nopermitido = nopermitido;
+	}
+	
+	/*public String update(){	
 		String result = "";
 		result = this.verifyUserAdmin();
 		if (result.equals("200")){	
@@ -110,68 +230,13 @@ public class RecorridoAction extends TemplateMethod {	/**
 				addMessage("update_evento_error", "Deben completarse todos los campos excepto sitio web!");		
 		}
 		return result;		
-	}
-	public void setLugar(String lugar){
-		this.lugar = lugar;
-	}
-	public String getLugar(){
-		return lugar;
-	}
-	
-	public void setSitioweb(String sitio_web){
-		this.sitioweb = sitio_web;
-	}
-	public String getSitioweb(){
-		return sitioweb;
-	}
-
-	
-	public void setNombre(String nombre){
-		this.nombre = nombre;
-	}
-	
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return nombre;
-	}
-
-	
-
-	public void setFecha(String fecha){
-			this.fecha = fecha;
-			
-	}
-
-	private void setHora(String hora) {
-		this.hora = hora;
-		
-	}
-	private String getHora() {
-		return hora;
-		
-	}
-	public String getFecha() {
-		// TODO Auto-generated method stub
-		return fecha;
-	}
+	}*/
 
 
 
 
-	
-	
-	public List<Evento> getEventos(){
-		return eventos;
-	}
-	public void setEventos(List<Evento> eventos){
-		this.eventos = eventos;
-	}
-	public EventoDAO getEventoDAO() {
-		return eventoDAO;
-	}
-	public void setEventoDAO(EventoDAO eventoDAO) {
-		this.eventoDAO = eventoDAO;
-	}
+
+	/*
 	
 	private void reformat(){
 		String[] r = this.fecha.split("/");
@@ -180,5 +245,5 @@ public class RecorridoAction extends TemplateMethod {	/**
 
 		
 		
-	}
+	}*/
 }

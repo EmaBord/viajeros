@@ -14,10 +14,13 @@
 		<bean id="rolDAO" class="dao.rol.RolDAOImpl" >
 			<constructor-arg ref="sessionFactory"/>
 		</bean>
+		
 		<bean id="eventoDAO" class="dao.evento.EventoDAOImpl" >
 	 		<constructor-arg ref="sessionFactory"/>
 		</bean>
-		
+		<bean id="recorridoDAO" class="dao.recorrido.RecorridoDAOImpl" >
+			<constructor-arg ref="sessionFactory"/>
+		</bean>
 		<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         	<property name="dataSource" ref="dataSource" />
         	<property name="hibernateProperties">
@@ -36,6 +39,9 @@
         			<value>model.calificacion.Calificacion</value>
         			<value>model.denuncia.Denuncia</value>
         			<value>model.usuario.Usuario</value>
+        			<value>model.recorrido.Recorrido</value>
+        			<value>model.recorrido.RecorridoUnico</value>
+        			<value>model.recorrido.RecorridoMasUnDia</value>
         			
       			</set>
       			

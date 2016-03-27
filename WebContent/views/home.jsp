@@ -148,13 +148,13 @@
 			  </body>
 			  </html>
 	<% }else{ 
-		if (u.getRol().getNombre().equals("admin")){ response.sendRedirect("/adminHome.jsp");%>
+		if (u.getRol().getNombre().equals("admin")){ response.sendRedirect("/viajeros/views/adminHome.jsp");%>
 				
 				 
 	
 	
 		<%}else				
-			response.sendRedirect("/viajeroHome.jsp"); %>
+			response.sendRedirect("/viajeros/views/viajeroHome.jsp"); %>
 			
 		<%} %>
 			

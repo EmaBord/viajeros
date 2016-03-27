@@ -17,7 +17,7 @@
 <html>
 <tags:head/>
 <% Usuario u = (Usuario) session.getAttribute("usuario"); 
-if (u == null)response.sendError(HttpServletResponse.SC_NOT_FOUND);
+if (u == null)response.sendRedirect("/viajeros/");
 else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		else {%>
 <body class="hold-transition skin-blue sidebar-mini fixed " style="font-family: 'Comfortaa', cursive;">

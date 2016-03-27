@@ -52,6 +52,9 @@
 	<action name="recorrido" class="action.recorrido.RecorridoAction" >
 		<result name="add_recorrido" type="redirect">/views/recorridoNuevo.jsp</result>
 	</action>
+	<action name="recorridoNuevo" method="new_recorrido" class="action.recorrido.RecorridoAction" >
+		<result name="home" type="redirect">/views/viajeroHome.jsp</result>
+	</action>
 	
 </package>
 

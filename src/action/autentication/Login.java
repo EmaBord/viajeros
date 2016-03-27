@@ -7,7 +7,7 @@ import model.usuario.Usuario;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+
 
 import dao.evento.EventoDAO;
 import dao.rol.RolDAO;
@@ -53,8 +53,7 @@ public class Login extends ActionSupport  {
 		
 		
 		if (user == null){
-			
-			System.out.println(getEmail());
+
 			if (usuarioDAO.existe(this.getEmail())){
 				Usuario u = usuarioDAO.getUsuario(this.getEmail());
 				session.put("perfil", u.getRol().getNombre());
@@ -76,7 +75,7 @@ public class Login extends ActionSupport  {
 		}
 		
 
-	@RequiredStringValidator(message="El nombre de usuario no puede quedar en blanco") 
+	
 	public String getEmail() {
 		// TODO Auto-generated method stub
 		return email;
@@ -88,7 +87,7 @@ public class Login extends ActionSupport  {
 	public void setClave(String clave){
 		this.clave = clave;
 	}
-	@RequiredStringValidator(message="Debe ingresar una clave")
+	
 	public String getClave() {
 		// TODO Auto-generated method stub
 		return clave;
