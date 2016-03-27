@@ -80,46 +80,44 @@
 					                  					<div class="col-sm-3">					                  						
 					                  							<button type="button" 	 data-toggle="modal" data-target="#${evento.id}" class="btn btn-warning"><i class="fa fa-edit"></i></button>
 					                  							<div class="modal fade" id="${evento.id}" role="dialog">
-              														<div class="modal-dialog modal-lg">
+              														<div class="modal-dialog ">
                 														<div class="modal-content">
-                															<form role="form" class="form-horizontal" method = 'post' action ='../updateEvento' id=form${evento.id}  data-toggle="validator">
+                															
                   															<div class="modal-header">
                     															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     															<h4 class="modal-title">Modificar ${evento.nombre}</h4>
                   															</div>
-                  															<div class="modal-body">
+                  															<div class="modal-body ">
                         														<div class="row">
-                                                      								<div class="col-sm-12 col-md-9 col-lg-11"> 
-                                                    									
-                                                                 							<fieldset>
-                                                                 								
+                        														<form role="form" class="form-horizontal"method = 'post' action ='../updateEvento' id=form${evento.id}  data-toggle="validator">
+                                                      										<fieldset>                                                                 								
                                                                  								<input type="hidden" name='clave' value="${evento.id }"/>  
-                                                                 								<div class="form-group text-center">
-                                                                 									<div class="col-sm-4"></div>
-      																								<label class="col-sm-8" for="inputFecha">Día y hora del evento:<div class="text-danger">(recorfirmar)</div></label>
-      																								<div class="col-sm-4"></div>
-      																								<div class="col-sm-8"><input type="text" name='fecha'  class="form-control" id="datetimepicker${evento.id}" placeholder="${evento.fecha} ${evento.hora}" required /></div>
-      																								
-    																							</div>
-                                                                 								<div class="form-group text-center">
-                                                                 									<div class="col-sm-4">
-                                                                 										<label>Nombre del evento</label>
-                                                                 										<input type="text" name='nombre' class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required data-error="No puede quedar en blanco el nombre"/>
-                                                                 									</div>
-                                                                   									<div class="col-sm-4">
-                                                                 										<label>Lugar/Dirección</label>
-                                                                 										<input type="text" class="form-control" id="inputLugar" name='lugar' value="${evento.lugar }" required data-error="No puede quedar en blanco el lugar"/>  
-                                                                 									</div>
-                                                                 									<div class="col-sm-4">
-                                                                 										<label>Sitio Web</label>
-                                                                 										<input type="text" class="form-control" id="inputSitio" name='sitioweb'value="${evento.sitio_web }"/>
-                                                                 										
-                                                                 									</div>	
-                                                                 										<div class="help-block with-errors"></div> 
-                                                                 								</div>
-                                                                 							
+                                                                 								<table class="col-md-offset-1">
+                                                                 									<tbody>
+                                                                 									<tr>
+                                                                 										<td><label>Dia y hora del evento <div class="text-danger">(reconfirmar)</div> </label></td>
+                                                                 										<td><input type="text" name='fecha'  class="form-control " id="datetimepicker${evento.id}" placeholder="${evento.fecha} ${evento.hora}" required /></td>
+                                                                 									</tr>
+                                                                 									<tr>
+                                                                 										<td><label>Nombre del evento: <div class="help-block with-errors"></div></label></td>
+                                                                 										<td><input type="text" name='nombre' id="nombreform${evento.id}" class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required data-error="No puede quedar en blanco el nombre"/></td>
+                                                                 									</tr>
+                                                                 									<br>
+                                                                 									<tr>
+                                                                 										<td><label>Lugar/Dirección: <div class="help-block with-errors"></div></label></td>
+                                                                 										<td><input type="text" class="form-control"  name='lugar'id="lugarform${evento.id}" value="${evento.lugar }" required data-error="No puede quedar en blanco el lugar"/></td>
+                                                                 									</tr>
+                                                                 									<br>
+                                                                 									<tr>
+                                                                 										<td><label>Sitio Web: <div class="help-block with-errors"></div></label></td>
+                                                                 										<td><input type="text" class="form-control" id="inputSitio" name='sitioweb'value="${evento.sitio_web }"/></td>
+                                                                 									</tr>
+                                                                 									</tbody>
+                                                                 								</table>
                                                                  								
                                                                  								
+                                                                 								
+                                                                 							    
                                                                  								
                                                                  								
                                                                  								
@@ -153,7 +151,7 @@
                                                     	          	 						
                                                     									</script>  
                                                     	 		
-                                                           							</div>
+                                                           							
                                                        							</div><!-- /.row -->                  															
                   															</div>
                   															<div class="modal-footer">
@@ -164,6 +162,7 @@
                   															</div>
                   															
                   															</form>
+                  															
                 														</div><!-- /.modal-content -->
               														</div><!-- /.modal-dialog -->
             													</div><!-- /.modal -->
@@ -249,10 +248,19 @@
 		function verificar(iddp,idform){
 	
 			if (document.getElementById(iddp).value){
-				document.getElementById(idform).submit();
+				if (document.getElementById("nombre"+idform).value){
+					if (document.getElementById("lugar"+idform).value){
+						document.getElementById(idform).submit();
+					}else{
+						alert("El campo lugar no puede estar vacío");
+					}
+				}else{
+				     alert("El campo nombre no puede quedar vacío");
+				     }
 			}else{
 				alert("Debe reconfirmar el dia y la hora para el evento");	
-			}	
+			}
+					
 		}
 
 	</script>
