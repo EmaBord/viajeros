@@ -2,14 +2,15 @@ package action.autentication;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+
 import model.rol.Rol;
 import model.usuario.Usuario;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-
 import dao.evento.EventoDAO;
+import dao.recorrido.RecorridoUnicoDAO;
 import dao.rol.RolDAO;
 import dao.usuario.UsuarioDAO;
 @SuppressWarnings("serial")
@@ -23,6 +24,7 @@ public class Login extends ActionSupport  {
 	private UsuarioDAO usuarioDAO ;
 	private RolDAO rolDAO ;
 	private EventoDAO eventoDAO ;
+	private RecorridoUnicoDAO recorridoUnicoDAO;
 
 	@Override
 	public String execute() throws NoSuchAlgorithmException, UnsupportedEncodingException{
@@ -61,6 +63,9 @@ public class Login extends ActionSupport  {
 				session.put("usuario", u);
 				if (u.getRol().getNombre().equals("admin"))
 					session.put("eventos", eventoDAO.activos());
+				if (u.getRol().getNombre().equals("viajero"))
+					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
+				
 				return u.getRol().getNombre();
 
 			}else{
@@ -115,4 +120,17 @@ public class Login extends ActionSupport  {
 	public void setEventoDAO(EventoDAO eventoDAO){
 		this.eventoDAO = eventoDAO;
 	}
+
+
+
+	public RecorridoUnicoDAO getRecorridoUnicoDAO() {
+		return recorridoUnicoDAO;
+	}
+
+
+
+	public void setRecorridoUnicoDAO(RecorridoUnicoDAO recorridoUnicoDAO) {
+		this.recorridoUnicoDAO = recorridoUnicoDAO;
+	}
+	
 }

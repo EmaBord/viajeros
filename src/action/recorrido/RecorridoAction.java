@@ -1,7 +1,7 @@
 package action.recorrido;
 
 
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,14 +12,14 @@ import model.evento.Evento;
 import model.recorrido.Recorrido;
 import model.recorrido.RecorridoMasUnDia;
 import model.recorrido.RecorridoUnico;
-import model.usuario.Usuario;
 
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
+
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import dao.evento.EventoDAO;
 import dao.recorrido.RecorridoDAO;
+import dao.recorrido.RecorridoUnicoDAO;
 
 @Conversion
 public class RecorridoAction extends TemplateMethod {	/**
@@ -28,6 +28,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 	private static final long serialVersionUID = 1L;
 	private EventoDAO eventoDAO;
 	private RecorridoDAO recorridoDAO;
+	private RecorridoUnicoDAO recorridoUnicoDAO;
 	String salida;
 	String desde;
 	String llegada;
@@ -43,9 +44,13 @@ public class RecorridoAction extends TemplateMethod {	/**
 	
 	
 	public String execute(){
-		addData("eventos", eventoDAO.list());			
+		addData("eventos", eventoDAO.list());
 		return "add_recorrido";
 		
+	}
+	public String timeline(){
+		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));		
+		return "ok";
 	}
 	public String new_recorrido(){	
 		String result = "add_recorrido";
@@ -56,7 +61,8 @@ public class RecorridoAction extends TemplateMethod {	/**
 			return this.crear_viaje_unico();
 		else
 			if (this.getPeriodicidad().equals("1"))
-				return this.crear_viaje_mas_de_un_dia();		
+				return this.crear_viaje_mas_de_un_dia();
+		
 		return result;
 		
 		
@@ -67,6 +73,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setFinaliza(this.getFinaliza());
 		recorrido.setDias(this.getDias());
 		recorridoDAO.save(recorrido);
+		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		return "home";
 		
 	}
@@ -74,6 +81,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		RecorridoUnico recorrido = new RecorridoUnico();
 		this.cargar_datos(recorrido);
 		recorridoDAO.save(recorrido);
+		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		return "home";
 	}
 	
@@ -83,15 +91,19 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setLlegada(this.getLlegada());
 		recorrido.setHasta(this.getHasta());
 		recorrido.setAsientos(new Integer(this.getAsientos()));
-		recorrido.setUrlMaps(this.getRuta());
+		if (this.getRuta() != null){
+			String[] parts = this.getRuta().split("/");
+			String apiKey = "AIzaSyDVllt_2i9RbXSzc8ckxRZpENKLHFcsIAA";
+			String gmaps = "https://www.google.com/maps/embed/v1/directions?key="+apiKey+"&origin="+parts[5] +"&destination="+parts[6]+"&avoid=tolls|highways";
+			recorrido.setUrlMaps(gmaps);
+		}
+		
 		if (this.getEvento()!=null){
 			Evento evento = eventoDAO.getEvento(new Long(this.getEvento()));
 			recorrido.setEvento(evento);
 		}
 		recorrido.setNopermitido(this.getNopermitido());
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		Usuario creador = (Usuario) session.get("usuario");
-		recorrido.setCreador(creador);
+		recorrido.setCreador(this.getUsuario());
 		
 	}
 	//private boolean isValid() {
@@ -206,6 +218,12 @@ public class RecorridoAction extends TemplateMethod {	/**
 	}
 	public void setNopermitido(String[] nopermitido) {
 		this.nopermitido = nopermitido;
+	}
+	public RecorridoUnicoDAO getRecorridoUnicoDAO() {
+		return recorridoUnicoDAO;
+	}
+	public void setRecorridoUnicoDAO(RecorridoUnicoDAO recorridoUnicoDAO) {
+		this.recorridoUnicoDAO = recorridoUnicoDAO;
 	}
 	
 	/*public String update(){	

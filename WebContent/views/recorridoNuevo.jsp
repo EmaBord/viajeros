@@ -19,7 +19,7 @@
 	<section class="content-header">
          <h1><fmt:message key="nuevo_viaje" /></h1>
          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/viajeros/timeline_viajero"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active"><fmt:message key="nuevo_viaje" /></li>
           </ol>
     </section>							

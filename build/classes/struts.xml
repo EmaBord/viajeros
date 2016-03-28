@@ -18,6 +18,7 @@
 		 <result name="logout" type="redirect">/</result>					
 	</action>
 
+
 	
 	<action name="registerAction" class="action.register.Register" >		
 		<result name="input" >/views/register_input.jsp</result>		
@@ -55,7 +56,9 @@
 	<action name="recorridoNuevo" method="new_recorrido" class="action.recorrido.RecorridoAction" >
 		<result name="home" type="redirect">/views/viajeroHome.jsp</result>
 	</action>
-	
+	<action name="timeline_viajero" method="timeline" class="action.recorrido.RecorridoAction" >
+		 <result name="ok" type="redirect">views/viajeroHome.jsp</result>					
+	</action>
 </package>
 
 </struts>
