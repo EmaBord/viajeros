@@ -14,11 +14,11 @@ import model.recorrido.RecorridoMasUnDia;
 import model.recorrido.RecorridoUnico;
 
 import com.opensymphony.xwork2.Action;
-
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import dao.evento.EventoDAO;
 import dao.recorrido.RecorridoDAO;
+import dao.recorrido.RecorridoMasDeUnDiaDAO;
 import dao.recorrido.RecorridoUnicoDAO;
 
 @Conversion
@@ -29,6 +29,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 	private EventoDAO eventoDAO;
 	private RecorridoDAO recorridoDAO;
 	private RecorridoUnicoDAO recorridoUnicoDAO;
+	private RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO;
 	String salida;
 	String desde;
 	String llegada;
@@ -44,12 +45,13 @@ public class RecorridoAction extends TemplateMethod {	/**
 	
 	
 	public String execute(){
-		addData("eventos", eventoDAO.list());
+		addData("eventos", eventoDAO.activos());
 		return "add_recorrido";
 		
 	}
 	public String timeline(){
-		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));		
+		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
+		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
 		return "ok";
 	}
 	public String new_recorrido(){	
@@ -74,6 +76,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setDias(this.getDias());
 		recorridoDAO.save(recorrido);
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
+		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
 		return "home";
 		
 	}
@@ -82,6 +85,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		this.cargar_datos(recorrido);
 		recorridoDAO.save(recorrido);
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
+		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
 		return "home";
 	}
 	
@@ -91,7 +95,8 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setLlegada(this.getLlegada());
 		recorrido.setHasta(this.getHasta());
 		recorrido.setAsientos(new Integer(this.getAsientos()));
-		if (this.getRuta() != null){
+		if (!this.getRuta().equals("")){
+			
 			String[] parts = this.getRuta().split("/");
 			String apiKey = "AIzaSyDVllt_2i9RbXSzc8ckxRZpENKLHFcsIAA";
 			String gmaps = "https://www.google.com/maps/embed/v1/directions?key="+apiKey+"&origin="+parts[5] +"&destination="+parts[6]+"&avoid=tolls|highways";
@@ -224,6 +229,12 @@ public class RecorridoAction extends TemplateMethod {	/**
 	}
 	public void setRecorridoUnicoDAO(RecorridoUnicoDAO recorridoUnicoDAO) {
 		this.recorridoUnicoDAO = recorridoUnicoDAO;
+	}
+	public RecorridoMasDeUnDiaDAO getRecorridoMasUnDiaDAO() {
+		return recorridoMasUnDiaDAO;
+	}
+	public void setRecorridoMasUnDiaDAO(RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO) {
+		this.recorridoMasUnDiaDAO = recorridoMasUnDiaDAO;
 	}
 	
 	/*public String update(){	

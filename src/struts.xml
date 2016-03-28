@@ -11,7 +11,8 @@
 		<result name="admin" type="redirect" >/views/adminHome.jsp</result>	
 		<result name="input" >/views/login_input.jsp</result>	
 		<result name="login" >/views/login.jsp</result>		
-		<result name="viajero" type="redirect">/views/viajeroHome.jsp</result>				
+		<result name="viajero" type="redirect">/views/viajeroHome.jsp</result>	
+		<result name="bloqueado" >/views/bloqueado.jsp</result>				
 	</action>
 	
 	<action name="logout" class="action.autentication.Logout" >
@@ -22,7 +23,7 @@
 	
 	<action name="registerAction" class="action.register.Register" >		
 		<result name="input" >/views/register_input.jsp</result>		
-		<result name="success">/views/viajero_home.html</result>
+		<result name="success" type="redirect">/views/viajeroHome.jsp</result>
 		<result name="register">/views/register.jsp</result>
 		<result name="viajero">/views/404.jsp</result>
 		<result name="admin">/views/404.jsp</result>				

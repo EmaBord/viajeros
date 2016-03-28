@@ -6,13 +6,11 @@
 <%@tag import="org.apache.struts2.components.ElseIf"%>
 <%@tag description="Tag baseAdmin" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
-<%@attribute name="evento" fragment="true" %>
 <%@attribute name="viajeros" fragment="true" %>
-
-<%@attribute name="evento_nuevo" fragment="true" %>
 <%@attribute name="recorrido_nuevo" fragment="true" %>
-<%@attribute name="eventos" fragment="true" %>
+<%@attribute name="viajes_activos" fragment="true" %>
 <%@attribute name="mailbox" fragment="true" %>
+<%@attribute name="buscar" fragment="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -215,7 +213,7 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						             
 						            <li <jsp:invoke fragment="recorrido_nuevo"/>><a href="/viajeros/recorrido" id="newJournal" > <i class="material-icons">add_location</i><span> <fmt:message key="crear_viaje" /></span></a></li>
 							                <li>
-						            <li  <jsp:invoke fragment="eventos"/>><a href="/viajeros/listarEventos" id="listEvent"><i class="material-icons">directions</i><span> <fmt:message key="viajes_activos" /> </span></a></li>
+						            <li  <jsp:invoke fragment="viajes_activos"/>><a href="/viajeros/timeline_viajero" id="listViaje"><i class="material-icons">directions</i><span> <fmt:message key="viajes_activos" /> </span></a></li>
 						            <li  <jsp:invoke fragment="viajeros"/>>
 						              <a href="/viajeros/listarViajeros" id="journals"><i class="material-icons">traffic</i> <span><fmt:message key="mis_viajes" /></span>
 						                
@@ -223,7 +221,12 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						              
 						            </li>      
 						            
-				            
+				            		<li  <jsp:invoke fragment="buscar"/>>
+						              <a href="#" id="buscar">
+						                <i class="material-icons">search</i> <span><fmt:message key="viaje_buscar" /></span>
+						                
+						              </a>
+						            </li>
 						            <li  <jsp:invoke fragment="mailbox"/>>
 						              <a href="#" id="mailbox">
 						                <i class="material-icons">star_border</i> <span><fmt:message key="calificar" /></span>

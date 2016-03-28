@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import dao.evento.EventoDAO;
+import dao.recorrido.RecorridoMasDeUnDiaDAO;
 import dao.recorrido.RecorridoUnicoDAO;
 import dao.rol.RolDAO;
 import dao.usuario.UsuarioDAO;
@@ -25,6 +26,7 @@ public class Login extends ActionSupport  {
 	private RolDAO rolDAO ;
 	private EventoDAO eventoDAO ;
 	private RecorridoUnicoDAO recorridoUnicoDAO;
+	private RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO;
 
 	@Override
 	public String execute() throws NoSuchAlgorithmException, UnsupportedEncodingException{
@@ -57,15 +59,20 @@ public class Login extends ActionSupport  {
 		if (user == null){
 
 			if (usuarioDAO.existe(this.getEmail())){
+				
 				Usuario u = usuarioDAO.getUsuario(this.getEmail());
+				if (u.getBloquedo())
+					return "bloqueado";
 				session.put("perfil", u.getRol().getNombre());
 				session.put("nombre", u.getNombre());
 				session.put("usuario", u);
 				if (u.getRol().getNombre().equals("admin"))
 					session.put("eventos", eventoDAO.activos());
 				if (u.getRol().getNombre().equals("viajero"))
+					
 					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
-				
+					session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
+					
 				return u.getRol().getNombre();
 
 			}else{
@@ -131,6 +138,18 @@ public class Login extends ActionSupport  {
 
 	public void setRecorridoUnicoDAO(RecorridoUnicoDAO recorridoUnicoDAO) {
 		this.recorridoUnicoDAO = recorridoUnicoDAO;
+	}
+
+
+
+	public RecorridoMasDeUnDiaDAO getRecorridoMasUnDiaDAO() {
+		return recorridoMasUnDiaDAO;
+	}
+
+
+
+	public void setRecorridoMasUnDiaDAO(RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO) {
+		this.recorridoMasUnDiaDAO = recorridoMasUnDiaDAO;
 	}
 	
 }

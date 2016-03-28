@@ -3,6 +3,9 @@ package model.recorrido;
 import javax.persistence.*;
 
 
+
+import com.sun.istack.internal.Nullable;
+
 import model.evento.Evento;
 import model.usuario.Usuario;
 @Entity
@@ -16,7 +19,8 @@ public abstract class Recorrido {
 	private String llegada;
 	private String hasta;
 	private String urlMaps;
-	@ManyToOne(optional=true)
+	@ManyToOne(optional=true,cascade={CascadeType.ALL})
+	@Nullable
 	private Evento evento;
 	private String [] nopermitido;
 	@ManyToOne(optional=false)
@@ -84,5 +88,17 @@ public abstract class Recorrido {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String format(String fecha_formatear){
+		String []partes_fecha = fecha_formatear.split(" ")[0].split("/");
+		String [] partes_hora = fecha_formatear.split(" ");
+		String hora  = partes_hora[1];
+		String fecha = partes_fecha[2]+"/"+partes_fecha[1]+"/"+partes_fecha[0];
+		return fecha+" "+hora;
+	}
+	public String formatFinaliza(String fecha_formatear){
+		String []partes_fecha = fecha_formatear.split("/");
+		String fecha = partes_fecha[2]+"/"+partes_fecha[1]+"/"+partes_fecha[0];
+		return fecha;
 	}
 }

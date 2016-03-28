@@ -1,4 +1,5 @@
 package dao.evento;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -19,8 +20,9 @@ public class EventoDAOImpl extends GenericDAOImpl<Evento, Integer>  implements E
 	@Override
 	@Transactional
 	public void eliminarEvento(Evento e) {
-		// TODO Auto-generated method stub
-		this.delete(e);
+		e.setEliminado(true);
+		this.update(e);
+		
 	}
 
 	

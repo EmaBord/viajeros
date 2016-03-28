@@ -45,7 +45,7 @@ public class EventoAction extends TemplateMethod {	/**
 					if (!eventoDAO.existe(getNombre(), getFecha(),getLugar(),hora)){						
 						e.setUsuario(getUsuario());
 						eventoDAO.save(e);	
-						addData("eventos", eventoDAO.list());						
+						addData("eventos", eventoDAO.activos());						
 						addMessage("mensaje_nuevo_evento", getText("evento_exito"));
 						return "add_evento";
 					}else{						
@@ -69,7 +69,7 @@ public class EventoAction extends TemplateMethod {	/**
 		String result = "";
 		result = this.verifyUserAdmin();
 		if (result.equals("200")){	
-			addData("eventos",eventoDAO.list());
+			addData("eventos",eventoDAO.activos());
 			return SUCCESS;
 		}
 		return result;
@@ -84,8 +84,8 @@ public class EventoAction extends TemplateMethod {	/**
 			System.out.println(id_parameter);
 			Long id = new Long(id_parameter);
 			Evento evento = eventoDAO.getEvento(id);
-			eventoDAO.delete(evento);
-			addData("eventos",eventoDAO.list());
+			eventoDAO.eliminarEvento(evento);
+			addData("eventos",eventoDAO.activos());
 			return SUCCESS;
 		}
 		return result;		
@@ -107,7 +107,7 @@ public class EventoAction extends TemplateMethod {	/**
 				e.setUsuario(getUsuario());
 				eventoDAO.update(e);					
 				addMessage("update_evento", getText("evento_update"));
-				addData("eventos", eventoDAO.list());
+				addData("eventos", eventoDAO.activos());
 				return SUCCESS;					
 			}else
 				addMessage("update_evento_error", getText("evento_update_error"));		

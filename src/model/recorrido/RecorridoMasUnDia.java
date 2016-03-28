@@ -8,7 +8,7 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @ForeignKey(name = "id")
-public class RecorridoMasUnDia extends Recorrido {
+public class RecorridoMasUnDia extends Recorrido implements Comparable<RecorridoMasUnDia> {
 
 	private String [] dias;
 	private String finaliza;
@@ -25,6 +25,14 @@ public class RecorridoMasUnDia extends Recorrido {
 	public void setFinaliza(String finaliza) {
 		this.finaliza = finaliza;
 	}
+	@Override
+	public int compareTo(RecorridoMasUnDia arg0) {
+		
+		
+		return this.formatFinaliza(this.getFinaliza()).compareTo(this.formatFinaliza(arg0.getFinaliza()));
 
+		
+	}
+	
 
 }

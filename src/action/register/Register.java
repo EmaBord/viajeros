@@ -1,10 +1,15 @@
 package action.register;
 import java.io.IOException;
 import java.util.Map;
+
 import model.rol.Rol;
 import model.usuario.Usuario;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import dao.recorrido.RecorridoMasDeUnDiaDAO;
+import dao.recorrido.RecorridoUnicoDAO;
 import dao.rol.RolDAO;
 import dao.usuario.UsuarioDAO;
 @SuppressWarnings("serial")
@@ -17,6 +22,8 @@ public class Register extends ActionSupport{
 	public String clave2;
 	private UsuarioDAO usuarioDAO;
 	private RolDAO rolDAO;
+	private RecorridoUnicoDAO recorridoUnicoDAO;
+	private RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO;
 
 	public String execute() throws IOException {		
 		Map<String, Object> session = ActionContext.getContext().getSession();
@@ -38,6 +45,10 @@ public class Register extends ActionSupport{
 					}
 					u.setRol(r);					
 					usuarioDAO.save(u);
+					session.put("usuario",u);
+					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
+					session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
+					
 					// crear la session
 					return SUCCESS;
 				
@@ -123,6 +134,26 @@ public class Register extends ActionSupport{
 		}
 	public void setRolDAO(RolDAO rolDAO){
 		this.rolDAO = rolDAO;
+	}
+
+
+	public RecorridoUnicoDAO getRecorridoUnicoDAO() {
+		return recorridoUnicoDAO;
+	}
+
+
+	public void setRecorridoUnicoDAO(RecorridoUnicoDAO recorridoUnicoDAO) {
+		this.recorridoUnicoDAO = recorridoUnicoDAO;
+	}
+
+
+	public RecorridoMasDeUnDiaDAO getRecorridoMasUnDiaDAO() {
+		return recorridoMasUnDiaDAO;
+	}
+
+
+	public void setRecorridoMasUnDiaDAO(RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO) {
+		this.recorridoMasUnDiaDAO = recorridoMasUnDiaDAO;
 	}
 
 
