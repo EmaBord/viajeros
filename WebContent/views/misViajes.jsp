@@ -42,7 +42,7 @@
 					                <h3 class="box-title"><fmt:message key="mis_viajes_listado_unico" /></h3>
 					              </div><!-- /.box-header -->
 					              <div class="box-body">
-					                <table id="eventos" class="table table-bordered table-striped">
+					                <table id="viajes" class="table table-bordered table-striped">
 					                  <thead>
 					                    <tr class="success">
 					                      <th><fmt:message key="viaje_sale" /></th>
@@ -58,13 +58,17 @@
 					                    </tr>
 					                  </thead>
 					                  <tbody>
-					                  	<c:forEach items="${misviajesUnicos}" var="viaje">
+					                  	<c:forEach items="${recorridosUnicos}" var="viaje">
 					                  		<tr>
-					                  			<td >${evento.nombre}</td>					                  														
-					                  			<td >${evento.fecha} ${evento.hora}</td>
-					                  			<td >${evento.lugar}</td>
-					                  			<td >${evento.sitio_web}</td>
-					                  			<td>
+					                  			<td >${viaje.salida}</td>					                  														
+					                  			<td >${viaje.desde}</td>
+					                  			<td >${viaje.hasta}</td>
+					                  			<td >${viaje.llegada}</td>
+					                  			<td >${viaje.evento.nombre}</td>
+					                  			<td >${viaje.asientos}</td>
+					                  			<td ></td>
+					                  			<td></td>
+					                  			<!--<td>
 					                  				<div class="row">
 					                  					<div class="col-sm-3">					                  						
 					                  							<button type="button" 	 data-toggle="modal" data-target="#${evento.id}" class="btn btn-warning"><i class="fa fa-edit"></i></button>
@@ -130,7 +134,7 @@
                                                     									</script>  
                                                     	 		
                                                            							
-                                                       							</div><!-- /.row -->                  															
+                                                       							</div>                  															
                   															</div>
                   															<div class="modal-footer">
                   															
@@ -141,9 +145,9 @@
                   															
                   															</form>
                   															
-                														</div><!-- /.modal-content -->
-              														</div><!-- /.modal-dialog -->
-            													</div><!-- /.modal -->
+                														</div>
+              														</div>
+            													</div>
           													
 					                  					</div>
 					                  					<div class="col-sm-2">
@@ -153,7 +157,7 @@
                   											</form>
                   										<div>
                   									<div>
-					                  			</td>					                  		
+					                  			</td>-->					                  		
 					                  		</tr>
 					                  		
 					                  			
@@ -184,7 +188,7 @@
   		<script>
   		$(function () {
         
-        $('#eventos').DataTable({
+        $('#viajes').DataTable({
           "paging": true,
           "lengthChange": true,
           "searching": true,

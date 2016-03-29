@@ -11,4 +11,5 @@ public interface RecorridoUnicoDAO extends GenericDAO<RecorridoUnico, Long>  {
 	public abstract List<RecorridoUnico> activos();
 
 	List<RecorridoUnico> activosSinUsuario(Usuario u);
+	List<RecorridoUnico> activosDeUsuario(Usuario u);
 }

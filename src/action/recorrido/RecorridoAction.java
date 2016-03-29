@@ -51,6 +51,8 @@ public class RecorridoAction extends TemplateMethod {	/**
 	}
 	public String mis_viajes(){
 		//addData("eventos", eventoDAO.activos());
+		addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
+		System.out.println(5555);
 		return "ok";
 		
 	}
