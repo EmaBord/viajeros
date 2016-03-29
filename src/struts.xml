@@ -60,6 +60,9 @@
 	<action name="timeline_viajero" method="timeline" class="action.recorrido.RecorridoAction" >
 		 <result name="ok" type="redirect">views/viajeroHome.jsp</result>					
 	</action>
+	<action name="mis_viajes" method="mis_viajes" class="action.recorrido.RecorridoAction" >
+		 <result name="ok" type="redirect">views/misViajes.jsp</result>					
+	</action>
 </package>
 
 </struts>

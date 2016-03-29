@@ -49,6 +49,11 @@ public class RecorridoAction extends TemplateMethod {	/**
 		return "add_recorrido";
 		
 	}
+	public String mis_viajes(){
+		//addData("eventos", eventoDAO.activos());
+		return "ok";
+		
+	}
 	public String timeline(){
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
