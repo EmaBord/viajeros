@@ -14,6 +14,8 @@
 	</jsp:attribute>
 <jsp:body>	
 <!-- Content Header (Page header) -->
+  		<script type="text/javascript" src="./datetimepicker-material/js/moment-with-locales.js"></script>
+		<script type="text/javascript" src="./datetimepicker-material/js/bootstrap-material-datetimepicker.js"></script>	
 <section class="content-header">
 	<h1><fmt:message key="mis_viajes" /></h1>  		
 	<ol class="breadcrumb">
@@ -41,7 +43,7 @@
 					              <div class="box-header">
 					                <h3 class="box-title"><fmt:message key="mis_viajes_listado_unico" /></h3>
 					              </div><!-- /.box-header -->
-					              <div class="box-body">
+					              <div class="box-body table-responsive">
 					                <table id="viajes" class="table table-bordered table-striped">
 					                  <thead>
 					                    <tr class="success">
@@ -51,7 +53,8 @@
 					                      <th><fmt:message key="viaje_llega" /></th>
 					                      <th><fmt:message key="evento" /></th>
 					                      <th><fmt:message key="asientos_disponibles" /></th>
-					                      <th><fmt:message key="url_maps" /></th>
+					                      <th><fmt:message key="viajan" /></th>
+					                      <th><fmt:message key="ruta_gmaps" /></th>
 					                      <th><fmt:message key="operacion" /></th>
 					                      
 					                      
@@ -66,19 +69,62 @@
 					                  			<td >${viaje.llegada}</td>
 					                  			<td >${viaje.evento.nombre}</td>
 					                  			<td >${viaje.asientos}</td>
-					                  			<td ></td>
-					                  			<td></td>
-					                  			<!--<td>
-					                  				<div class="row">
-					                  					<div class="col-sm-3">					                  						
-					                  							<button type="button" 	 data-toggle="modal" data-target="#${evento.id}" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-					                  							<div class="modal fade" id="${evento.id}" role="dialog">
+					                  			
+					                  			<td>
+					                  				<c:if test="${not empty viaje.viajeros}">
+					                  					<c:forEach items="${viaje.viajeros}" var="viajero">
+					                  						${viajero.nombre },
+					                  					</c:forEach>
+					                  				</c:if>
+					                  				<c:if test="${empty viaje.viajeros}">
+					                  					0
+					                  				</c:if>
+					                  			</td>
+					                  			<td>
+					                  				<c:if test="${not empty viaje.urlMaps}">
+					                  					<a class="btn  margin" data-toggle="modal" data-target="#${viaje.id}ruta" ><i class="material-icons">navigation</i></a>
+					                  					<div class="modal fade" id="${viaje.id}ruta" role="dialog">
               														<div class="modal-dialog ">
                 														<div class="modal-content">
                 															
                   															<div class="modal-header">
                     															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    															<h4 class="modal-title"><fmt:message key="modificar" /> ${evento.nombre}</h4>
+                    															<h4 class="modal-title"><fmt:message key="url_maps" /> 
+                    																<small class="label label-info">
+                    																
+                    																	${viaje.desde } - ${viaje.hasta }
+                    																</small>
+                    															</h4>
+                  															</div>
+                  															<div class="modal-body ">
+                  																<div class="embed-responsive embed-responsive-16by9">
+                  																	<iframe src="${viaje.urlMaps}"  frameborder="0" style="border:0" allowfullscreen></iframe>
+                  																</div>
+                  															</div>
+                  														</div>
+                  													</div>
+                  										</div>
+                        								
+					                  				</c:if>
+					                  			</td>
+					                  			
+					                  			<td>
+					                  				<div class="row">
+					                  					<div class="col-sm-4">	
+					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="material-icons">edit</i></button>				                  						
+					                  							<div class="modal fade" id="${viaje.id}update" role="dialog">
+					                  							
+              														<div class="modal-dialog ">
+                														<div class="modal-content">
+                															
+                  															<div class="modal-header">
+                    															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    															<h4 class="modal-title"><fmt:message key="modificar" />
+                    																<small class="label label-info">
+                    																
+                    																	${viaje.desde } - ${viaje.hasta }
+                    																</small>
+                    															</h4>
                   															</div>
                   															<div class="modal-body ">
                         														<div class="row">
@@ -89,7 +135,7 @@
                                                                  									<tbody>
                                                                  									<tr>
                                                                  										<td><label><fmt:message key="evento_dia_hora" /> <div class="text-danger"><fmt:message key="reconfirmar" /></div> </label></td>
-                                                                 										<td><input type="text" name='fecha'  class="form-control " id="datetimepicker${evento.id}" placeholder="${evento.fecha} ${evento.hora}" required /></td>
+                                                                 										<td><input type="text" name='fecha'  class="form-control " id="datetimepicker${viaje.id}" placeholder="${evento.fecha} ${evento.hora}" required /></td>
                                                                  									</tr>
                                                                  									<tr>
                                                                  										<td><label><fmt:message key="evento_nombre" />: <div class="help-block with-errors"></div></label></td>
@@ -119,19 +165,17 @@
                                                                  	
                                                                 							</fieldset>
                                                                 						
-                                                               							<script type="text/javascript">
-                                                               								
-                                                              								$("#datetimepicker"+"${evento.id}").bootstrapMaterialDatePicker({
-																									format : 'DD-MM-YYYY HH:mm',        	   
-	        	   																					
-	          	 																					lang:'${language}',
-	          	 																			
-                																					minDate:new Date(),
-                																				
-                                                                    						});
-                                                    	          	 						
-                                                    	          	 						
-                                                    									</script>  
+	                                                               							<script type="text/javascript">
+	                                                               								
+	                                                              								$("#datetimepicker${viaje.id}").bootstrapMaterialDatePicker({
+																										format : 'DD-MM-YYYY HH:mm',        	   
+		        	   																					lang:'${language}',
+		          	 																					minDate:new Date(),
+	                																				
+	                                                                    						});
+	                                                    	          	 						
+	                                                    	          	 						
+	                                                    									</script>  
                                                     	 		
                                                            							
                                                        							</div>                  															
@@ -150,14 +194,14 @@
             													</div>
           													
 					                  					</div>
-					                  					<div class="col-sm-2">
-					                  						<form method="post" action=../deleteEvento id='delete${evento.id}'>
-					                  							<input type="hidden" name="clave" value="${evento.id}"/>
-                  												<button type="button" class="btn btn-danger" onclick="eliminar('delete${evento.id}')"><i class="fa fa-remove"></i></button>
+					                  					<div class="col-sm-4">
+					                  						<form method="post" action=../eliminar_viaje id='delete${viaje.id}'>
+					                  							<input type="hidden" name="clave" value="${viaje.id}"/>
+                  												<a  class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="material-icons">remove_circle_outline</i></a>
                   											</form>
                   										<div>
                   									<div>
-					                  			</td>-->					                  		
+					                  			</td>				                  		
 					                  		</tr>
 					                  		
 					                  			
@@ -173,6 +217,7 @@
 					                      <th><fmt:message key="viaje_llega" /></th>
 					                      <th><fmt:message key="evento" /></th>
 					                      <th><fmt:message key="asientos_disponibles" /></th>
+					                      <th><fmt:message key="viajan" /></th>
 					                      <th><fmt:message key="url_maps" /></th>
 					                      <th><fmt:message key="operacion" /></th>
 					                    </tr>
@@ -184,7 +229,9 @@
               </div><!-- /.row -->
   		</section><!-- /.content -->
   		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-      <script src="./js/validator.js"></script>
+
+  		
+
   		<script>
   		$(function () {
         
@@ -229,6 +276,7 @@
       
 	  
 	  <script>
+
 		function verificar(iddp,idform){
 	
 			if (document.getElementById(iddp).value){
@@ -250,7 +298,7 @@
 	</script>
      <script>
 	function eliminar(idform){
-		var r = confirm("<fmt:message key="evento_pregunta_eliminar" />");
+		var r = confirm('<fmt:message key="viaje_pregunta_eliminar" />');
 		if (r == true) {
     		document.getElementById(idform).submit();
 		}

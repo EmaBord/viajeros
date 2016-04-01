@@ -26,7 +26,8 @@ public class RecorridoUnicoDAOImpl extends GenericDAOImpl<RecorridoUnico,Long> i
 	public List<RecorridoUnico> activos(){
 		Query query = getCurrentSession().createQuery(
                 "from RecorridoUnico");
-	    List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
+	    @SuppressWarnings("unchecked")
+		List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
 		return recorridos;
 		
 	}
@@ -38,7 +39,8 @@ public class RecorridoUnicoDAOImpl extends GenericDAOImpl<RecorridoUnico,Long> i
 		Query query = getCurrentSession().createQuery(
                 "select r from RecorridoUnico r where creador_id <>:usuario_id");
 		query.setParameter("usuario_id", u.getId());
-	    List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
+	    @SuppressWarnings("unchecked")
+		List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
 	    Iterator<RecorridoUnico> iterator = recorridos.iterator();
 		while (iterator.hasNext()) {
 			RecorridoUnico recorrido = iterator.next();
@@ -53,11 +55,12 @@ public class RecorridoUnicoDAOImpl extends GenericDAOImpl<RecorridoUnico,Long> i
 	@Override
 	@Transactional
 	public List<RecorridoUnico> activosDeUsuario(Usuario u) {
-		List<RecorridoUnico> activos = new ArrayList<RecorridoUnico>();
+		
 		Query query = getCurrentSession().createQuery(
                 "select r from RecorridoUnico r where creador_id =:usuario_id");
 		query.setParameter("usuario_id", u.getId());
-	    List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
+	    @SuppressWarnings("unchecked")
+		List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
 
 	    return recorridos;
 	}

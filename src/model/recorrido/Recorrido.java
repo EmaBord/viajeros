@@ -1,8 +1,8 @@
 package model.recorrido;
 
+import java.util.List;
+
 import javax.persistence.*;
-
-
 
 import com.sun.istack.internal.Nullable;
 
@@ -19,6 +19,8 @@ public abstract class Recorrido {
 	private String llegada;
 	private String hasta;
 	private String urlMaps;
+	@Column(length = 100000)
+	private String urlMapsPura;
 	@ManyToOne(optional=true,cascade={CascadeType.ALL})
 	@Nullable
 	private Evento evento;
@@ -26,6 +28,8 @@ public abstract class Recorrido {
 	@ManyToOne(optional=false)
 	private Usuario creador;
 	private Integer asientos;
+	@ManyToMany
+	private List<Usuario> viajeros;
 	
 	
 	public Usuario getCreador() {
@@ -100,5 +104,17 @@ public abstract class Recorrido {
 		String []partes_fecha = fecha_formatear.split("/");
 		String fecha = partes_fecha[2]+"/"+partes_fecha[1]+"/"+partes_fecha[0];
 		return fecha;
+	}
+	public String getUrlMapsPura() {
+		return urlMapsPura;
+	}
+	public void setUrlMapsPura(String urlMapsPura) {
+		this.urlMapsPura = urlMapsPura;
+	}
+	public List<Usuario> getViajeros() {
+		return viajeros;
+	}
+	public void setViajeros(List<Usuario> viajeros) {
+		this.viajeros = viajeros;
 	}
 }

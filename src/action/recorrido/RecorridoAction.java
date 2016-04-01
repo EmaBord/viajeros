@@ -52,7 +52,6 @@ public class RecorridoAction extends TemplateMethod {	/**
 	public String mis_viajes(){
 		//addData("eventos", eventoDAO.activos());
 		addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
-		System.out.println(5555);
 		return "ok";
 		
 	}
@@ -103,7 +102,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setHasta(this.getHasta());
 		recorrido.setAsientos(new Integer(this.getAsientos()));
 		if (!this.getRuta().equals("")){
-			
+			recorrido.setUrlMapsPura(this.getRuta());
 			String[] parts = this.getRuta().split("/");
 			String apiKey = "AIzaSyDVllt_2i9RbXSzc8ckxRZpENKLHFcsIAA";
 			String gmaps = "https://www.google.com/maps/embed/v1/directions?key="+apiKey+"&origin="+parts[5] +"&destination="+parts[6]+"&avoid=tolls|highways";
@@ -118,6 +117,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setCreador(this.getUsuario());
 		
 	}
+	
 	//private boolean isValid() {
 		// TODO Auto-generated method stub
 		//return getNombre() != null  && getFecha()!=null && getLugar() != null && !(getFecha().length()==0);
@@ -132,6 +132,19 @@ public class RecorridoAction extends TemplateMethod {	/**
 		return result;
 		
 		
+	}
+	public String eliminar(){	
+		//String result = "";
+		//result = this.verifyUserAdmin();
+		//if (result.equals("200")){	
+			String id_parameter = ServletActionContext.getRequest().getParameter("clave");
+			Long id = new Long(id_parameter);
+			Recorrido recorrido = recorridoDAO.findByKey(id);
+			recorridoDAO.delete(recorrido); 
+			addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));
+			return "ok";
+		//}
+		//return result;		
 	}
 	
 	public String getAsientos() {
@@ -196,20 +209,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		this.finaliza = finaliza;
 	}
 	
-	public String delete(){	
-		String result = "";
-		result = this.verifyUserAdmin();
-		if (result.equals("200")){	
-			String id_parameter = ServletActionContext.getRequest().getParameter("clave");
-			System.out.println(id_parameter);
-			Long id = new Long(id_parameter);
-			Evento evento = eventoDAO.getEvento(id);
-			eventoDAO.delete(evento);
-			addData("eventos",eventoDAO.list());
-			return SUCCESS;
-		}
-		return result;		
-	}
+
 	public RecorridoDAO getRecorridoDAO() {
 		return recorridoDAO;
 	}

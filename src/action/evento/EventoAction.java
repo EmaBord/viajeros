@@ -1,7 +1,6 @@
 package action.evento;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +9,6 @@ import org.apache.struts2.ServletActionContext;
 import template.method.TemplateMethod;
 import model.evento.Evento;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import dao.evento.EventoDAO;
@@ -29,6 +27,7 @@ public class EventoAction extends TemplateMethod {	/**
 	String hora;	
 	
 	public String execute(){
+		@SuppressWarnings("unused")
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String result = "";		
 		result = this.verifyUserAdmin();
