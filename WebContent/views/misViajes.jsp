@@ -47,6 +47,7 @@
 					                <table id="viajes" class="table table-bordered table-striped">
 					                  <thead>
 					                    <tr class="success">
+					                      <th><fmt:message key="viaje_tipo" /></th>
 					                      <th><fmt:message key="viaje_sale" /></th>
 					                      <th><fmt:message key="viaje_desde" /></th>
 					                      <th><fmt:message key="viaje_hasta" /></th>										                        
@@ -63,6 +64,7 @@
 					                  <tbody>
 					                  	<c:forEach items="${recorridosUnicos}" var="viaje">
 					                  		<tr>
+					                  			<td ><fmt:message key="unico" /></td>	
 					                  			<td >${viaje.salida}</td>					                  														
 					                  			<td >${viaje.desde}</td>
 					                  			<td >${viaje.hasta}</td>
@@ -227,6 +229,7 @@
 					                  	
 					                  	<c:forEach items="${recorridosMasUnDia}" var="viaje">
 					                  		<tr>
+					                  			<td ><fmt:message key="mas_de_una_vez" /></td>
 					                  			<td >${viaje.salida}</td>					                  														
 					                  			<td >${viaje.desde}</td>
 					                  			<td >${viaje.hasta}</td>
@@ -358,7 +361,7 @@
                 																				
                                                                     						});
 	                                                              								$("#date-end${viaje.id}").bootstrapMaterialDatePicker({
-																									format : 'DD-MM-YYYY HH:mm',        	   
+																									format : 'DD-MM-YYYY HH:mm',        	   	
 	        	   																					lang:'${language}',
 	          	 																					minDate:new Date(),
                 																				
@@ -401,6 +404,7 @@
 					                  </tbody>
 					                  <tfoot>
 					                    <tr class="success">
+					                      <th><fmt:message key="viaje_tipo" /></th>
 					                      <th><fmt:message key="viaje_sale" /></th>
 					                      <th><fmt:message key="viaje_desde" /></th>
 					                      <th><fmt:message key="viaje_hasta" /></th>										                        
