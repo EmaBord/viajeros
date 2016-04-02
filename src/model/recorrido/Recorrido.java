@@ -18,6 +18,7 @@ public abstract class Recorrido {
 	private String desde;
 	private String llegada;
 	private String hasta;
+	@Column(length = 100000)
 	private String urlMaps;
 	@Column(length = 100000)
 	private String urlMapsPura;

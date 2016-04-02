@@ -59,7 +59,7 @@
 		               			
 		               		</div>
 		               		<br><br>
-		               		<label for="inputNombre" class="col-md-2 control-label">Asientos disponibles:</label>
+		               		<label for="inputNombre" class="col-md-2 control-label"><fmt:message key="asientos_disponibles" />:</label>
 		               		<div class="col-md-2">
 		                 		<input type="number" step="1" min="1" name='asientos' class="form-control" required />
 		               			

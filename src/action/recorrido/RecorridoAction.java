@@ -46,16 +46,19 @@ public class RecorridoAction extends TemplateMethod {	/**
 	
 	public String execute(){
 		addData("eventos", eventoDAO.activos());
+		updateSession();
 		return "add_recorrido";
 		
 	}
 	public String mis_viajes(){
-		//addData("eventos", eventoDAO.activos());
+		updateSession();
 		addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
+		addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));	
 		return "ok";
 		
 	}
 	public String timeline(){
+		updateSession();
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
 		return "ok";
@@ -81,6 +84,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		recorrido.setFinaliza(this.getFinaliza());
 		recorrido.setDias(this.getDias());
 		recorridoDAO.save(recorrido);
+		updateSession();
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
 		return "home";
@@ -90,6 +94,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 		RecorridoUnico recorrido = new RecorridoUnico();
 		this.cargar_datos(recorrido);
 		recorridoDAO.save(recorrido);
+		updateSession();
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
 		return "home";
@@ -134,17 +139,15 @@ public class RecorridoAction extends TemplateMethod {	/**
 		
 	}
 	public String eliminar(){	
-		//String result = "";
-		//result = this.verifyUserAdmin();
-		//if (result.equals("200")){	
+
 			String id_parameter = ServletActionContext.getRequest().getParameter("clave");
 			Long id = new Long(id_parameter);
 			Recorrido recorrido = recorridoDAO.findByKey(id);
 			recorridoDAO.delete(recorrido); 
-			addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));
+			addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
+			addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));	
 			return "ok";
-		//}
-		//return result;		
+		
 	}
 	
 	public String getAsientos() {
@@ -244,29 +247,40 @@ public class RecorridoAction extends TemplateMethod {	/**
 		this.recorridoMasUnDiaDAO = recorridoMasUnDiaDAO;
 	}
 	
-	/*public String update(){	
-		String result = "";
-		result = this.verifyUserAdmin();
-		if (result.equals("200")){	
-			if (isValid()){					
+	public String actualizar(){	
+				Recorrido r = null;
 				Long id = new Long(ServletActionContext.getRequest().getParameter("clave"));
-				Evento e = eventoDAO.getEvento(id);					
-				e.setLugar(getLugar());
-				e.setNombre(getNombre());
-				e.setSitio_web(getSitioweb());
-				this.reformat();
-				e.setFecha(getFecha());
-				e.setHora(getHora());
-				e.setUsuario(getUsuario());
-				eventoDAO.update(e);					
-				addMessage("update_evento", "Se ha modificado correctamente el evento");
-				addData("eventos", eventoDAO.list());
-				return SUCCESS;					
-			}else
-				addMessage("update_evento_error", "Deben completarse todos los campos excepto sitio web!");		
-		}
-		return result;		
-	}*/
+				if (!this.getFinaliza().equals("")){
+					 r = recorridoMasUnDiaDAO.findByKey(id);
+					 ((RecorridoMasUnDia) r).setFinaliza(getFinaliza());
+				}else{
+					r = recorridoDAO.findByKey(id);
+				}
+				
+				
+				r.setAsientos(new Integer(getAsientos()));
+				r.setDesde(getDesde());
+				r.setHasta(getHasta());
+				if (! this.getSalida().equals(""))
+					r.setSalida(getSalida());
+				if (! this.getLlegada().equals(""))
+					r.setLlegada(getLlegada());
+				if (!this.getRuta().equals("")){
+					r.setUrlMapsPura(this.getRuta());
+					String[] parts = this.getRuta().split("/");
+					String apiKey = "AIzaSyDVllt_2i9RbXSzc8ckxRZpENKLHFcsIAA";
+					String gmaps = "https://www.google.com/maps/embed/v1/directions?key="+apiKey+"&origin="+parts[5] +"&destination="+parts[6]+"&avoid=tolls|highways";
+					r.setUrlMaps(gmaps);
+				}
+				
+				recorridoDAO.update(r);			
+				addMessage("update_viaje", getText("update_viaje"));
+				addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
+				addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));	
+				return "ok";					
+			
+				
+	}
 
 
 

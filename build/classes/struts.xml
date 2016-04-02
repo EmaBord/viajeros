@@ -66,6 +66,9 @@
 	<action name="eliminar_viaje" method="eliminar" class="action.recorrido.RecorridoAction" >
 		 <result name="ok" type="redirect">views/misViajes.jsp</result>					
 	</action>
+	<action name="actualizar_viaje" method="actualizar" class="action.recorrido.RecorridoAction" >
+		 <result name="ok" type="redirect">views/misViajes.jsp</result>					
+	</action>
 </package>
 
 </struts>

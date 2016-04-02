@@ -37,6 +37,8 @@ public class TemplateMethod extends ActionSupport{
 		session.remove("mensaje_nuevo_evento_error");
 		session.remove("update_evento_error");
 		session.remove("viajeros");
+		session.remove("update_viaje");
+		
 		
 		
 	}
@@ -71,7 +73,7 @@ public class TemplateMethod extends ActionSupport{
 			
 			if (u.getRol().getNombre().equals("viajero")){
 				viajeros.add(u);
-				System.out.println(u.getEmail());
+				
 			}
 		}
 		return viajeros;

@@ -31,7 +31,7 @@
   						<div class="alert alert-success alert-dismissable">
                    			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     		<h4>	<i class="icon fa fa-check"></i> <fmt:message key="todo_ok" /></h4>
-							<fmt:message key="viaje_update" />
+							<fmt:message key="update_viaje" />
                     	</div>
                   
   				</div>
@@ -112,6 +112,170 @@
 					                  				<div class="row">
 					                  					<div class="col-sm-4">	
 					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="material-icons">edit</i></button>				                  						
+					                  							<div class="modal  fade " id="${viaje.id}update" role="dialog">
+					                  							
+              														<div class="modal-dialog  ">
+                														<div class="modal-content ">
+                															
+                  															<div class="modal-header">
+                    															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    															<h4 class="modal-title"><fmt:message key="modificar" />
+                    																<small class="label label-info">
+                    																
+                    																	${viaje.desde } - ${viaje.hasta }
+                    																</small>
+                    															</h4>
+                  															</div>
+                  															<div class="modal-body ">
+                        														<div class="row">
+                        														<form role="form" class="form-horizontal"method = 'post' action ='../actualizar_viaje' id=form${viaje.id}  data-toggle="validator">
+                                                      										<fieldset>                                                                 								
+                                                                 								<input type="hidden" name='clave' value="${viaje.id }"/>  
+                                                                 								
+                                                                 								<table class="col-md-offset-1">
+                                                                 									<tbody>
+                                                                 									<tr>
+                                                                 										<td><label><fmt:message key="salida_a" /> </label></td>
+                                                                 										<td><input type="text" name='salida'  class="form-control " id="datetimepicker${viaje.id}start" placeholder="${viaje.salida}"/></td>
+                                                                 									</tr>
+                                                                 									<tr>
+                                                                 										<td><label><fmt:message key="viaje_llegada" />   </label></td>
+                                                                 										<td><input type="text" name='llegada'  class="form-control " id="datetimepicker${viaje.id}stop" placeholder="${viaje.llegada}"  /></td>
+                                                                 									</tr>
+                                                                 									<tr>
+                                                                 										<td><label><fmt:message key="viaje_desde" />: </label></td>
+                                                                 										<td><input type="text" name='desde' class="form-control"  id="desdeform${viaje.id}" value="${viaje.desde }"/></td>
+                                                                 									</tr>
+                                                                 									<br>
+                                                                 									<tr>
+                                                                 										<td><label><fmt:message key="viaje_en" />: </label></td>
+                                                                 										<td><input type="text" name='hasta' id="hastaform${viaje.id}" class="form-control" value="${viaje.hasta}"/></td>
+                                                                 									</tr>
+                                                                 									<br>
+                                                                 									<tr>
+                                                                 										<td><label><fmt:message key="asientos_disponibles" />: </label></td>
+                                                                 										<td><input type="number" step="1" min="1" id="asientosform${viaje.id}" name='asientos' class="form-control" value="${viaje.asientos}" /></td>
+                                                                 									</tr>
+					                                                                                  <br>
+					                                                                                  <tr>
+					                                                                                    <td><label><fmt:message key="viaje_gmaps_url" />: </label></td>
+					                                                                                    <td><input type="text" name='ruta' class="form-control" value="${viaje.urlMapsPura}" /></td>
+					                                                                                  </tr>
+                                                                 									</tbody>
+                                                                 								</table>
+                                                                 								
+                                                                 								
+                                                                 								
+                                                                 							    
+                                                                 								
+                                                                 								
+                                                                 								
+                                                                 								
+    																							                                                        								
+                                                                 	
+                                                                							</fieldset>
+                                                                						
+	                                                               							<script type="text/javascript">
+	                                                               							
+	                                                              								$("#datetimepicker${viaje.id}start").bootstrapMaterialDatePicker({
+																										format : 'DD-MM-YYYY HH:mm',        	   
+		        	   																					lang:'${language}',
+		          	 																					minDate:new Date(),
+	                																				
+	                                                                    						});
+	                                                              								$("#datetimepicker${viaje.id}stop").bootstrapMaterialDatePicker({
+																									format : 'DD-MM-YYYY HH:mm',        	   
+	        	   																					lang:'${language}',
+	          	 																					minDate:new Date(),
+                																				
+                                                                    						});
+	                                                    	          	 						
+	                                                    	          	 						
+	                                                    									</script>  
+                                                    	 		
+                                                           							
+                                                       							</div>                  															
+                  															</div>
+                  															<div class="modal-footer">
+                  															
+                                                                 				
+                    															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal"><fmt:message key="cancelar" /></button>
+                    															<button type="button" class="btn bg-olive " onclick="verificar('form${viaje.id}')"><fmt:message key="guardar" /></button>
+                  															</div>
+                  															
+                  															</form>
+                  															
+                														</div>
+              														</div>
+            													</div>
+          													
+					                  					</div>
+					                  					<div class="col-sm-4">
+					                  						<form method="post" action=../eliminar_viaje id='delete${viaje.id}'>
+					                  							<input type="hidden" name="clave" value="${viaje.id}"/>
+                  												<button type="button" class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="material-icons">remove_circle_outline</i></button>
+                  											</form>
+                  										<div>
+                  									<div>
+					                  			</td>				                  		
+					                  		</tr>
+					                  		
+					                  			
+					                  		
+					                  	</c:forEach>
+					                  	
+					                  	
+					                  	<c:forEach items="${recorridosMasUnDia}" var="viaje">
+					                  		<tr>
+					                  			<td >${viaje.salida}</td>					                  														
+					                  			<td >${viaje.desde}</td>
+					                  			<td >${viaje.hasta}</td>
+					                  			<td >${viaje.llegada}</td>
+					                  			<td >${viaje.evento.nombre}</td>
+					                  			<td >${viaje.asientos}</td>
+					                  			
+					                  			<td>
+					                  				<c:if test="${not empty viaje.viajeros}">
+					                  					<c:forEach items="${viaje.viajeros}" var="viajero">
+					                  						${viajero.nombre },
+					                  					</c:forEach>
+					                  				</c:if>
+					                  				<c:if test="${empty viaje.viajeros}">
+					                  					0
+					                  				</c:if>
+					                  			</td>
+					                  			<td>
+					                  				<c:if test="${not empty viaje.urlMaps}">
+					                  					<a class="btn  margin" data-toggle="modal" data-target="#${viaje.id}ruta" ><i class="material-icons">navigation</i></a>
+					                  					<div class="modal fade" id="${viaje.id}ruta" role="dialog">
+              														<div class="modal-dialog ">
+                														<div class="modal-content">
+                															
+                  															<div class="modal-header">
+                    															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    															<h4 class="modal-title"><fmt:message key="url_maps" /> 
+                    																<small class="label label-info">
+                    																
+                    																	${viaje.desde } - ${viaje.hasta }
+                    																</small>
+                    															</h4>
+                  															</div>
+                  															<div class="modal-body ">
+                  																<div class="embed-responsive embed-responsive-16by9">
+                  																	<iframe src="${viaje.urlMaps}"  frameborder="0" style="border:0" allowfullscreen></iframe>
+                  																</div>
+                  															</div>
+                  														</div>
+                  													</div>
+                  										</div>
+                        								
+					                  				</c:if>
+					                  			</td>
+					                  			
+					                  			<td>
+					                  				<div class="row">
+					                  					<div class="col-sm-4">	
+					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="material-icons">edit</i></button>				                  						
 					                  							<div class="modal fade" id="${viaje.id}update" role="dialog">
 					                  							
               														<div class="modal-dialog ">
@@ -128,32 +292,46 @@
                   															</div>
                   															<div class="modal-body ">
                         														<div class="row">
-                        														<form role="form" class="form-horizontal"method = 'post' action ='../updateEvento' id=form${evento.id}  data-toggle="validator">
+                        														<form role="form" class="form-horizontal"method = 'post' action ='../actualizar_viaje' id=form${viaje.id}  data-toggle="validator">
                                                       										<fieldset>                                                                 								
-                                                                 								<input type="hidden" name='clave' value="${evento.id }"/>  
+                                                                 								<input type="hidden" name='clave' value="${viaje.id }"/>  
+                                                                 								
                                                                  								<table class="col-md-offset-1">
                                                                  									<tbody>
                                                                  									<tr>
-                                                                 										<td><label><fmt:message key="evento_dia_hora" /> <div class="text-danger"><fmt:message key="reconfirmar" /></div> </label></td>
-                                                                 										<td><input type="text" name='fecha'  class="form-control " id="datetimepicker${viaje.id}" placeholder="${evento.fecha} ${evento.hora}" required /></td>
+                                                                 										<td><label><fmt:message key="salida_a" /> </label></td>
+                                                                 										<td><input type="text" name='salida'  class="form-control " id="datetimepicker${viaje.id}start" placeholder="${viaje.salida}"/></td>
                                                                  									</tr>
                                                                  									<tr>
-                                                                 										<td><label><fmt:message key="evento_nombre" />: <div class="help-block with-errors"></div></label></td>
-                                                                 										<td><input type="text" name='nombre' id="nombreform${evento.id}" class="form-control" id="inputNombre" value="${evento.nombre}" autofocus required /></td>
+                                                                 										<td><label><fmt:message key="viaje_llegada" />   </label></td>
+                                                                 										<td><input type="text" name='llegada'  class="form-control " id="datetimepicker${viaje.id}stop" placeholder="${viaje.llegada}"  /></td>
+                                                                 									</tr>
+                                                                 									<tr>
+                                                                 										<td><label><fmt:message key="viaje_desde" />: </label></td>
+                                                                 										<td><input type="text" name='desde' class="form-control"  id="desdeform${viaje.id}" value="${viaje.desde }"/></td>
                                                                  									</tr>
                                                                  									<br>
                                                                  									<tr>
-                                                                 										<td><label><fmt:message key="evento_lugar" />: <div class="help-block with-errors"></div></label></td>
-                                                                 										<td><input type="text" class="form-control"  name='lugar'id="lugarform${evento.id}" value="${evento.lugar }" required /></td>
+                                                                 										<td><label><fmt:message key="viaje_en" />: </label></td>
+                                                                 										<td><input type="text" name='hasta' id="hastaform${viaje.id}" class="form-control" value="${viaje.hasta}"/></td>
                                                                  									</tr>
                                                                  									<br>
                                                                  									<tr>
-                                                                 										<td><label><fmt:message key="evento_sitioweb" />: <div class="help-block with-errors"></div></label></td>
-                                                                 										<td><input type="text" class="form-control" id="inputSitio" name='sitioweb'value="${evento.sitio_web }"/></td>
+                                                                 										<td><label><fmt:message key="asientos_disponibles" />: </label></td>
+                                                                 										<td><input type="number" step="1" min="1" id="asientosform${viaje.id}" name='asientos' class="form-control" value="${viaje.asientos}" /></td>
                                                                  									</tr>
+					                                                                                  <br>
+					                                                                                  <tr>
+					                                                                                    <td><label><fmt:message key="viaje_gmaps_url" />: </label></td>
+					                                                                                    <td><input type="text" name='ruta' class="form-control" value="${viaje.urlMapsPura}" /></td>
+					                                                                                  </tr>
+					                                                                                  <br>
+					                                                                                  <tr>
+					                                                                                    <td><label><fmt:message key="viaje_finaliza_dia"/>: </label></td>
+					                                                                                    <td><input type="text" name="finaliza" id='date-end${viaje.id }' class="form-control" value="${viaje.finaliza }" /></td>
+					                                                                                  </tr>
                                                                  									</tbody>
                                                                  								</table>
-                                                                 								
                                                                  								
                                                                  								
                                                                  							    
@@ -166,13 +344,25 @@
                                                                 							</fieldset>
                                                                 						
 	                                                               							<script type="text/javascript">
-	                                                               								
-	                                                              								$("#datetimepicker${viaje.id}").bootstrapMaterialDatePicker({
+	                                                               							
+	                                                              								$("#datetimepicker${viaje.id}start").bootstrapMaterialDatePicker({
 																										format : 'DD-MM-YYYY HH:mm',        	   
 		        	   																					lang:'${language}',
 		          	 																					minDate:new Date(),
 	                																				
 	                                                                    						});
+	                                                              								$("#datetimepicker${viaje.id}stop").bootstrapMaterialDatePicker({
+																									format : 'DD-MM-YYYY HH:mm',        	   
+	        	   																					lang:'${language}',
+	          	 																					minDate:new Date(),
+                																				
+                                                                    						});
+	                                                              								$("#date-end${viaje.id}").bootstrapMaterialDatePicker({
+																									format : 'DD-MM-YYYY HH:mm',        	   
+	        	   																					lang:'${language}',
+	          	 																					minDate:new Date(),
+                																				
+                                                                    						});
 	                                                    	          	 						
 	                                                    	          	 						
 	                                                    									</script>  
@@ -184,7 +374,7 @@
                   															
                                                                  				
                     															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal"><fmt:message key="cancelar" /></button>
-                    															<button type="button" class="btn bg-olive " onclick="verificar('datetimepicker${evento.id}','form${evento.id}')"><fmt:message key="guardar" /></button>
+                    															<button type="button" class="btn bg-olive " onclick="verificar('form${viaje.id}')"><fmt:message key="guardar" /></button>
                   															</div>
                   															
                   															</form>
@@ -197,7 +387,7 @@
 					                  					<div class="col-sm-4">
 					                  						<form method="post" action=../eliminar_viaje id='delete${viaje.id}'>
 					                  							<input type="hidden" name="clave" value="${viaje.id}"/>
-                  												<a  class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="material-icons">remove_circle_outline</i></a>
+                  												<button type="button" class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="material-icons">remove_circle_outline</i></button>
                   											</form>
                   										<div>
                   									<div>
@@ -277,21 +467,23 @@
 	  
 	  <script>
 
-		function verificar(iddp,idform){
+		function verificar(idform){
 	
-			if (document.getElementById(iddp).value){
-				if (document.getElementById("nombre"+idform).value){
-					if (document.getElementById("lugar"+idform).value){
-						document.getElementById(idform).submit();
+		
+				if (document.getElementById("desde"+idform).value){
+					if (document.getElementById("hasta"+idform).value){
+						if (document.getElementById("asientos"+idform).value){
+							document.getElementById(idform).submit();
+						}else{
+							alert('<fmt:message key="viaje_asientos_error" />');
+						}
 					}else{
-						alert("<fmt:message key="evento_lugar_error" />");
+						alert('<fmt:message key="viaje_hasta_error" />');
 					}
 				}else{
-				     alert("<fmt:message key="evento_nombre_error" />");
+				     alert('<fmt:message key="viaje_desde_error" />');
 				     }
-			}else{
-				alert("<fmt:message key="evento_reconfirmar_dia_hora" />");	
-			}
+			
 					
 		}
 
