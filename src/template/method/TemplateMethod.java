@@ -38,6 +38,8 @@ public class TemplateMethod extends ActionSupport{
 		session.remove("update_evento_error");
 		session.remove("viajeros");
 		session.remove("update_viaje");
+		session.remove("exito");
+		session.remove("existe");
 		
 		
 		

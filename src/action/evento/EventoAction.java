@@ -68,6 +68,7 @@ public class EventoAction extends TemplateMethod {	/**
 		String result = "";
 		result = this.verifyUserAdmin();
 		if (result.equals("200")){	
+			updateSession();
 			addData("eventos",eventoDAO.activos());
 			return SUCCESS;
 		}

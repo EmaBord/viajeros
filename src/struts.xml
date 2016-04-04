@@ -52,6 +52,16 @@
 	<action name="desbloquearViajero" method="desbloquear" class="action.adminViajeros.AdminViajerosAction">
 		<result name="success" type="redirect" >/views/viajeros.jsp</result>	
 	</action>
+	<action name="crear_admin" method="crear_admin" class="action.admin.AdminAction"> 
+		<result name="ok" type="redirect" >/views/crearAdmin.jsp</result>
+		<result name="error" type="redirect" >/</result>
+	</action>
+	<action name="admin_nuevo" method="nuevo_admin" class="action.admin.AdminAction"> 
+		<result name="exito" type="redirect" >/views/crearAdmin.jsp</result>
+		<result name="existe" type="redirect" >/views/crearAdmin.jsp</result>
+		<result name="error" type="redirect" >/</result>
+	</action>
+	
 	<action name="recorrido" class="action.recorrido.RecorridoAction" >
 		<result name="add_recorrido" type="redirect">/views/recorridoNuevo.jsp</result>
 		<result name="login" type="redirect">/</result>

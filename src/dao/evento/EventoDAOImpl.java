@@ -1,4 +1,5 @@
 package dao.evento;
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -57,10 +58,12 @@ public class EventoDAOImpl extends GenericDAOImpl<Evento, Integer>  implements E
 	@Override
 	@Transactional
 	public List<Evento> activos() {
+		
 		Query eventoTaskQuery = getCurrentSession().createQuery(
                 "select e from Evento e where eliminado=:eliminado");
         eventoTaskQuery.setParameter("eliminado", false);
-        return (List<Evento>) eventoTaskQuery.list();
+        List<Evento> eventos = (List<Evento>) eventoTaskQuery.list();
+        return eventos ;
         
 	}
 

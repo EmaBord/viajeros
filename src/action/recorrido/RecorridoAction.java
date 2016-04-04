@@ -55,7 +55,7 @@ public class RecorridoAction extends TemplateMethod {	/**
 	
 	public String execute(){
 		addData("eventos", eventoDAO.activos());
-		updateSession();	
+		
 		return "add_recorrido";
 		
 	}
