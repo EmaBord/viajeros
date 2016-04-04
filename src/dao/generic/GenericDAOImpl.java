@@ -52,6 +52,7 @@ public abstract class GenericDAOImpl <T, E>
 	}
 	@Transactional
 	public void update(T entity) {
+		//getCurrentSession().merge(entity);
 		getCurrentSession().saveOrUpdate(entity);
 	}
 	@Transactional

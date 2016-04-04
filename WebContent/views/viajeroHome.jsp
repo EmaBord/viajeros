@@ -12,6 +12,8 @@
 <jsp:attribute name="viajes_activos">
 		class="active"
 	</jsp:attribute>
+
+						                  
 <jsp:body>	
        <section class="content-header">
           <h1>
@@ -48,8 +50,11 @@
                   		<i class="fa fa-car bg-olive"></i>
                   		<div class="timeline-item">                    		
                     		<h3 class="timeline-header"><a href="#"><fmt:message key="viaje_solo_por_dia" /> </a> <fmt:message key="del_conductor" />  ${recorrido.creador.nombre } ${recorrido.creador.apellido } </h3>
+                    		
                     		<div class="timeline-body">
                     			<div class="row">
+                    				<form method ="post" action="../subir" id="${recorrido.id }">
+                    				<input type="hidden"  value="${recorrido.id }" name="recorrido"/>
                     				<table class="table ">
                     					<tbody>
                     						<tr>
@@ -103,10 +108,11 @@
 									</table>
 								</div>
                     			<div class="timeline-footer">
-                      				<a class="btn btn-app bg-blue-active pull-right">
+                      				<a onclick="participar(${recorrido.id})" class="btn btn-app bg-blue-active pull-right">
 	                    				<i class="material-icons">directions_run</i><fmt:message key="subir" /> 
 	                  				</a>
 								</div>
+								</form>
                     	 </div>
                   	 </div>
                  </li>
@@ -125,8 +131,10 @@
                   <i class="fa fa-car bg-olive"></i>
                   <div class="timeline-item">	
                     <h3 class="timeline-header"><a href="#"><fmt:message key="viaje_mas_de_un_dia" />  </a><fmt:message key="del_conductor" /> ${recorrido.creador.nombre} ${recorrido.creador.apellido}  </h3>
+                    
                     <div class="timeline-body">
-                    	
+                    	<form method ="post" id="${recorrido.id }"action="../subir">
+                   		<input type="hidden"  value="${recorrido.id }" name="recorrido"/>
                     	<table class="table ">
                     		<tbody>
                     			<tr>
@@ -190,10 +198,11 @@
 						</table>
 						
 						<div class="timeline-footer">
-						  <a class="btn btn-app bg-blue-active pull-right">
+						  <a onclick="participar(${recorrido.id})"class="btn btn-app bg-blue-active pull-right">
                     		<i class="material-icons">directions_run</i> <fmt:message key="subir" />
 	                  	  </a>
-						</div>			  
+						</div>
+						</form>			  
 			                      
 			                      
 			        </div>
@@ -215,6 +224,16 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
+  <script>
+	function participar(idform){
+		var r = confirm('<fmt:message key="viaje_pregunta_eliminar" />');
+		if (r == true) {
+    		document.getElementById(idform).submit();
+		}
+		
+	}
+
+</script>
 </jsp:body>
 
 </t:baseViajero>		

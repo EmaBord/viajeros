@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="i18n.i18n" />
@@ -11,6 +12,8 @@
 <%@attribute name="viajes_activos" fragment="true" %>
 <%@attribute name="mailbox" fragment="true" %>
 <%@attribute name="buscar" fragment="true" %>
+<%@attribute name="pendiente" fragment="true" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -41,149 +44,27 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						          <div class="navbar-custom-menu" >
 						            <ul class="nav navbar-nav">
 						              <!-- Messages: style can be found in dropdown.less-->
-						              <li class="dropdown messages-menu">
-						                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						                  <i class="fa fa-envelope-o"></i>
-						                  <span class="label label-success">4</span>
-						                </a>
-						                <ul class="dropdown-menu">
-						                  <li class="header">Tenés 4 mensajes</li>
-						                  <li>
-						                    <!-- inner menu: contains the actual data -->
-						                    <ul class="menu">
-						                      <li><!-- start message -->
-						                        <a href="#">
-						                          <div class="pull-left">
-						                            <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-						                          </div>
-						                          <h4>
-						                            Support Team
-						                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-						                          </h4>
-						                          <p>Why not buy a new awesome theme?</p>
-						                        </a>
-						                      </li><!-- end message -->
-						                      <li>
-						                        <a href="#">
-						                          <div class="pull-left">
-						                            <img src="./dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-						                          </div>
-						                          <h4>
-						                            AdminLTE Design Team
-						                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-						                          </h4>
-						                          <p>Why not buy a new awesome theme?</p>
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <div class="pull-left">
-						                            <img src="./dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-						                          </div>
-						                          <h4>
-						                            Developers
-						                            <small><i class="fa fa-clock-o"></i> Today</small>
-						                          </h4>
-						                          <p>Why not buy a new awesome theme?</p>
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <div class="pull-left">
-						                            <img src="./dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-						                          </div>
-						                          <h4>
-						                            Sales Department
-						                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-						                          </h4>
-						                          <p>Why not buy a new awesome theme?</p>
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <div class="pull-left">
-						                            <img src="./dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-						                          </div>
-						                          <h4>
-						                            Reviewers
-						                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-						                          </h4>
-						                          <p>Why not buy a new awesome theme?</p>
-						                        </a>
-						                      </li>
-						                    </ul>
-						                  </li>
-						                  <li class="footer"><a href="#">Ver todos los mensajes</a></li>
-						                </ul>
-						              </li>
-						              <!-- Notifications: style can be found in dropdown.less -->
-						              <li class="dropdown notifications-menu">
-						                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						                  <i class="fa fa-bell-o"></i>
-						                  <span class="label label-danger">10</span>
-						                </a>
-						                <ul class="dropdown-menu">
-						                  <li class="header">Tenés 10 notificaciones</li>
-						                  <li>
-						                    <!-- inner menu: contains the actual data -->
-						                    <ul class="menu">
-						                      <li>
-						                        <a href="#">
-						                          <i class="fa fa-users text-aqua"></i> 5 new members joined today
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <i class="fa fa-users text-red"></i> 5 new members joined
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-						                        </a>
-						                      </li>
-						                      <li>
-						                        <a href="#">
-						                          <i class="fa fa-user text-red"></i> You changed your username
-						                        </a>
-						                      </li>
-						                    </ul>
-						                  </li>
-						                  <li class="footer"><a href="#">View all</a></li>
-						                </ul>
-						              </li>
+						              
+						              
+						              
+						              
 						              <!-- User Account: style can be found in dropdown.less -->
 						              <li class="dropdown user user-menu" >
 						                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						                  <img src="./dist/img/avatar5.png" class="user-image" alt="User Image">
-						                  <span class="hidden-xs">Emanuel Borda</span>
+						                  <span class="hidden-xs">${usuario.nombre } ${usuario.apellido }</span>
 						                </a>
 						                <ul class="dropdown-menu" >
 						                  <!-- User image -->
 						                  <li class="user-header" style="background-color:#60AAAF;">
 						                    <img src="./dist/img/avatar5.png" class="img-circle" alt="User Image">
 						                    <p>
-						                      Emanuel Borda - Web Developer
+						                      ${usuario.nombre } ${usuario.apellido }
 						                      <small>Miembro desde Nov. 2012</small>
 						                    </p>
 						                  </li>
 						                  <!-- Menu Body -->
-						                  <li class="user-body">
-						                    <div class="col-xs-4 text-center">
-						                      <a href="#">Seguidores</a>
-						                    </div>
-						                    <div class="col-xs-4 text-center">
-						                      <a href="#"></a>
-						                    </div>
-						                    <div class="col-xs-4 text-center">
-						                      <a href="#">Amigos</a>
-						                    </div>
-						                  </li>
+						                  
 						                  <!-- Menu Footer-->
 						                  <li class="user-footer">
 						                    <div class="pull-left">
@@ -220,7 +101,12 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						              </a>
 						              
 						            </li>      
-						            
+						            <li  <jsp:invoke fragment="pendiente"/>>
+						              <a href="/viajeros/pendientes" id="pendiente">
+						                <i class="material-icons">feedback</i> <span><fmt:message key="pendientes" /></span>
+						                
+						              </a>
+						            </li>
 				            		<li  <jsp:invoke fragment="buscar"/>>
 						              <a href="#" id="buscar">
 						                <i class="material-icons">search</i> <span><fmt:message key="viaje_buscar" /></span>

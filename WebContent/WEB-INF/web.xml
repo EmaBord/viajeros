@@ -22,6 +22,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
   <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>	
+    
   <filter-mapping>
     <filter-name>struts2</filter-name>
     <url-pattern>/*</url-pattern>

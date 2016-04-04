@@ -2,16 +2,19 @@ package model.recorrido;
 
 import javax.persistence.Entity;
 
-import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@ForeignKey(name = "id")
-public class RecorridoUnico extends Recorrido implements Comparable<Recorrido>{
+public class RecorridoUnico extends Recorrido implements Comparable<RecorridoUnico>{
 
+	
+	
 	@Override
-	public int compareTo(Recorrido o) {
+	public int compareTo(RecorridoUnico o) {
 		return this.format(this.getSalida()).compareTo(this.format(o.getSalida()));
 	}
+
+
+	
 	
 
 }

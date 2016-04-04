@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import model.calificacion.Calificacion;
 import model.denuncia.Denuncia;
+
 import model.rol.Rol;
 
 /**
@@ -45,11 +46,14 @@ public class Usuario {
   private List<Denuncia> denunciashechas;
   @ManyToMany
   private List<Denuncia> denunciasrecibidas;
+
   
   
   
 
-  public List<Denuncia> getDenunciashechas() {
+
+
+public List<Denuncia> getDenunciashechas() {
 	return denunciashechas;
 }
 
@@ -242,8 +246,14 @@ public void setHechas(List<Calificacion> hechas) {
 	this.hechas = hechas;
 }
 
+
   //
   // Other methods
   //
+public Boolean equals(Usuario u){
+	return this.getEmail().equals(u.getEmail());
+}
+
+
 
 }

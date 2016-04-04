@@ -1,6 +1,5 @@
 package model.recorrido;
 
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -9,10 +8,10 @@ import com.sun.istack.internal.Nullable;
 import model.evento.Evento;
 import model.usuario.Usuario;
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Recorrido {
    @Id
-   @GeneratedValue
+   @GeneratedValue(strategy=GenerationType.TABLE)
     private Long id;	
 	private String salida;
 	private String desde;
@@ -22,15 +21,15 @@ public abstract class Recorrido {
 	private String urlMaps;
 	@Column(length = 100000)
 	private String urlMapsPura;
-	@ManyToOne(optional=true,cascade={CascadeType.ALL})
+	@ManyToOne(optional=true)
 	@Nullable
 	private Evento evento;
 	private String [] nopermitido;
 	@ManyToOne(optional=false)
 	private Usuario creador;
 	private Integer asientos;
-	@ManyToMany
-	private List<Usuario> viajeros;
+
+
 	
 	
 	public Usuario getCreador() {
@@ -112,10 +111,7 @@ public abstract class Recorrido {
 	public void setUrlMapsPura(String urlMapsPura) {
 		this.urlMapsPura = urlMapsPura;
 	}
-	public List<Usuario> getViajeros() {
-		return viajeros;
-	}
-	public void setViajeros(List<Usuario> viajeros) {
-		this.viajeros = viajeros;
-	}
+
+
+	
 }

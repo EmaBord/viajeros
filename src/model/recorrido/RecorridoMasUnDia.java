@@ -3,21 +3,19 @@ package model.recorrido;
 
 import javax.persistence.Entity;
 
-import org.hibernate.annotations.ForeignKey;
 
 
 @Entity
-@ForeignKey(name = "id")
 public class RecorridoMasUnDia extends Recorrido implements Comparable<RecorridoMasUnDia> {
 
 	private String [] dias;
 	private String finaliza;
 	
-	public String[] getDias() {
-		return dias;
-	}
 	public void setDias(String[] dias) {
 		this.dias = dias;
+	}
+	public String[] getDias() {
+		return this.dias;
 	}
 	public String getFinaliza() {
 		return finaliza;
@@ -31,7 +29,6 @@ public class RecorridoMasUnDia extends Recorrido implements Comparable<Recorrido
 		
 		return this.formatFinaliza(this.getFinaliza()).compareTo(this.formatFinaliza(arg0.getFinaliza()));
 
-		
 	}
 	
 

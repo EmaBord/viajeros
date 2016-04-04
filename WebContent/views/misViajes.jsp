@@ -73,15 +73,13 @@
 					                  			<td >${viaje.asientos}</td>
 					                  			
 					                  			<td>
-					                  				<c:if test="${not empty viaje.viajeros}">
-					                  					<c:forEach items="${viaje.viajeros}" var="viajero">
-					                  						${viajero.nombre },
+					                  				<c:forEach items="${viajeros}" var="viajero">
+					                  						<c:if test="${viajero.recorrido.id == viaje.id}">
+					                  							${viajero.usuario.nombre } ${viajero.usuario.apellido },
+					                  						</c:if>
 					                  					</c:forEach>
-					                  				</c:if>
-					                  				<c:if test="${empty viaje.viajeros}">
-					                  					0
-					                  				</c:if>
 					                  			</td>
+					                  			
 					                  			<td>
 					                  				<c:if test="${not empty viaje.urlMaps}">
 					                  					<a class="btn  margin" data-toggle="modal" data-target="#${viaje.id}ruta" ><i class="material-icons">navigation</i></a>
@@ -113,7 +111,7 @@
 					                  			<td>
 					                  				<div class="row">
 					                  					<div class="col-sm-4">	
-					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="material-icons">edit</i></button>				                  						
+					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="fa fa-edit"></i></button>				                  						
 					                  							<div class="modal  fade " id="${viaje.id}update" role="dialog">
 					                  							
               														<div class="modal-dialog  ">
@@ -215,7 +213,7 @@
 					                  					<div class="col-sm-4">
 					                  						<form method="post" action=../eliminar_viaje id='delete${viaje.id}'>
 					                  							<input type="hidden" name="clave" value="${viaje.id}"/>
-                  												<button type="button" class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="material-icons">remove_circle_outline</i></button>
+                  												<button type="button" class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="fa fa-remove"></i></button>
                   											</form>
                   										<div>
                   									<div>
@@ -238,15 +236,15 @@
 					                  			<td >${viaje.asientos}</td>
 					                  			
 					                  			<td>
-					                  				<c:if test="${not empty viaje.viajeros}">
-					                  					<c:forEach items="${viaje.viajeros}" var="viajero">
-					                  						${viajero.nombre },
+					                  				
+					                  					<c:forEach items="${viajeros}" var="viajero">
+					                  						<c:if test="${viajero.recorrido.id == viaje.id}">
+					                  							${viajero.usuario.nombre } ${viajero.usuario.apellido },
+					                  						</c:if>
 					                  					</c:forEach>
-					                  				</c:if>
-					                  				<c:if test="${empty viaje.viajeros}">
-					                  					0
-					                  				</c:if>
+					                  				
 					                  			</td>
+					                  			
 					                  			<td>
 					                  				<c:if test="${not empty viaje.urlMaps}">
 					                  					<a class="btn  margin" data-toggle="modal" data-target="#${viaje.id}ruta" ><i class="material-icons">navigation</i></a>
@@ -278,7 +276,7 @@
 					                  			<td>
 					                  				<div class="row">
 					                  					<div class="col-sm-4">	
-					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="material-icons">edit</i></button>				                  						
+					                  							<button class="btn  bg-purple margin" data-toggle="modal" data-target="#${viaje.id}update" ><i class="fa fa-edit"></i></button>				                  						
 					                  							<div class="modal fade" id="${viaje.id}update" role="dialog">
 					                  							
               														<div class="modal-dialog ">
@@ -390,7 +388,7 @@
 					                  					<div class="col-sm-4">
 					                  						<form method="post" action=../eliminar_viaje id='delete${viaje.id}'>
 					                  							<input type="hidden" name="clave" value="${viaje.id}"/>
-                  												<button type="button" class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="material-icons">remove_circle_outline</i></button>
+                  												<button type="button" class="btn bg-orange margin" onclick="eliminar('delete${viaje.id}')"><i class="fa fa-remove"></i></button>
                   											</form>
                   										<div>
                   									<div>

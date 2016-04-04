@@ -45,8 +45,21 @@ public class RecorridoUnicoDAOImpl extends GenericDAOImpl<RecorridoUnico,Long> i
 		while (iterator.hasNext()) {
 			RecorridoUnico recorrido = iterator.next();
 			int result = recorrido.format(recorrido.getSalida()).compareTo(timeStamp);
-			if (! (recorrido.getCreador().getBloqueado()) && (result >= 0)&& recorrido.getAsientos()>0)
-				activos.add(recorrido);
+			if (! (recorrido.getCreador().getBloqueado()) && (result >= 0)&& recorrido.getAsientos()>0 ){
+				Query query2  = getCurrentSession().createQuery(
+		                "select r from UsuarioViajero r where usuario_id =:usuario_id");
+				query2.setParameter("usuario_id", u.getId());
+				
+				Query query3  = getCurrentSession().createQuery(
+		                "select r from UsuarioPendiente r where usuario_id =:usuario_id");
+				query3.setParameter("usuario_id", u.getId());
+				
+				if (query2.list().size()==0 && query3.list().size()==0)
+					activos.add(recorrido);
+				
+			}
+				
+				
 		}
 	    Collections.sort(activos);
 	    return activos;
@@ -55,14 +68,14 @@ public class RecorridoUnicoDAOImpl extends GenericDAOImpl<RecorridoUnico,Long> i
 	@Override
 	@Transactional
 	public List<RecorridoUnico> activosDeUsuario(Usuario u) {
-		
-		Query query = getCurrentSession().createQuery(
-                "select r from RecorridoUnico r where creador_id =:usuario_id");
-		query.setParameter("usuario_id", u.getId());
-	    @SuppressWarnings("unchecked")
-		List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
+		List<RecorridoUnico> recoUser = new ArrayList<RecorridoUnico>();
+		List<RecorridoUnico> recorridos = this.list();
+		for (RecorridoUnico reco:recorridos){
+			if (reco.getCreador().getEmail().equals(u.getEmail()))
+				recoUser.add(reco);
+		}
 
-	    return recorridos;
+		return recoUser;
 	}
 
 }

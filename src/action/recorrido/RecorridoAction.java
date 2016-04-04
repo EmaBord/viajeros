@@ -3,23 +3,29 @@ package action.recorrido;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
 import template.method.TemplateMethod;
 import model.evento.Evento;
+import model.pendiente.UsuarioPendiente;
 import model.recorrido.Recorrido;
 import model.recorrido.RecorridoMasUnDia;
 import model.recorrido.RecorridoUnico;
+import model.viajero.UsuarioViajero;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import dao.evento.EventoDAO;
+import dao.pendiente.UsuarioPendienteDAO;
 import dao.recorrido.RecorridoDAO;
 import dao.recorrido.RecorridoMasDeUnDiaDAO;
 import dao.recorrido.RecorridoUnicoDAO;
+import dao.usuario.UsuarioDAO;
+import dao.viajero.UsuarioViajeroDAO;
 
 @Conversion
 public class RecorridoAction extends TemplateMethod {	/**
@@ -30,6 +36,9 @@ public class RecorridoAction extends TemplateMethod {	/**
 	private RecorridoDAO recorridoDAO;
 	private RecorridoUnicoDAO recorridoUnicoDAO;
 	private RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO;
+	private UsuarioDAO usuarioDAO;
+	private UsuarioPendienteDAO usuarioPendienteDAO;
+	private UsuarioViajeroDAO usuarioViajeroDAO;
 	String salida;
 	String desde;
 	String llegada;
@@ -46,17 +55,25 @@ public class RecorridoAction extends TemplateMethod {	/**
 	
 	public String execute(){
 		addData("eventos", eventoDAO.activos());
-		updateSession();
+		updateSession();	
 		return "add_recorrido";
 		
 	}
 	public String mis_viajes(){
 		updateSession();
 		addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
-		addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));	
+		addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));
+		addData("viajeros", usuarioViajeroDAO.list());
 		return "ok";
 		
 	}
+	public String pendientes(){
+		updateSession();
+		addData("pendientes", usuarioPendienteDAO.activosDeUsuario(this.getUsuario()));			
+		return "ok";
+		
+	}
+	
 	public String timeline(){
 		updateSession();
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
@@ -123,31 +140,55 @@ public class RecorridoAction extends TemplateMethod {	/**
 		
 	}
 	
-	//private boolean isValid() {
-		// TODO Auto-generated method stub
-		//return getNombre() != null  && getFecha()!=null && getLugar() != null && !(getFecha().length()==0);
-	//}
-	public String list(){	
-		String result = "";
-		result = this.verifyUserAdmin();
-		if (result.equals("200")){	
-			addData("eventos",eventoDAO.list());
-			return SUCCESS;
-		}
-		return result;
-		
-		
-	}
-	public String eliminar(){	
 
+
+	public String eliminar(){
 			String id_parameter = ServletActionContext.getRequest().getParameter("clave");
 			Long id = new Long(id_parameter);
 			Recorrido recorrido = recorridoDAO.findByKey(id);
-			recorridoDAO.delete(recorrido); 
+			recorridoDAO.delete(recorrido);
+			usuarioViajeroDAO.delete(id);
+			usuarioPendienteDAO.delete(id);
 			addData("recorridosUnicos", recorridoUnicoDAO.activosDeUsuario(this.getUsuario()));	
-			addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));	
+			addData("recorridosMasUnDia", recorridoMasUnDiaDAO.activosDeUsuario(this.getUsuario()));
+			addData("viajeros", usuarioViajeroDAO.list());
 			return "ok";
 		
+	}
+	public String aceptarUsuario(){
+		String id_parameter = ServletActionContext.getRequest().getParameter("clave");
+		Long id = new Long(id_parameter);
+		UsuarioPendiente usuarioPendiente = usuarioPendienteDAO.findByKey(id);
+		Recorrido recorrido = usuarioPendiente.getRecorrido();
+		UsuarioViajero userv = new UsuarioViajero();
+		userv.setRecorrido(recorrido);
+		userv.setUsuario(usuarioPendiente.getUsuario());
+		usuarioViajeroDAO.save(userv);
+		recorrido.setAsientos(recorrido.getAsientos()-1);
+		recorridoDAO.update(recorrido);
+		usuarioPendienteDAO.delete(usuarioPendiente);
+		addData("pendientes", usuarioPendienteDAO.activosDeUsuario(this.getUsuario()));
+		return "ok";
+	}
+	public String rechazarUsuario(){
+		String id_parameter = ServletActionContext.getRequest().getParameter("clave");
+		Long id = new Long(id_parameter);		
+		UsuarioPendiente usuarioPendiente = usuarioPendienteDAO.findByKey(id);
+		usuarioPendienteDAO.delete(usuarioPendiente);
+		addData("pendientes", usuarioPendienteDAO.activosDeUsuario(this.getUsuario()));	
+		return "ok";
+	}
+	public String subir(){
+		String id_parameter = ServletActionContext.getRequest().getParameter("recorrido");
+		Long id = new Long(id_parameter);
+		Recorrido recorrido = recorridoDAO.findByKey(id);
+		UsuarioPendiente upen = new UsuarioPendiente();
+		upen.setRecorrido(recorrido);
+		upen.setUsuario(this.getUsuario());
+		usuarioPendienteDAO.save(upen);
+		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
+		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
+		return "ok";
 	}
 	
 	public String getAsientos() {
@@ -246,18 +287,16 @@ public class RecorridoAction extends TemplateMethod {	/**
 	public void setRecorridoMasUnDiaDAO(RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO) {
 		this.recorridoMasUnDiaDAO = recorridoMasUnDiaDAO;
 	}
-	
+
 	public String actualizar(){	
 				Recorrido r = null;
 				Long id = new Long(ServletActionContext.getRequest().getParameter("clave"));
-				if (!this.getFinaliza().equals("")){
+				if (this.getFinaliza() != null && !this.getFinaliza().equals("")){
 					 r = recorridoMasUnDiaDAO.findByKey(id);
 					 ((RecorridoMasUnDia) r).setFinaliza(getFinaliza());
 				}else{
 					r = recorridoDAO.findByKey(id);
-				}
-				
-				
+				}				
 				r.setAsientos(new Integer(getAsientos()));
 				r.setDesde(getDesde());
 				r.setHasta(getHasta());
@@ -281,19 +320,33 @@ public class RecorridoAction extends TemplateMethod {	/**
 			
 				
 	}
-
-
-
-
-
-	/*
 	
-	private void reformat(){
-		String[] r = this.fecha.split("/");
-		this.setFecha (r[2].split(" ")[0]+"/"+r[1]+"/"+r[0]);
-		this.setHora(r[2].split(" ")[1]);
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
+	public UsuarioPendienteDAO getUsuarioPendienteDAO() {
+		return usuarioPendienteDAO;
+	}
+	public void setUsuarioPendienteDAO(UsuarioPendienteDAO usuarioPendienteDAO) {
+		this.usuarioPendienteDAO = usuarioPendienteDAO;
+	}
+	public UsuarioViajeroDAO getUsuarioViajeroDAO() {
+		return usuarioViajeroDAO;
+	}
+	public void setUsuarioViajeroDAO(UsuarioViajeroDAO usuarioViajeroDAO) {
+		this.usuarioViajeroDAO = usuarioViajeroDAO;
+	}
+	
+	
 
-		
-		
-	}*/
+
+
+
+
 }

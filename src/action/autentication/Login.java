@@ -3,6 +3,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
+
 import model.rol.Rol;
 import model.usuario.Usuario;
 
@@ -72,6 +73,7 @@ public class Login extends ActionSupport  {
 					
 					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
 					session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
+					
 					
 				return u.getRol().getNombre();
 

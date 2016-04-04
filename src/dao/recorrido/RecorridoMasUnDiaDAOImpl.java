@@ -55,8 +55,18 @@ public class RecorridoMasUnDiaDAOImpl extends GenericDAOImpl<RecorridoMasUnDia,L
 		while (iterator.hasNext()) {
 			RecorridoMasUnDia recorrido = iterator.next();
 			int result = recorrido.formatFinaliza(recorrido.getFinaliza()).compareTo(timeStamp);
-			if (! (recorrido.getCreador().getBloqueado()) && (result >= 0) && recorrido.getAsientos()>0)
-				activos.add(recorrido);
+			if (! (recorrido.getCreador().getBloqueado()) && (result >= 0) && recorrido.getAsientos()>0){
+				Query query2  = getCurrentSession().createQuery(
+		                "select r from UsuarioViajero r where usuario_id =:usuario_id");
+				query2.setParameter("usuario_id", u.getId());
+				
+				Query query3  = getCurrentSession().createQuery(
+		                "select r from UsuarioPendiente r where usuario_id =:usuario_id");
+				query3.setParameter("usuario_id", u.getId());
+				
+				if (query2.list().size()==0 && query3.list().size()==0)
+					activos.add(recorrido);
+			}
 		}
 		Collections.sort(activos);
 	
@@ -67,13 +77,14 @@ public class RecorridoMasUnDiaDAOImpl extends GenericDAOImpl<RecorridoMasUnDia,L
 	@Override
 	@Transactional
 	public List<RecorridoMasUnDia> activosDeUsuario(Usuario u) {
-		Query query = getCurrentSession().createQuery(
-                "select r from RecorridoMasUnDia r where creador_id =:usuario_id");
-		query.setParameter("usuario_id", u.getId());
-	    @SuppressWarnings("unchecked")
-		List<RecorridoMasUnDia> recorridos = (List<RecorridoMasUnDia>) query.list();
 
-	    return recorridos;
+		List<RecorridoMasUnDia> recoUser = new ArrayList<RecorridoMasUnDia>();
+		List<RecorridoMasUnDia> recorridos = this.list();
+		for (RecorridoMasUnDia reco:recorridos){
+			if (reco.getCreador().getEmail().equals(u.getEmail()))
+				recoUser.add(reco);
+		}
+	    return recoUser;
 	}
 
 }
