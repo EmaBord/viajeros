@@ -3,7 +3,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-
 import model.rol.Rol;
 import model.usuario.Usuario;
 
@@ -31,6 +30,7 @@ public class Login extends ActionSupport  {
 
 	@Override
 	public String execute() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+
 		if (rolDAO.getRol("admin")== null){
 			Rol r = new Rol();
 			r.setNombre("admin");
@@ -40,15 +40,6 @@ public class Login extends ActionSupport  {
 			user.setEmail("admin@admin.com");
 			user.setNombre("Admin");
 			user.setRol(r);
-			/*
-			byte[] bytesOfMessage = "admin".getBytes("UTF-8");
-
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] thedigest = md.digest(bytesOfMessage);
-			
-			
-			*/
-			user.setClave("admin");
 			usuarioDAO.save(user);
 			
 		}
@@ -69,12 +60,11 @@ public class Login extends ActionSupport  {
 				session.put("usuario", u);
 				if (u.getRol().getNombre().equals("admin"))
 					session.put("eventos", eventoDAO.activos());
-				if (u.getRol().getNombre().equals("viajero"))
-					
+				if (u.getRol().getNombre().equals("viajero")){
 					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
 					session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
 					
-					
+				}
 				return u.getRol().getNombre();
 
 			}else{

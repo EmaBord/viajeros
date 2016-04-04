@@ -3,13 +3,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
     
     xsi:schemaLocation="http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       
         
+        ">
+        
+   
         
 		<bean id="usuarioDAO" class="dao.usuario.UsuarioDAOImpl" >
 	 		<constructor-arg ref="sessionFactory"/>
@@ -96,6 +101,36 @@
 
 
     <bean id="rolViajeroAspect" class="aspectos.RolViajeroAspect"/>
+   
+    
+    
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="25"/>
+        <property name="username" value="info.infopool@gmail.com"/>
+        <property name="password" value="Infopool2016@!!"/>
+        <property name="javaMailProperties">
+            <props>
+                <!-- Use SMTP transport protocol -->
+                <prop key="mail.transport.protocol">smtp</prop>
+                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                <prop key="mail.smtp.auth">true</prop>
+                <!-- Use TLS to encrypt communication with SMTP server -->
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+     <bean id="mailService" class="services.mail.MailService">
+     	<property name="mailSender" ref="mailSender"/>
+     </bean>
+     <bean id="notificacionAspect" class="aspectos.NotificaionAspect" >
+    	<property name="recorridoDAO" ref="recorridoDAO"/>
+    	<property name="mailService" ref="mailService"/>
+    	<property name="usuarioPendienteDAO" ref="usuarioPendienteDAO"/>
+    </bean>
+    
+    
 
 	
 	

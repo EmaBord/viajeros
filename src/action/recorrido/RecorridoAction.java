@@ -76,9 +76,10 @@ public class RecorridoAction extends TemplateMethod {	/**
 	
 	public String timeline(){
 		updateSession();
+		System.out.println("TIMELINE");
 		addData("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(this.getUsuario()));
 		addData("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(this.getUsuario()));
-		return "ok";
+		return "oki";
 	}
 	public String new_recorrido(){	
 		String result = "add_recorrido";

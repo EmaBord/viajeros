@@ -75,7 +75,7 @@
 						                  			<div class="col-md-2">
 						                  			<form method ="post" action="../rechazar">
 						                  				<input type="hidden" name="clave" value="${pendiente.id}">
-						                  				<button onclick="alert(5);" class="btn bg-navy"><i class="fa fa-thumbs-o-down "></i></button>
+						                  				<button  class="btn bg-navy"><i class="fa fa-thumbs-o-down "></i></button>
 						                  			
 						                  			</form>
 						                  			</div>

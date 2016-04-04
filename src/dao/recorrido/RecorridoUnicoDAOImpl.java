@@ -41,19 +41,23 @@ public class RecorridoUnicoDAOImpl extends GenericDAOImpl<RecorridoUnico,Long> i
 		query.setParameter("usuario_id", u.getId());
 	    @SuppressWarnings("unchecked")
 		List<RecorridoUnico> recorridos = (List<RecorridoUnico>) query.list();
+	    System.out.println("q1 "+recorridos.size());
 	    Iterator<RecorridoUnico> iterator = recorridos.iterator();
 		while (iterator.hasNext()) {
 			RecorridoUnico recorrido = iterator.next();
 			int result = recorrido.format(recorrido.getSalida()).compareTo(timeStamp);
-			if (! (recorrido.getCreador().getBloqueado()) && (result >= 0)&& recorrido.getAsientos()>0 ){
+			if ( (!recorrido.getCreador().getBloqueado()) && (result >= 0)&& recorrido.getAsientos()>0 ){
 				Query query2  = getCurrentSession().createQuery(
-		                "select r from UsuarioViajero r where usuario_id =:usuario_id");
+		                "select r from UsuarioViajero r where usuario_id =:usuario_id and recorrido_id=:recorrido_id");
 				query2.setParameter("usuario_id", u.getId());
+				query2.setParameter("recorrido_id", recorrido.getId());
 				
 				Query query3  = getCurrentSession().createQuery(
-		                "select r from UsuarioPendiente r where usuario_id =:usuario_id");
+		                "select r from UsuarioPendiente r where usuario_id =:usuario_id and recorrido_id=:recorrido_id");
 				query3.setParameter("usuario_id", u.getId());
-				
+				query3.setParameter("recorrido_id", recorrido.getId());
+				System.out.println("q2 "+query2.list().size() );
+				System.out.println("q3 "+query3.list().size() );
 				if (query2.list().size()==0 && query3.list().size()==0)
 					activos.add(recorrido);
 				

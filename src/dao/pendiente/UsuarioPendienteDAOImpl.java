@@ -32,7 +32,7 @@ public class UsuarioPendienteDAOImpl extends GenericDAOImpl<UsuarioPendiente,Lon
 		List<UsuarioPendiente> resultado = new ArrayList<UsuarioPendiente>();
 		List<UsuarioPendiente> all = (List<UsuarioPendiente>)this.list();
 		for (UsuarioPendiente upen:all){
-			if (upen.getRecorrido().getCreador().getEmail().equals(u.getEmail()))
+			if (upen.getRecorrido().getCreador().getEmail().equals(u.getEmail()) && upen.getRecorrido().getAsientos()>0)
 				resultado.add(upen);
 		}
 		return resultado;

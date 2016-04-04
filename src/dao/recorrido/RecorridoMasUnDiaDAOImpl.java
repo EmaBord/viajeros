@@ -57,12 +57,14 @@ public class RecorridoMasUnDiaDAOImpl extends GenericDAOImpl<RecorridoMasUnDia,L
 			int result = recorrido.formatFinaliza(recorrido.getFinaliza()).compareTo(timeStamp);
 			if (! (recorrido.getCreador().getBloqueado()) && (result >= 0) && recorrido.getAsientos()>0){
 				Query query2  = getCurrentSession().createQuery(
-		                "select r from UsuarioViajero r where usuario_id =:usuario_id");
+		                "select r from UsuarioViajero r where usuario_id =:usuario_id and recorrido_id=:recorrido_id");
 				query2.setParameter("usuario_id", u.getId());
+				query2.setParameter("recorrido_id", recorrido.getId());
 				
 				Query query3  = getCurrentSession().createQuery(
-		                "select r from UsuarioPendiente r where usuario_id =:usuario_id");
+		                "select r from UsuarioPendiente r where usuario_id =:usuario_id and recorrido_id=:recorrido_id");
 				query3.setParameter("usuario_id", u.getId());
+				query3.setParameter("recorrido_id", recorrido.getId());
 				
 				if (query2.list().size()==0 && query3.list().size()==0)
 					activos.add(recorrido);
