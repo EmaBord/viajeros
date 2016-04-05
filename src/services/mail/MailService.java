@@ -25,6 +25,18 @@ public void sendMail(String from, String to, String subject, String body) throws
         
     }
 
+public void sendMailBcc(String from, String[] to, String subject, String body) throws MessagingException {
+    
+    SimpleMailMessage message = new SimpleMailMessage();
+     
+    message.setFrom(from);
+    message.setBcc(to);
+    message.setSubject(subject);
+    message.setText(body);
+    mailSender.send(message);
+    
+}
+
 public MailSender getMailSender() {
 	return mailSender;
 }

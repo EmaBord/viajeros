@@ -1,5 +1,7 @@
 package dao.viajero;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,15 @@ public class UsuarioViajeroDAOImpl extends GenericDAOImpl<UsuarioViajero,Long> i
 		query.setParameter("id", id);
 		query.executeUpdate();
 		
+	}
+	@Transactional
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioViajero> getUser(Long id) {
+		Query query = getCurrentSession().createQuery(
+                "select r from UsuarioViajero r where  recorrido_id=:recorrido_id");
+		query.setParameter("recorrido_id", id);
+		return (List<UsuarioViajero>) query.list();
 	}
 
 }

@@ -2,6 +2,9 @@ package dao.recorrido;
 
 
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import model.recorrido.Recorrido;
@@ -13,6 +16,15 @@ public class RecorridoDAOImpl extends GenericDAOImpl<Recorrido,Long> implements 
 	public RecorridoDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 		// TODO Auto-generated constructor stub
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Recorrido> findByUser(Long idUsuarioBloqueado) {
+		Query query = getCurrentSession().createQuery(
+                "select r from Recorrido r where creador_id=:creador_id ");
+		query.setParameter("creador_id", idUsuarioBloqueado);
+		return (List<Recorrido>) query.list();
 	}
 
 	

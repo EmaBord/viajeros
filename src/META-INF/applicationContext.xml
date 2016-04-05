@@ -128,6 +128,8 @@
     	<property name="recorridoDAO" ref="recorridoDAO"/>
     	<property name="mailService" ref="mailService"/>
     	<property name="usuarioPendienteDAO" ref="usuarioPendienteDAO"/>
+    	<property name="usuarioViajeroDAO" ref="usuarioViajeroDAO"/>
+    	<property name="usuarioDAO" ref="usuarioDAO"/>
     </bean>
     
     

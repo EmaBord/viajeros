@@ -47,5 +47,14 @@ public class UsuarioPendienteDAOImpl extends GenericDAOImpl<UsuarioPendiente,Lon
 		query.executeUpdate();
 		
 	}
+	@Transactional
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioPendiente> getUser(Long id) {
+		Query query = getCurrentSession().createQuery(
+                "select r from UsuarioPendiente r where  recorrido_id=:recorrido_id");
+		query.setParameter("recorrido_id", id);
+		return (List<UsuarioPendiente>)query.list();
+	}
 
 }

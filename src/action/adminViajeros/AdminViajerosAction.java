@@ -49,6 +49,7 @@ public class AdminViajerosAction extends TemplateMethod {
 	}
 	
 	public String bloquear(){	
+		System.out.println(55555);
 		String result = "";
 		result = this.verifyUserAdmin();
 		if (result.equals("200")){	
@@ -60,6 +61,7 @@ public class AdminViajerosAction extends TemplateMethod {
 			addData("viajeros",viajeros);
 			return SUCCESS;
 		}
+		
 		return result;		
 	}
 	
