@@ -13,6 +13,7 @@
 <%@attribute name="mailbox" fragment="true" %>
 <%@attribute name="buscar" fragment="true" %>
 <%@attribute name="pendiente" fragment="true" %>
+<%@attribute name="participaciones" fragment="true" %>
 
 
 <!DOCTYPE html>
@@ -107,9 +108,9 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						                
 						              </a>
 						            </li>
-				            		<li  <jsp:invoke fragment="buscar"/>>
-						              <a href="#" id="buscar">
-						                <i class="material-icons">search</i> <span><fmt:message key="viaje_buscar" /></span>
+				            		<li  <jsp:invoke fragment="participaciones"/>>
+						              <a href="/viajeros/mis_participaciones" id="participaciones">
+						                <i class="material-icons">search</i> <span><fmt:message key="mis_participaciones" /></span>
 						                
 						              </a>
 						            </li>

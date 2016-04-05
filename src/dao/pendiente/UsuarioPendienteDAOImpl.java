@@ -38,6 +38,18 @@ public class UsuarioPendienteDAOImpl extends GenericDAOImpl<UsuarioPendiente,Lon
 		return resultado;
 		
 	}
+	@Transactional
+	public List<UsuarioPendiente> activosDeUsuarioAll(Usuario u){
+		
+		List<UsuarioPendiente> resultado = new ArrayList<UsuarioPendiente>();
+		List<UsuarioPendiente> all = (List<UsuarioPendiente>)this.list();
+		for (UsuarioPendiente upen:all){
+			if (upen.getUsuario().getEmail().equals(u.getEmail()) )
+				resultado.add(upen);
+		}
+		return resultado;
+		
+	}
 	
 	@Transactional
 	public void delete(Long id) {

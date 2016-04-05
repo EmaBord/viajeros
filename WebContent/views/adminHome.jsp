@@ -5,7 +5,8 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:baseAdmin>
 <jsp:body>	
-Home Admin
+
+lala
 </jsp:body>
 
 </t:baseAdmin>		

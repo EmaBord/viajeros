@@ -14,4 +14,6 @@ public interface UsuarioPendienteDAO extends GenericDAO<UsuarioPendiente,Long> {
 	void delete(Long id);
 
 	public List<UsuarioPendiente> getUser(Long id);
+
+	public List<UsuarioPendiente> activosDeUsuarioAll(Usuario usuario);
 }

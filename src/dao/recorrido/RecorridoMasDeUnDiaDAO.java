@@ -12,4 +12,6 @@ public interface RecorridoMasDeUnDiaDAO extends GenericDAO<RecorridoMasUnDia, Lo
 
 	List<RecorridoMasUnDia> activosSinUsuario(Usuario u);
 	List<RecorridoMasUnDia> activosDeUsuario(Usuario u);
+
+	
 }

@@ -60,11 +60,11 @@ public class Login extends ActionSupport  {
 				session.put("usuario", u);
 				if (u.getRol().getNombre().equals("admin"))
 					session.put("eventos", eventoDAO.activos());
-				if (u.getRol().getNombre().equals("viajero")){
-					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
-					session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
 					
-				}
+					
+				
+				session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
+				session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
 				return u.getRol().getNombre();
 
 			}else{

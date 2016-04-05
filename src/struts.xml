@@ -113,6 +113,12 @@
 		 <result name="login" type="redirect">/</result>
 		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
 	</action>
+	<action name="mis_participaciones" method="mis_participaciones" class="action.recorrido.RecorridoAction" >
+		 <result name="ok" type="redirect">views/misParticipaciones.jsp</result>	
+		 <result name="login" type="redirect">/</result>
+		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
+	</action>
+	
 </package>
 
 </struts>

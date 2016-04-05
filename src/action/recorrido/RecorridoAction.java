@@ -67,6 +67,13 @@ public class RecorridoAction extends TemplateMethod {	/**
 		return "ok";
 		
 	}
+	public String mis_participaciones(){
+		updateSession();
+		addData("pendientes", usuarioPendienteDAO.activosDeUsuarioAll(this.getUsuario()));	
+		addData("viajeros", usuarioViajeroDAO.activosDeUsuarioAll(this.getUsuario()));
+		return "ok";
+		
+	}
 	public String pendientes(){
 		updateSession();
 		addData("pendientes", usuarioPendienteDAO.activosDeUsuario(this.getUsuario()));			
