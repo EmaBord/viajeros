@@ -20,7 +20,7 @@
 	<section class="content-header">
          <h1><fmt:message key="evento_nuevo" /></h1>
          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/viajeros/"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active"><fmt:message key="evento_nuevo" /></li>
           </ol>
     </section>							

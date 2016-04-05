@@ -23,7 +23,19 @@
 	</ol>
 </section>
 <section class="content">
-  			
+  			<c:if test="${not empty existe}">	
+  				<div class="row">
+  					
+  					<div class="col-sm-6">
+  						<div class="alert alert-success alert-dismissable">
+                   			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    		<h4>	<i class="icon fa fa-check"></i> ${existe }</h4>
+							
+                    	</div>
+                  
+  				</div>
+  				</div>
+  				</c:if>
   			<!-- row -->
     			<div class="row">
     				<div class="col-xs-12">
@@ -43,6 +55,8 @@
 					                      <th><fmt:message key="evento" /></th>
 					                      <th><fmt:message key="asientos_disponibles" /></th>
 					                      <th><fmt:message key="estado" /></th>
+					                      <th><fmt:message key="calificar" /></th>
+					                      <th><fmt:message key="denunciar" /></th>
 					                      
 					                      
 					                    </tr>
@@ -62,6 +76,8 @@
 					                  				<button class="btn btn-xs btn-warning"><i class="material-icons">flag</i></button>
 					                  				 
 					                  			</td>
+					                  			<td></td>
+					                  			<td></td>
 					                  			
 					                  		</tr>
 					                  			
@@ -83,8 +99,29 @@
 					                  				<button class="btn btn-xs btn-success"><i class="material-icons">flag</i></button>
 					                  				
 					                  			</td>
-					                  			
-					                  			
+					                  			<td>
+					                  				<div class="col-sm-4">
+					                  				<form method="post" action="../calificar_mal">
+					                  					<button class="btn btn-default btn-xs btn-danger"><i class="material-icons">sentiment_dissatisfied</i></button>
+					                  					<input name="viajero" value="${viajero.id }" type="hidden">
+					                  				</form>
+					                  				</div>
+					                  				<div class="col-sm-4">
+					                  				<form method="post" action="../calificar_reg">
+					                  					<button class="btn btn-default btn-xs btn-warning"><i class="material-icons">sentiment_neutral</i></button>
+					                  					<input name="viajero" value="${viajero.id }" type="hidden">
+					                  				</form>
+					                  				</div>
+					                  				<div class="col-sm-4">
+					                  				<form method="post" action="../calificar_ok">
+					                  					<input name="viajero" value="${viajero.id }" type="hidden">
+					                  					<button class="btn btn-default btn-xs btn-success"><i class="material-icons">sentiment_satisfied</i></button>
+					                  				</form>
+					                  				</div>
+					                  			</td>
+					                  			<td>
+					                  				<button class="btn btn-default btn-xs btn-danger"><i class="material-icons">pan_tool</i></button>
+					                  			</td>
 					                  			
 					                  			</tr>
 					                  		
@@ -100,6 +137,8 @@
 					                      <th><fmt:message key="evento" /></th>
 					                      <th><fmt:message key="asientos_disponibles" /></th>
 					                      <th><fmt:message key="estado" /></th>
+					                      <th><fmt:message key="calificar" /></th>
+					                      <th><fmt:message key="denunciar" /></th>
 					                    </tr>
 					                  </tfoot>
 					                </table>

@@ -42,6 +42,15 @@
 		<bean id="usuarioViajeroDAO" class="dao.viajero.UsuarioViajeroDAOImpl" >
 			<constructor-arg ref="sessionFactory"/>
 		</bean>
+		<bean id="calificacionMalaDAO" class="dao.calificacion.CalificacionMalaDAOImpl" >
+			<constructor-arg ref="sessionFactory"/>
+		</bean>
+		<bean id="calificacionBuenaDAO" class="dao.calificacion.CalificacionBuenaDAOImpl" >
+			<constructor-arg ref="sessionFactory"/>
+		</bean>
+		<bean id="calificacionRegularDAO" class="dao.calificacion.CalificacionRegularDAOImpl" >
+			<constructor-arg ref="sessionFactory"/>
+		</bean>
 		
 		
 
@@ -63,6 +72,9 @@
         			<value>model.rol.Rol</value>
         			<value>model.evento.Evento</value>
         			<value>model.calificacion.Calificacion</value>
+        			<value>model.calificacion.CalificacionBuena</value>
+        			<value>model.calificacion.CalificacionMala</value>
+        			<value>model.calificacion.CalificacionRegular</value>
         			<value>model.denuncia.Denuncia</value>
         			<value>model.usuario.Usuario</value>
         			<value>model.recorrido.Recorrido</value>

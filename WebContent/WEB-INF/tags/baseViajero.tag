@@ -114,12 +114,7 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						                
 						              </a>
 						            </li>
-						            <li  <jsp:invoke fragment="mailbox"/>>
-						              <a href="#" id="mailbox">
-						                <i class="material-icons">star_border</i> <span><fmt:message key="calificar" /></span>
-						                
-						              </a>
-						            </li>
+						           
 						         </ul>
 						            
 						        </section>

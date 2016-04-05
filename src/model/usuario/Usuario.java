@@ -1,16 +1,12 @@
 
 package model.usuario;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import model.calificacion.Calificacion;
-import model.denuncia.Denuncia;
 
 import model.rol.Rol;
 
@@ -36,16 +32,7 @@ public class Usuario {
   private String telefono;
   private String imagen_path;
   private Boolean bloqueado;
-  @ManyToMany
-  private List<Calificacion> recibidasbuenas;
-  @ManyToMany
-  private List<Calificacion> recibidasmalas;
-  @ManyToMany
-  private List<Calificacion> hechas;  
-  @ManyToMany
-  private List<Denuncia> denunciashechas;
-  @ManyToMany
-  private List<Denuncia> denunciasrecibidas;
+ 
 
   
   
@@ -53,21 +40,6 @@ public class Usuario {
 
 
 
-public List<Denuncia> getDenunciashechas() {
-	return denunciashechas;
-}
-
-public void setDenunciashechas(List<Denuncia> denunciashechas) {
-	this.denunciashechas = denunciashechas;
-}
-
-public List<Denuncia> getDenunciasrecibidas() {
-	return denunciasrecibidas;
-}
-
-public void setDenunciasrecibidas(List<Denuncia> denunciasrecibidas) {
-	this.denunciasrecibidas = denunciasrecibidas;
-}
 
   
  
@@ -220,31 +192,7 @@ public void setBloqueado(Boolean bloqueado) {
 	this.bloqueado = bloqueado;
 }
 
-public List<Calificacion> getRecibidasbuenas() {
-	return recibidasbuenas;
-}
 
-public void setRecibidasbuenas(List<Calificacion> recibidasbuenas) {
-	this.recibidasbuenas = recibidasbuenas;
-}
-
-public List<Calificacion> getRecibidasmalas() {
-	return recibidasmalas;
-}
-
-public void setRecibidasmalas(List<Calificacion> recibidasmalas) {
-	this.recibidasmalas = recibidasmalas;
-	
-}
-
-
-public List<Calificacion> getHechas() {
-	return hechas;
-}
-
-public void setHechas(List<Calificacion> hechas) {
-	this.hechas = hechas;
-}
 
 
   //

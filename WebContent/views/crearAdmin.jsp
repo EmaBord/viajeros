@@ -17,7 +17,7 @@
 	<section class="content-header">
          <h1><fmt:message key="usuario_admin_nuevo" /></h1>
          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/viajeros/"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active"><fmt:message key="crear_admin" /></li>
           </ol>
     </section>							

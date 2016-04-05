@@ -2,16 +2,29 @@ package model.calificacion;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+
+import model.recorrido.Recorrido;
+import model.usuario.Usuario;
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public class Calificacion {
+public abstract class Calificacion {
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.TABLE)
     private Long id;
-	private String comentario;
-	private boolean buena;
+	@ManyToOne
+	private Usuario calificador;
+	@ManyToOne
+	private Usuario calificado;
+	@ManyToOne
+	private Recorrido recorrido;
 	
-	public Calificacion(){}
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -19,18 +32,26 @@ public class Calificacion {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getComentario() {
-		return comentario;
+	public Usuario getCalificador() {
+		return calificador;
 	}
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+	public void setCalificador(Usuario calificador) {
+		this.calificador = calificador;
+	}
+	public Usuario getCalificado() {
+		return calificado;
+	}
+	public void setCalificado(Usuario calificado) {
+		this.calificado = calificado;
+	}
+	public Recorrido getRecorrido() {
+		return recorrido;
+	}
+	public void setRecorrido(Recorrido recorrido) {
+		this.recorrido = recorrido;
 	}
 	
-	public boolean isBuena() {
-		return buena;
-	}
-	public void setBuena(boolean buena) {
-		this.buena = buena;
-	}
+	
+	
 
 }

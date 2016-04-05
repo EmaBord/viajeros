@@ -28,6 +28,20 @@ public class RolViajeroAspect {
 		
 		
 	}
+	@Around("execution (* action.calificacion.CalificacionAction.*())")
+	public String validarUsuarioViajeroEnCalificaciones(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		Usuario u = (Usuario) session.getAttribute("usuario");
+		if (u != null && u.getRol().getNombre().equals("viajero"))
+			return  (String) proceedingJoinPoint.proceed();
+		else{
+			if (u != null && u.getRol().getNombre().equals("admin"))
+					return "admin";
+		}
+		return "login";
+		
+		
+	}
 	
 	
 }

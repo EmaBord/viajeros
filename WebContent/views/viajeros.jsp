@@ -23,7 +23,7 @@
     	<section class="content-header">
   			<h1><fmt:message key="viajeros" /></h1>  		
   			<ol class="breadcrumb">
-	        	<li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+	        	<li><a href="/viajeros/"><i class="fa fa-dashboard"></i> Home</a></li>
 	        	<li class="active"><fmt:message key="viajeros_lista" /></li>
      		 </ol>
   		</section>  		  
@@ -45,11 +45,8 @@
 						                      <th><fmt:message key="viajero_nombre" /></th>
 						                      <th><fmt:message key="viajero_apellido" /></th>
 						                      <th><fmt:message key="viajero_email" /></th>										                        
-						                      <th><fmt:message key="viajero_telefono" /></th>
-						                      <!--<th>Calificaciones Positivas</th>
-						                      <th>Calificaciones Negativas</th>
-						                      <th>Denuncias Recibidas</th>
-						                      <th>Denuncias Hechas</th>-->
+						                      <th><fmt:message key="calificacion" /></th>
+						                      <!--<th>Denuncias Hechas</th>-->
 						                      <th><fmt:message key="bloquear" /></th>
 						                      <th><fmt:message key="desbloquear" /></th>
 						                      
@@ -62,20 +59,13 @@
 						                  			<td class="text-center">${viajero.nombre} </td>					                  														
 						                  			<td class="text-center">${viajero.apellido}</td>
 						                  			<td class="text-center">${viajero.email}</td>
+						                  			
 						                  			<td class="text-center">
-						                  			<c:if test="${empty viajero.telefono}">
-						                  			   ---	
-						                  			</c:if>
-						                  			<c:if test="${not empty viajero.telefono}">
-						                  			   ${viajero.telefono}
-						                  			</c:if>
-						                  			
-						                  			
+						                  				<button class="btn btn-xs btn-success">${positivas[viajero.id] }</button>
+						                  				<button class="btn btn-xs btn-warning">${regulares[viajero.id] }</button>
+						                  				<button class="btn btn-xs btn-danger">${negativas[viajero.id] }</button>
 						                  			</td>
-						                  			<!--<td class="text-center">${positivas[viajero.id] }</td>
-						                  			<td class="text-center">${negativas[viajero.id] }</td>
-						                  			<td class="text-center">${d_recibidas[viajero.id] }</td>
-						                  			<td class="text-center">${d_hechas[viajero.id] }</td>-->
+						                  			<!--<td class="text-center">${d_hechas[viajero.id] }</td>-->
 						                  			<td class="text-center">
 						                  			<c:if test="${not viajero.bloqueado}">	
 						                  				<form method="post" action=../bloquearViajero id='block${viajero.id}'>
@@ -119,11 +109,9 @@
 						                      <th><fmt:message key="viajero_nombre" /></th>
 						                      <th><fmt:message key="viajero_apellido" /></th>
 						                      <th><fmt:message key="viajero_email" /></th>										                        
-						                      <th><fmt:message key="viajero_telefono" /></th>
-						                      <!--<th>Calificaciones</th>
-						                      <th>Calificaciones </th>
-						                      <th>Denuncias Rebidas</th>
-						                      <th>Denuncias Hechas</th>-->
+						                     
+						                      <th><fmt:message key="calificacion" /></th>
+						                      <!--<th>Denuncias Hechas</th>-->
 						                      <th><fmt:message key="bloquear" /></th>
 						                      <th><fmt:message key="desbloquear" /></th>
 						                      

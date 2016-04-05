@@ -118,6 +118,21 @@
 		 <result name="login" type="redirect">/</result>
 		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
 	</action>
+	<action name="calificar_ok" method="calificarOK" class="action.calificacion.CalificacionAction" >
+		 <result name="ok" type="redirect">views/misParticipaciones.jsp</result>	
+		 <result name="login" type="redirect">/</result>
+		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
+	</action>
+	<action name="calificar_reg" method="calificarReg" class="action.calificacion.CalificacionAction" >
+		 <result name="ok" type="redirect">views/misParticipaciones.jsp</result>	
+		 <result name="login" type="redirect">/</result>
+		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
+	</action>
+	<action name="calificar_mal" method="calificarMal" class="action.calificacion.CalificacionAction" >
+		 <result name="ok" type="redirect">views/misParticipaciones.jsp</result>	
+		 <result name="login" type="redirect">/</result>
+		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
+	</action>
 	
 </package>
 
