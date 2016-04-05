@@ -60,7 +60,9 @@ public class CalificacionAction extends TemplateMethod {
 			
 		
 	}
-	
+	public String denunciar(){
+		return "ok";
+	}
 	public String calificarMal(){
 		String id_parameter = ServletActionContext.getRequest().getParameter("viajero");
 		Long id = new Long(id_parameter);

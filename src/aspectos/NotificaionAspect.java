@@ -2,16 +2,19 @@ package aspectos;
 
 
 import java.util.List;
+
 import model.pendiente.UsuarioPendiente;
 import model.recorrido.Recorrido;
 import model.usuario.Usuario;
 import model.viajero.UsuarioViajero;
+
 import org.apache.struts2.ServletActionContext;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
+
 import services.mail.MailService;
 import dao.pendiente.UsuarioPendienteDAO;
 import dao.recorrido.RecorridoDAO;
@@ -178,6 +181,47 @@ public class NotificaionAspect {
 		
 	    
 		}
+		return result;
+	}
+	@Around("execution (* action.calificacion.CalificacionAction.denunciar())")
+	public String NoficacionDenuncia(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+		String id_parameter = ServletActionContext.getRequest().getParameter("viajero");
+		String texto = ServletActionContext.getRequest().getParameter("texto");
+		Long idViajero = new Long(id_parameter);
+		UsuarioViajero uv = usuarioViajeroDAO.findByKey(idViajero);
+		// con correo hardcodeado
+		String emailAdmin = "emanuelborda@gmail.com";
+		mailService.sendMail("info.infopool@gmail.com",
+					  emailAdmin,
+					  "Denuncia de un usuario",
+					  "Conductor: "+uv.getRecorrido().getCreador().getNombre()+" "+uv.getRecorrido().getCreador().getApellido()+"\n "
+					  +"Viajero: "+uv.getUsuario().getNombre()+" "+uv.getUsuario().getApellido()+"\n "
+					  + "Viaje: "+uv.getRecorrido().getDesde()+" - "+uv.getRecorrido().getHasta()+"\n"
+					  +"Denuncia: "+ texto			  
+		
+					);
+		
+	    
+		
+		/* a todos los admins del sistema
+		 
+		  List<Usuario> admins usuarioDAO.getUsuariosAdmin();
+		  String [] emails = new String [admins.size()];
+		  int i = 0;
+		  for (Usuario u:admins){
+		  	emails[i] = u.getEmail();
+		  }
+		  mailService.sendMailBcc("info.infopool@gmail.com",
+					  emails,
+					  "Denuncia de un usuario",
+					  "Conductor: "+uv.getRecorrido().getCreador().getNombre()+" "+uv.getRecorrido().getCreador().getApellido()+"\n "
+					  +"Viajero: "+uv.getUsuario().getNombre()+" "+uv.getUsuario().getApellido()+"\n "
+					  + "Viaje: "+uv.getRecorrido().getDesde()+" - "+uv.getRecorrido().getHasta()+"\n"
+					  +"Denuncia: "+ texto			  
+		
+					);
+		 */
+		String result = (String) proceedingJoinPoint.proceed();
 		return result;
 	}
 	

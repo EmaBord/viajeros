@@ -75,8 +75,7 @@
         			<value>model.calificacion.CalificacionBuena</value>
         			<value>model.calificacion.CalificacionMala</value>
         			<value>model.calificacion.CalificacionRegular</value>
-        			<value>model.denuncia.Denuncia</value>
-        			<value>model.usuario.Usuario</value>
+         			<value>model.usuario.Usuario</value>
         			<value>model.recorrido.Recorrido</value>
         			<value>model.recorrido.RecorridoUnico</value>
         			<value>model.recorrido.RecorridoMasUnDia</value>

@@ -133,6 +133,11 @@
 		 <result name="login" type="redirect">/</result>
 		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
 	</action>
+	<action name="denuncia" method="denunciar" class="action.calificacion.CalificacionAction" >
+		 <result name="ok" type="redirect">views/misParticipaciones.jsp</result>	
+		 <result name="login" type="redirect">/</result>
+		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
+	</action>
 	
 </package>
 

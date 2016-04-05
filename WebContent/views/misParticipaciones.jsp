@@ -120,7 +120,35 @@
 					                  				</div>
 					                  			</td>
 					                  			<td>
-					                  				<button class="btn btn-default btn-xs btn-danger"><i class="material-icons">pan_tool</i></button>
+					                  				<button data-toggle="modal" data-target="#${viajero.id}" class="btn btn-default btn-xs btn-danger"><i class="material-icons">pan_tool</i></button>
+					                  				<div class="modal fade" id="${viajero.id}" role="dialog">
+              														<div class="modal-dialog ">
+                														<div class="modal-content">                															
+                  															<div class="modal-header">
+                    															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    															<h4 class="modal-title"><fmt:message key="realizar_denuncia" /> 
+                    																
+                    															</h4>
+                  															</div>
+                  															<div class="modal-body ">
+                  																<form method="post" action="../denuncia">
+                  																	<input type="hidden" value="${ viajero.id}" name="viajero">
+                  																	<div class="form-group"> 
+	                  																	<label>Denuncia</label>
+	                  																	<textarea class="form-control" name="texto" rows="7"   style="width:100%;" required></textarea>
+                  																	</div>
+                  																              															
+                  															</div>
+                  															<div class="modal-footer">
+                  															
+                                                                 				
+                    															<button type="button" class="btn btn-danger  pull-left" data-dismiss="modal"><fmt:message key="cancelar" /></button>
+                    															<button type="submit" class="btn bg-olive " ><fmt:message key="denunciar" /></button>
+                  															</div>
+                  															</form>  
+                  															
+                  													</div>
+                  										</div>
 					                  			</td>
 					                  			
 					                  			</tr>
