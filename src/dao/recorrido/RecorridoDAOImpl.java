@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import model.recorrido.Recorrido;
 import dao.generic.GenericDAOImpl;
@@ -17,7 +18,7 @@ public class RecorridoDAOImpl extends GenericDAOImpl<Recorrido,Long> implements 
 		super(sessionFactory);
 		// TODO Auto-generated constructor stub
 	}
-
+	@Transactional
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Recorrido> findByUser(Long idUsuarioBloqueado) {

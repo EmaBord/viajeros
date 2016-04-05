@@ -2,19 +2,16 @@ package aspectos;
 
 
 import java.util.List;
-
 import model.pendiente.UsuarioPendiente;
 import model.recorrido.Recorrido;
 import model.usuario.Usuario;
 import model.viajero.UsuarioViajero;
-
 import org.apache.struts2.ServletActionContext;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
-
 import services.mail.MailService;
 import dao.pendiente.UsuarioPendienteDAO;
 import dao.recorrido.RecorridoDAO;
@@ -25,13 +22,12 @@ import dao.viajero.UsuarioViajeroDAO;
 @Component
 @Aspect
 public class NotificaionAspect {
-
-	private RecorridoDAO recorridoDAO;
-	private UsuarioPendienteDAO usuarioPendienteDAO;
 	private MailService mailService;
 	private UsuarioViajeroDAO usuarioViajeroDAO;
 	private UsuarioDAO usuarioDAO;
 
+	private RecorridoDAO recorridoDAO;
+	private UsuarioPendienteDAO usuarioPendienteDAO;
 	
 	
 	
@@ -132,7 +128,7 @@ public class NotificaionAspect {
 		String id_parameter = ServletActionContext.getRequest().getParameter("clave");
 		Long idUsuarioBloqueado = new Long(id_parameter);
 		String result = (String) proceedingJoinPoint.proceed();
-		if (result.equals("ok")){
+		if (result.equals("success")){
 			String emailUsuarioBloqueado = usuarioDAO.findByKey(idUsuarioBloqueado).getEmail();
 			List<Recorrido> recorridos = recorridoDAO.findByUser(idUsuarioBloqueado);
 			for (Recorrido recorrido:recorridos){
@@ -150,7 +146,7 @@ public class NotificaionAspect {
 				}	
 				mailService.sendMailBcc("info.infopool@gmail.com",
 						   emailsArray,
-						   "Viaje cancelado",
+						   "Viaje suspendido",
 						   "Se ha suspendido el viaje "+ recorrido.getDesde()+"-"+recorrido.getHasta() );
 			}			
 			mailService.sendMail("info.infopool@gmail.com",
@@ -171,7 +167,7 @@ public class NotificaionAspect {
 		String id_parameter = ServletActionContext.getRequest().getParameter("clave");
 		Long idUsuarioBloqueado = new Long(id_parameter);
 		String result = (String) proceedingJoinPoint.proceed();
-		if (result.equals("ok")){
+		if (result.equals("success")){
 			String emailUsuarioBloqueado = usuarioDAO.findByKey(idUsuarioBloqueado).getEmail();
 			mailService.sendMail("info.infopool@gmail.com",
 					  emailUsuarioBloqueado,
