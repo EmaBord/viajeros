@@ -85,7 +85,7 @@
 							             	</div>
 							             	
 							             	<div class="form-group">
-							               		<div class="col-xs-6 col-lg-offset-2">
+							               		<div class="col-xs-12 col-lg-6 col-lg-offset-2">
 							                 		<button type="submit" class="btn bg-olive btn-flat btn-lg btn-block " ><fmt:message key="actualizar_datos" /></button>
 							               		</div>
 							             	</div>
