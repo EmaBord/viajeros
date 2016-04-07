@@ -9,11 +9,11 @@
     <package name="default" namespace="/" extends="struts-default">
    
 	<action name="login" class="action.autentication.Login" >
-		<result name="admin" type="redirect" >/views/adminHome.jsp</result>	
-		<result name="input" >/views/login_input.jsp</result>	
+		<result name="admin" type="redirect" >/views/viajeros.jsp</result>	
 		<result name="login" >/views/login.jsp</result>		
 		<result name="viajero" type="redirect">/views/viajeroHome.jsp</result>	
-		<result name="bloqueado" >/views/bloqueado.jsp</result>				
+		<result name="bloqueado" >/views/bloqueado.jsp</result>	
+		<result name="incorrecto" >/views/incorrecto.jsp</result>				
 	</action>
 	
 	<action name="logout" class="action.autentication.Logout" >
@@ -23,11 +23,11 @@
 
 	
 	<action name="registerAction" class="action.register.Register" >		
-		<result name="input" >/views/register_input.jsp</result>		
+		<result name="input" >/views/existe.jsp</result>		
 		<result name="success" type="redirect">/views/viajeroHome.jsp</result>
 		<result name="register">/views/register.jsp</result>
-		<result name="viajero">/views/404.jsp</result>
-		<result name="admin">/views/404.jsp</result>				
+		<result name="viajero">/views/viajeroHome.jsp</result>
+		<result name="admin">/views/viajeros.jsp</result>				
 	</action>
 	
 	<action name="evento" class="action.evento.EventoAction" >
@@ -137,6 +137,18 @@
 		 <result name="ok" type="redirect">views/misParticipaciones.jsp</result>	
 		 <result name="login" type="redirect">/</result>
 		 <result name="admin" type="redirect">/views/adminHome.jsp</result>					
+	</action>
+	
+	<action name="perfil" method="perfil" class="action.perfil.PerfilAction" >
+		 <result name="viajero" type="redirect">views/perfil.jsp</result>
+		 <result name="admin" type="redirect">views/perfilAdmin.jsp</result>	
+		 <result name="login" type="redirect">/</result>
+	</action>
+	
+	<action name="actualizar_datos" method="actualizar" class="action.perfil.PerfilAction" >
+		 <result name="viajero" type="redirect">views/perfil.jsp</result>
+		 <result name="admin" type="redirect">views/perfilAdmin.jsp</result>	
+		 <result name="login" type="redirect">/</result>
 	</action>
 	
 </package>

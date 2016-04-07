@@ -1,5 +1,9 @@
 package action.register;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
 
 import model.rol.Rol;
@@ -25,14 +29,14 @@ public class Register extends ActionSupport{
 	private RecorridoUnicoDAO recorridoUnicoDAO;
 	private RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO;
 
-	public String execute() throws IOException {		
+	public String execute() throws IOException, NoSuchAlgorithmException {		
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		Usuario user = (Usuario) session.get("usuario");		
 		if (user == null){			
 			if (!usuarioDAO.existe(getEmail())){					
 					Usuario u = new Usuario();
 					u.setApellido(getApellido());
-					u.setClave(getClave());
+					u.setClave(this.md5(getClave()));
 					u.setEmail(getEmail());					
 			        u.setNombre(getNombre());
 					Rol r = new Rol();
@@ -44,12 +48,13 @@ public class Register extends ActionSupport{
 						r = rolDAO.getRol("viajero");
 					}
 					u.setRol(r);					
+					String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+					u.setIngreso(timeStamp);
 					usuarioDAO.save(u);
 					session.put("usuario",u);
 					session.put("recorridosUnicos", recorridoUnicoDAO.activosSinUsuario(u));
 					session.put("recorridos", recorridoMasUnDiaDAO.activosSinUsuario(u));
-					
-					// crear la session
+
 					return SUCCESS;
 				
 				
@@ -154,6 +159,21 @@ public class Register extends ActionSupport{
 
 	public void setRecorridoMasUnDiaDAO(RecorridoMasDeUnDiaDAO recorridoMasUnDiaDAO) {
 		this.recorridoMasUnDiaDAO = recorridoMasUnDiaDAO;
+	}
+private String md5(String word) throws NoSuchAlgorithmException{
+		
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(word.getBytes());
+        
+        byte byteData[] = md.digest();
+ 
+        //convert the byte to hex format method 1
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
+     
 	}
 
 

@@ -30,8 +30,9 @@ public class Usuario {
   private String apellido;
   private String email;
   private String telefono;
-  private String imagen_path;
+  private String profesion;
   private Boolean bloqueado;
+  private String ingreso;
  
 
   
@@ -176,13 +177,6 @@ public class Usuario {
 	  bloqueado = b;
   }
 
-public String getImagen_path() {
-	return imagen_path;
-}
-
-public void setImagen_path(String imagen_path) {
-	this.imagen_path = imagen_path;
-}
 
 public Boolean getBloqueado() {
 	return bloqueado;
@@ -200,6 +194,22 @@ public void setBloqueado(Boolean bloqueado) {
   //
 public Boolean equals(Usuario u){
 	return this.getEmail().equals(u.getEmail());
+}
+
+public String getProfesion() {
+	return profesion;
+}
+
+public void setProfesion(String profesion) {
+	this.profesion = profesion;
+}
+
+public String getIngreso() {
+	return ingreso;
+}
+
+public void setIngreso(String ingreso) {
+	this.ingreso = ingreso;
 }
 
 

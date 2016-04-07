@@ -76,10 +76,16 @@
 					</nav>	
 					<div>
 							<div class="col-md-8">
-							  <h2 class="featurette-heading"><fmt:message key="bienvenido"/>! <span class="text-muted"><fmt:message key="red_social"/></span></h2>
-							  <p class="lead"><fmt:message key="register_at"/></p>
-							  <img src="./views/dist/img/auto.jpg" alt="tutu" class="img-thumbnail">
-							</div>
+							  <div class="error-page">
+						            <h2 class="headline text-red"> <fmt:message key="usuario_password"/>!</h2>
+						            <div class="error-content">
+						              <h3><i class="fa fa-warning text-yellow"></i> Oops!</h3>
+						              <p>
+						               <fmt:message key="usuario_password_info"/>
+						              </p>
+						              
+						            </div><!-- /.error-content -->
+						          </div>
 							</div>
 							<div class="col-md-4">
 								<div class="register-box">
@@ -98,7 +104,7 @@
 											<span class="glyphicon glyphicon-user form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
-											<input type="email" name='email' class="form-control" id="inputEmail" placeholder="Email" required data-error="<fmt:message key="correo_invalido"/>">
+											<input type="email" name='email' class="form-control" id="inputEmail" placeholder="Email" required data-error="El correo es invÃ¡lido">
 											<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
@@ -106,7 +112,7 @@
 											<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 										  </div>
 										  <div class="form-group has-feedback">
-											<input type="password" class="form-control" name='clave2' placeholder="<fmt:message key="register_repetir_pass"/>" required  data-match="#clave" data-match-error="<fmt:message key="claves_no_coinciden"/>">
+											<input type="password" class="form-control" name='clave2' placeholder="<fmt:message key="register_repetir_pass"/>" required required data-match="#clave" data-match-error="Las claves no coinciden">
 											<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 											  <div class="help-block with-errors"></div> 
 										  </div>

@@ -49,6 +49,7 @@
 						                      <!--<th>Denuncias Hechas</th>-->
 						                      <th><fmt:message key="bloquear" /></th>
 						                      <th><fmt:message key="desbloquear" /></th>
+						                      <th><fmt:message key="miembro_desde" /></th>
 						                      
 						                    </tr>
 						                  </thead>
@@ -94,6 +95,7 @@
 						                  			
 						                  			
 						                  			</td>
+						                  			<td>${viajero.ingreso }</td>
 						                  			
 						                  								                  		
 						                  		</tr>
@@ -114,6 +116,7 @@
 						                      <!--<th>Denuncias Hechas</th>-->
 						                      <th><fmt:message key="bloquear" /></th>
 						                      <th><fmt:message key="desbloquear" /></th>
+						                      <th><fmt:message key="miembro_desde" /></th>
 						                      
 						                    </tr>
 						                  </tfoot>

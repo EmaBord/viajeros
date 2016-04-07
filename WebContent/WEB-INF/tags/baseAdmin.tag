@@ -46,23 +46,23 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 						              <!-- User Account: style can be found in dropdown.less -->
 						              <li class="dropdown user user-menu" >
 						                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						                  <img src="./dist/img/avatar5.png" class="user-image" alt="User Image">
+						                  <img src="http://www.gravatar.com/avatar/${gravatar }" class="user-image" alt="User Image">
 						                  <span class="hidden-xs">${usuario.nombre } ${usuario.apellido }</span>
 						                </a>
 						                <ul class="dropdown-menu" >
 						                  <!-- User image -->
 						                  <li class="user-header" style="background-color:#60AAAF;">
-						                    <img src="./dist/img/avatar5.png" class="img-circle" alt="User Image">
+						                    <img src="http://www.gravatar.com/avatar/${gravatar }" class="img-circle" alt="User Image">
 						                    <p>
-						                      ${usuario.nombre } ${usuario.apellido }- Web Developer
-						                      <small>Miembro desde Nov. 2012</small>
+						                      ${usuario.nombre } ${usuario.apellido }-  ${usuario.profesion }
+						                      <small><fmt:message key="miembro_desde" /> ${usuario.ingreso }</small>
 						                    </p>
 						                  </li>
 						                  
 						                  <!-- Menu Footer-->
 						                  <li class="user-footer">
 						                    <div class="pull-left">
-						                      <a href="#" class="btn bg-olive btn-flat">Mi perfil</a>
+						                      <a href="../perfil" class="btn bg-olive btn-flat">Mi perfil</a>
 						                    </div>
 						                    <div class="pull-right">
 						                      <a href="../logout" class="btn bg-orange btn-flat">Salir</a>
@@ -121,12 +121,7 @@ else{ if (!u.getRol().getNombre().equals("admin"))response.sendError(HttpServlet
 						            </li>      
 						            
 				            
-						            <li  <jsp:invoke fragment="mailbox"/>>
-						              <a href="#" id="mailbox">
-						                <i class="fa fa-envelope"></i> <span><fmt:message key="mensajeria" /></span>
-						                <small class="label pull-right bg-yellow">12</small>
-						              </a>
-						            </li>
+						            
 						         </ul>
 						            
 						        </section>

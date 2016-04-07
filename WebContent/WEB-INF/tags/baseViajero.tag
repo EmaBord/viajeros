@@ -52,16 +52,16 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						              <!-- User Account: style can be found in dropdown.less -->
 						              <li class="dropdown user user-menu" >
 						                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						                  <img src="./dist/img/avatar5.png" class="user-image" alt="User Image">
+						                  <img src="http://www.gravatar.com/avatar/${gravatar }" class="user-image" alt="User Image">
 						                  <span class="hidden-xs">${usuario.nombre } ${usuario.apellido }</span>
 						                </a>
 						                <ul class="dropdown-menu" >
 						                  <!-- User image -->
 						                  <li class="user-header" style="background-color:#60AAAF;">
-						                    <img src="./dist/img/avatar5.png" class="img-circle" alt="User Image">
+						                    <img src="http://www.gravatar.com/avatar/${gravatar }" class="img-circle" alt="User Image">
 						                    <p>
-						                      ${usuario.nombre } ${usuario.apellido }
-						                      <small>Miembro desde Nov. 2012</small>
+						                      ${usuario.nombre } ${usuario.apellido } - ${usuario.profesion }
+						                      <small><fmt:message key="miembro_desde" /> ${usuario.ingreso } </small>
 						                    </p>
 						                  </li>
 						                  <!-- Menu Body -->
@@ -69,7 +69,7 @@ else{ if (!u.getRol().getNombre().equals("viajero"))response.sendError(HttpServl
 						                  <!-- Menu Footer-->
 						                  <li class="user-footer">
 						                    <div class="pull-left">
-						                      <a href="#" class="btn bg-olive btn-flat">Mi perfil</a>
+						                      <a href="../perfil" class="btn bg-olive btn-flat">Mi perfil</a>
 						                    </div>
 						                    <div class="pull-right">
 						                      <a href="../logout" class="btn bg-orange btn-flat">Salir</a>
